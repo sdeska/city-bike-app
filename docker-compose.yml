@@ -1,0 +1,20 @@
+version: '3.7'
+services:
+  spring:
+    container_name: citybike-app
+    build: .
+    restart: always
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres-db
+  postgres-db:
+    container_name: postgres-db
+    image: postgres
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: M3ZBuCdLudQAN3
+      POSTGRES_DB: citybike-db
