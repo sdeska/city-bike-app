@@ -2,10 +2,13 @@ package fi.sdeska.citybike.data;
 
 import java.util.Date;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -18,25 +21,19 @@ public class Journey {
 
     private Date departureDate;
     private Date returnDate;
+
+    @ManyToOne(cascade = CascadeType.ALL, targetEntity = Station.class)
+    @JoinColumn(name = "station_id")
     private int departureStationID;
     private String departureStationName;
+
+    @ManyToOne(cascade = CascadeType.ALL, targetEntity = Station.class)
+    @JoinColumn(name = "station_id")
     private int returnStationID;
     private String returnStationName;
+
     private int distance;
     private int duration;
-
-    Journey(Date dep, Date ret, int depSID, String depSName, int retSID, String retSName, int dist, int dur) {
-
-        departureDate = dep;
-        returnDate = ret;
-        departureStationID = depSID;
-        departureStationName = depSName;
-        returnStationID = retSID;
-        returnStationName = retSName;
-        distance = dist;
-        duration = dur;
-
-    }
 
     public int getId() {
         return id;

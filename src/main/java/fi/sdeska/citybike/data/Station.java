@@ -2,6 +2,7 @@ package fi.sdeska.citybike.data;
 
 import java.awt.geom.Point2D;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -11,9 +12,11 @@ import jakarta.persistence.Table;
 public class Station {
     
     @Id
-    private int FID;
+    private int fId;
 
-    private int ID;
+    @Column(name = "station_id")
+    private int id;
+
     private String nameFin;
     private String nameSwe;
     private String nameEng;
@@ -25,37 +28,20 @@ public class Station {
     private int capacity;
     private Point2D coords;
 
-    Station(int FID, int ID, String nameFin, String nameSwe, String nameEng, String addressFin, String addressSwe, String cityFin, String citySwe, String op, int cap, Point2D coords) {
-
-        this.FID = FID;
-        this.ID = ID;
-        this.nameFin = nameFin;
-        this.nameSwe = nameSwe;
-        this.nameEng = nameEng;
-        this.addressFin = addressFin;
-        this.addressSwe = addressSwe;
-        this.cityFin = cityFin;
-        this.citySwe = citySwe;
-        this.operator = op;
-        this.capacity = cap;
-        this.coords = coords;
-
-    }
-
     public int getFID() {
-        return FID;
+        return fId;
     }
 
     public void setFID(int fID) {
-        FID = fID;
+        this.fId = fID;
     }
 
     public int getID() {
-        return ID;
+        return id;
     }
 
-    public void setID(int iD) {
-        ID = iD;
+    public void setID(int id) {
+        this.id = id;
     }
 
     public String getNameFin() {
