@@ -1,4 +1,4 @@
-package fi.sdeska.citybike;
+package fi.sdeska.citybike.data;
 
 import java.awt.geom.Point2D;
 

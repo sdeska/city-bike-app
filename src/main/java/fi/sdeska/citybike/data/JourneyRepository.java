@@ -1,4 +1,4 @@
-package fi.sdeska.citybike;
+package fi.sdeska.citybike.data;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;

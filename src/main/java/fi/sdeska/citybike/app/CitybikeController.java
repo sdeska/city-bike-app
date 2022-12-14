@@ -1,4 +1,4 @@
-package fi.sdeska.citybike;
+package fi.sdeska.citybike.app;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

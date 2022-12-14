@@ -1,4 +1,4 @@
-package fi.sdeska.citybike;
+package fi.sdeska.citybike.app;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
