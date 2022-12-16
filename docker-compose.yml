@@ -8,13 +8,18 @@ services:
       - "8080:8080"
     depends_on:
       - postgres-db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://citybike-db:5432/citybike-db
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=M3ZBuCdLudQAN3
+      - SPRING_JPA_HIBERNATE_DDDL_AUTO=update
   postgres-db:
-    container_name: postgres-db
+    container_name: citybike-db
     image: postgres
     restart: always
     ports:
       - "5432:5432"
     environment:
-      POSTGRES_USER: user
+      POSTGRES_USER: postgres
       POSTGRES_PASSWORD: M3ZBuCdLudQAN3
       POSTGRES_DB: citybike-db
