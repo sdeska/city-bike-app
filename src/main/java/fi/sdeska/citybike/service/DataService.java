@@ -39,15 +39,16 @@ public class DataService {
             return;
         }
 
-        var journey = new Journey();
-        journey.setDepartureDate(new DateTime(data[0]));
-        journey.setReturnDate(new DateTime(data[1]));
-        journey.setDepartureStationID(Integer.parseInt(data[2]));
-        journey.setDepartureStationName(data[3]);
-        journey.setReturnStationID(Integer.parseInt(data[4]));
-        journey.setReturnStationName(data[5]);
-        journey.setDistance(distance);
-        journey.setDuration(duration);
+        var journey = new Journey().setDepartureDate(new DateTime(data[0]))
+                                   .setReturnDate(new DateTime(data[1]))
+                                   .setDepartureStationID(Integer.parseInt(data[2]))
+                                   .setDepartureStationName(data[3])
+                                   .setReturnStationID(Integer.parseInt(data[4]))
+                                   .setReturnStationName(data[5])
+                                   .setDistance(distance)
+                                   .setDuration(duration);
+
+        journeys.save(journey);
 
     }
 
@@ -56,19 +57,20 @@ public class DataService {
         var data = stationData.split(",");
         var coords = new Point2D.Double(Integer.parseInt(data[11]), Integer.parseInt(data[12]));
 
-        var station = new Station();
-        station.setFID(Integer.parseInt(data[0]));
-        station.setID(Integer.parseInt(data[1]));
-        station.setNameFin(data[2]);
-        station.setNameSwe(data[3]);
-        station.setNameEng(data[4]);
-        station.setAddressFin(data[5]);
-        station.setAddressSwe(data[6]);
-        station.setCityFin(data[7]);
-        station.setCitySwe(data[8]);
-        station.setOperator(data[9]);
-        station.setCapacity(Integer.parseInt(data[10]));
-        station.setCoords(coords);
+        var station = new Station().setFID(Integer.parseInt(data[0]))
+                                   .setID(Integer.parseInt(data[1]))
+                                   .setNameFin(data[2])
+                                   .setNameSwe(data[3])
+                                   .setNameEng(data[4])
+                                   .setAddressFin(data[5])
+                                   .setAddressSwe(data[6])
+                                   .setCityFin(data[7])
+                                   .setCitySwe(data[8])
+                                   .setOperator(data[9])
+                                   .setCapacity(Integer.parseInt(data[10]))
+                                   .setCoords(coords);
+
+        stations.save(station);
 
     }
     
