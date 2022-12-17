@@ -1,6 +1,6 @@
 package fi.sdeska.citybike.data;
 
-import java.util.Date;
+import org.joda.time.DateTime;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -19,8 +19,8 @@ public class Journey {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    private Date departureDate;
-    private Date returnDate;
+    private DateTime departureDate;
+    private DateTime returnDate;
 
     @ManyToOne(cascade = CascadeType.ALL, targetEntity = Station.class)
     @JoinColumn(name = "station_id")
@@ -43,19 +43,19 @@ public class Journey {
         this.id = id;
     }
 
-    public Date getDepartureDate() {
+    public DateTime getDepartureDate() {
         return departureDate;
     }
 
-    public void setDepartureDate(Date departureDate) {
+    public void setDepartureDate(DateTime departureDate) {
         this.departureDate = departureDate;
     }
 
-    public Date getReturnDate() {
+    public DateTime getReturnDate() {
         return returnDate;
     }
 
-    public void setReturnDate(Date returnDate) {
+    public void setReturnDate(DateTime returnDate) {
         this.returnDate = returnDate;
     }
 
