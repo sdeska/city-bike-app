@@ -1,11 +1,14 @@
 package fi.sdeska.citybike.service;
 
+import java.awt.geom.Point2D;
+
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import fi.sdeska.citybike.data.Journey;
 import fi.sdeska.citybike.data.JourneyRepository;
+import fi.sdeska.citybike.data.Station;
 import fi.sdeska.citybike.data.StationRepository;
 
 @Service
@@ -45,6 +48,27 @@ public class DataService {
         journey.setReturnStationName(data[5]);
         journey.setDistance(distance);
         journey.setDuration(duration);
+
+    }
+
+    public void saveStation(String stationData) {
+
+        var data = stationData.split(",");
+        var coords = new Point2D.Double(Integer.parseInt(data[11]), Integer.parseInt(data[12]));
+
+        var station = new Station();
+        station.setFID(Integer.parseInt(data[0]));
+        station.setID(Integer.parseInt(data[1]));
+        station.setNameFin(data[2]);
+        station.setNameSwe(data[3]);
+        station.setNameEng(data[4]);
+        station.setAddressFin(data[5]);
+        station.setAddressSwe(data[6]);
+        station.setCityFin(data[7]);
+        station.setCitySwe(data[8]);
+        station.setOperator(data[9]);
+        station.setCapacity(Integer.parseInt(data[10]));
+        station.setCoords(coords);
 
     }
     
