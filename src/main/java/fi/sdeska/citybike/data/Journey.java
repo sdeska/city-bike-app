@@ -39,72 +39,81 @@ public class Journey {
         return id;
     }
 
-    public void setId(int id) {
+    public Journey setId(int id) {
         this.id = id;
+        return this;
     }
 
     public DateTime getDepartureDate() {
         return departureDate;
     }
 
-    public void setDepartureDate(DateTime departureDate) {
+    public Journey setDepartureDate(DateTime departureDate) {
         this.departureDate = departureDate;
+        return this;
     }
 
     public DateTime getReturnDate() {
         return returnDate;
     }
 
-    public void setReturnDate(DateTime returnDate) {
+    public Journey setReturnDate(DateTime returnDate) {
         this.returnDate = returnDate;
+        return this;
     }
 
     public int getDepartureStationID() {
         return departureStationID;
     }
 
-    public void setDepartureStationID(int departureStationID) {
+    public Journey setDepartureStationID(int departureStationID) {
         this.departureStationID = departureStationID;
+        return this;
     }
 
     public String getDepartureStationName() {
         return departureStationName;
     }
 
-    public void setDepartureStationName(String departureStationName) {
+    public Journey setDepartureStationName(String departureStationName) {
         this.departureStationName = departureStationName;
+        return this;
     }
 
     public int getReturnStationID() {
         return returnStationID;
     }
 
-    public void setReturnStationID(int returnStationID) {
+    public Journey setReturnStationID(int returnStationID) {
         this.returnStationID = returnStationID;
+        return this;
     }
 
     public String getReturnStationName() {
         return returnStationName;
     }
 
-    public void setReturnStationName(String returnStationName) {
+    public Journey setReturnStationName(String returnStationName) {
         this.returnStationName = returnStationName;
+        return this;
     }
 
     public int getDistance() {
         return distance;
     }
 
-    public void setDistance(int distance) {
+    public Journey setDistance(int distance) {
         this.distance = distance;
+        return this;
     }
 
     public int getDuration() {
         return duration;
     }
 
-    public void setDuration(int duration) {
+    public Journey setDuration(int duration) {
         this.duration = duration;
+        return this;
     }
     
 }

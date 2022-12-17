@@ -32,96 +32,108 @@ public class Station {
         return fId;
     }
 
-    public void setFID(int fID) {
+    public Station setFID(int fID) {
         this.fId = fID;
+        return this;
     }
 
     public int getID() {
         return id;
     }
 
-    public void setID(int id) {
+    public Station setID(int id) {
         this.id = id;
+        return this;
     }
 
     public String getNameFin() {
         return nameFin;
     }
 
-    public void setNameFin(String nameFin) {
+    public Station setNameFin(String nameFin) {
         this.nameFin = nameFin;
+        return this;
     }
 
     public String getNameSwe() {
         return nameSwe;
     }
 
-    public void setNameSwe(String nameSwe) {
+    public Station setNameSwe(String nameSwe) {
         this.nameSwe = nameSwe;
+        return this;
     }
 
     public String getNameEng() {
         return nameEng;
     }
 
-    public void setNameEng(String nameEng) {
+    public Station setNameEng(String nameEng) {
         this.nameEng = nameEng;
+        return this;
     }
 
     public String getAddressFin() {
         return addressFin;
     }
 
-    public void setAddressFin(String addressFin) {
+    public Station setAddressFin(String addressFin) {
         this.addressFin = addressFin;
+        return this;
     }
 
     public String getAddressSwe() {
         return addressSwe;
     }
 
-    public void setAddressSwe(String addressSwe) {
+    public Station setAddressSwe(String addressSwe) {
         this.addressSwe = addressSwe;
+        return this;
     }
 
     public String getCityFin() {
         return cityFin;
     }
 
-    public void setCityFin(String cityFin) {
+    public Station setCityFin(String cityFin) {
         this.cityFin = cityFin;
+        return this;
     }
 
     public String getCitySwe() {
         return citySwe;
     }
 
-    public void setCitySwe(String citySwe) {
+    public Station setCitySwe(String citySwe) {
         this.citySwe = citySwe;
+        return this;
     }
 
     public String getOperator() {
         return operator;
     }
 
-    public void setOperator(String operator) {
+    public Station setOperator(String operator) {
         this.operator = operator;
+        return this;
     }
 
     public int getCapacity() {
         return capacity;
     }
 
-    public void setCapacity(int capacity) {
+    public Station setCapacity(int capacity) {
         this.capacity = capacity;
+        return this;
     }
 
     public Point2D getCoords() {
         return coords;
     }
 
-    public void setCoords(Point2D coords) {
+    public Station setCoords(Point2D coords) {
         this.coords = coords;
+        return this;
     }
 
 }
