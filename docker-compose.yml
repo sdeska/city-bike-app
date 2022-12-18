@@ -12,7 +12,7 @@ services:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://citybike-db:5432/citybike-db
       - SPRING_DATASOURCE_USERNAME=postgres
       - SPRING_DATASOURCE_PASSWORD=M3ZBuCdLudQAN3
-      - SPRING_JPA_HIBERNATE_DDDL_AUTO=update
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=none
   postgres-db:
     container_name: citybike-db
     image: postgres
