@@ -12,23 +12,23 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "journeys")
+@Table(name = "journeys", schema = "public")
 public class Journey {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id;
 
     private DateTime departureDate;
     private DateTime returnDate;
 
     @ManyToOne(cascade = CascadeType.ALL, targetEntity = Station.class)
-    @JoinColumn(name = "station_id")
+    @JoinColumn(name = "departure_station_id", referencedColumnName = "station_id")
     private int departureStationID;
     private String departureStationName;
 
     @ManyToOne(cascade = CascadeType.ALL, targetEntity = Station.class)
-    @JoinColumn(name = "station_id")
+    @JoinColumn(name = "return_station_id", referencedColumnName = "station_id")
     private int returnStationID;
     private String returnStationName;
 

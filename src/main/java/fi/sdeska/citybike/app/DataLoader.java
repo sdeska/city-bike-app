@@ -5,17 +5,23 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
 
+import fi.sdeska.citybike.service.DataService;
+
 @Component
 public class DataLoader implements CommandLineRunner {
 
-    enum DataType {
+    private enum DataType {
         STATIONS,
         JOURNEYS
     }
+
+    @Autowired
+    private DataService dataService;
 
     @Override
     public void run(String... args) throws Exception {
@@ -45,17 +51,32 @@ public class DataLoader implements CommandLineRunner {
             return;
         }
 
+        var reader = new BufferedReader(new InputStreamReader(file));
         // Calling the correct method based on data contained in the file.
         if (type == DataType.STATIONS) {
-            loadStations(new BufferedReader(new InputStreamReader(file)));
+            loadStations(reader);
             return;
         }
-        loadJourneys(new BufferedReader(new InputStreamReader(file)));
+        loadJourneys(reader);
 
     }
 
     public void loadStations(BufferedReader content) {
-        throw new UnsupportedOperationException("Not implemented yet.");
+
+        System.out.println("Loading stations from file.");
+        try {
+            // Throw the first line away since it does not contain data.
+            var station = content.readLine();
+            station = content.readLine();
+            while (station != null) {
+                dataService.saveStation(station);
+                station = content.readLine();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.println("All stations saved.");
+
     }
 
     public void loadJourneys(BufferedReader content) {

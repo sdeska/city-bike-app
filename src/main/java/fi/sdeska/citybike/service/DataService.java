@@ -1,9 +1,8 @@
 package fi.sdeska.citybike.service;
 
-import java.awt.geom.Point2D;
-
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Service;
 
 import fi.sdeska.citybike.data.Journey;
@@ -12,16 +11,13 @@ import fi.sdeska.citybike.data.Station;
 import fi.sdeska.citybike.data.StationRepository;
 
 @Service
+@ComponentScan("fi.sdeska.citybike.data")
 public class DataService {
 
-    private final JourneyRepository journeys;
-    private final StationRepository stations;
-
     @Autowired
-    DataService(JourneyRepository journeyRepo, StationRepository stationRepo) {
-        this.journeys = journeyRepo;
-        this.stations = stationRepo;
-    }
+    private JourneyRepository journeys;
+    @Autowired
+    private StationRepository stations;
 
     /**
      * Saves the provided journey data into a new database entry. 
@@ -29,8 +25,8 @@ public class DataService {
      * @param journeyData data of the journey as a comma separated string.
      */
     public void saveJourney(String journeyData) {
-        
-        var data = journeyData.split(",");
+
+        var data = splitData(journeyData);
         var distance = Integer.parseInt(data[6]);
         var duration = Integer.parseInt(data[7]);
 
@@ -54,8 +50,7 @@ public class DataService {
 
     public void saveStation(String stationData) {
 
-        var data = stationData.split(",");
-        var coords = new Point2D.Double(Integer.parseInt(data[11]), Integer.parseInt(data[12]));
+        var data = splitData(stationData);
 
         var station = new Station().setFID(Integer.parseInt(data[0]))
                                    .setID(Integer.parseInt(data[1]))
@@ -68,9 +63,19 @@ public class DataService {
                                    .setCitySwe(data[8])
                                    .setOperator(data[9])
                                    .setCapacity(Integer.parseInt(data[10]))
-                                   .setCoords(coords);
+                                   .setX(Double.parseDouble(data[11]))
+                                   .setY(Double.parseDouble(data[12]));
 
         stations.save(station);
+
+    }
+
+    private String[] splitData(String data) {
+
+        // This regex splits by comma if there are zero or even number of quotation marks following it.
+        // It also has complexity of O(N^2), but the data fed into it will not be too long, so it will suffice in this case.
+        String regex = ",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)";
+        return data.split(regex, -1);
 
     }
     
