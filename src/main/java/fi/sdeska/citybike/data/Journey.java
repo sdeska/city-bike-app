@@ -10,7 +10,9 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.Getter;
 
+@Getter
 @Entity
 @Table(name = "journeys", schema = "public")
 public class Journey {
@@ -35,17 +37,9 @@ public class Journey {
     private int distance;
     private int duration;
 
-    public int getId() {
-        return id;
-    }
-
     public Journey setId(int id) {
         this.id = id;
         return this;
-    }
-
-    public DateTime getDepartureDate() {
-        return departureDate;
     }
 
     public Journey setDepartureDate(DateTime departureDate) {
@@ -53,17 +47,9 @@ public class Journey {
         return this;
     }
 
-    public DateTime getReturnDate() {
-        return returnDate;
-    }
-
     public Journey setReturnDate(DateTime returnDate) {
         this.returnDate = returnDate;
         return this;
-    }
-
-    public int getDepartureStationID() {
-        return departureStationID;
     }
 
     public Journey setDepartureStationID(int departureStationID) {
@@ -71,17 +57,9 @@ public class Journey {
         return this;
     }
 
-    public String getDepartureStationName() {
-        return departureStationName;
-    }
-
     public Journey setDepartureStationName(String departureStationName) {
         this.departureStationName = departureStationName;
         return this;
-    }
-
-    public int getReturnStationID() {
-        return returnStationID;
     }
 
     public Journey setReturnStationID(int returnStationID) {
@@ -89,26 +67,14 @@ public class Journey {
         return this;
     }
 
-    public String getReturnStationName() {
-        return returnStationName;
-    }
-
     public Journey setReturnStationName(String returnStationName) {
         this.returnStationName = returnStationName;
         return this;
     }
 
-    public int getDistance() {
-        return distance;
-    }
-
     public Journey setDistance(int distance) {
         this.distance = distance;
         return this;
-    }
-
-    public int getDuration() {
-        return duration;
     }
 
     public Journey setDuration(int duration) {

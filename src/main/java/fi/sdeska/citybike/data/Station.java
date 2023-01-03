@@ -4,7 +4,9 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.Getter;
 
+@Getter
 @Entity
 @Table(name = "stations", schema = "public")
 public class Station {
@@ -27,17 +29,9 @@ public class Station {
     private double x;
     private double y;
 
-    public int getFID() {
-        return fId;
-    }
-
     public Station setFID(int fID) {
         this.fId = fID;
         return this;
-    }
-
-    public int getID() {
-        return id;
     }
 
     public Station setID(int id) {
@@ -45,17 +39,9 @@ public class Station {
         return this;
     }
 
-    public String getNameFin() {
-        return nameFin;
-    }
-
     public Station setNameFin(String nameFin) {
         this.nameFin = nameFin;
         return this;
-    }
-
-    public String getNameSwe() {
-        return nameSwe;
     }
 
     public Station setNameSwe(String nameSwe) {
@@ -63,17 +49,9 @@ public class Station {
         return this;
     }
 
-    public String getNameEng() {
-        return nameEng;
-    }
-
     public Station setNameEng(String nameEng) {
         this.nameEng = nameEng;
         return this;
-    }
-
-    public String getAddressFin() {
-        return addressFin;
     }
 
     public Station setAddressFin(String addressFin) {
@@ -81,17 +59,9 @@ public class Station {
         return this;
     }
 
-    public String getAddressSwe() {
-        return addressSwe;
-    }
-
     public Station setAddressSwe(String addressSwe) {
         this.addressSwe = addressSwe;
         return this;
-    }
-
-    public String getCityFin() {
-        return cityFin;
     }
 
     public Station setCityFin(String cityFin) {
@@ -99,17 +69,9 @@ public class Station {
         return this;
     }
 
-    public String getCitySwe() {
-        return citySwe;
-    }
-
     public Station setCitySwe(String citySwe) {
         this.citySwe = citySwe;
         return this;
-    }
-
-    public String getOperator() {
-        return operator;
     }
 
     public Station setOperator(String operator) {
@@ -117,26 +79,14 @@ public class Station {
         return this;
     }
 
-    public int getCapacity() {
-        return capacity;
-    }
-
     public Station setCapacity(int capacity) {
         this.capacity = capacity;
         return this;
     }
 
-    public double getX() {
-        return x;
-    }
-
     public Station setX(double x) {
         this.x = x;
         return this;
-    }
-
-    public double getY() {
-        return y;
     }
 
     public Station setY(double y) {
