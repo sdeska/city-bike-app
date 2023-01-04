@@ -5,11 +5,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
 
+import fi.sdeska.citybike.data.Journey;
+import fi.sdeska.citybike.data.Station;
 import fi.sdeska.citybike.service.DataService;
 
 @Component
@@ -61,16 +64,15 @@ public class DataLoader implements CommandLineRunner {
 
     }
 
-    public void loadStations(BufferedReader content) {
+    private void loadStations(BufferedReader content) {
 
         System.out.println("Loading stations from file.");
         try {
             // Throw the first line away since it does not contain data.
-            var station = content.readLine();
-            station = content.readLine();
-            while (station != null) {
-                dataService.saveStation(station);
-                station = content.readLine();
+            content.readLine();
+            String station = null;
+            while ((station = content.readLine()) != null) {
+                parseStation(station);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -79,8 +81,67 @@ public class DataLoader implements CommandLineRunner {
 
     }
 
-    public void loadJourneys(BufferedReader content) {
+    private void loadJourneys(BufferedReader content) {
         throw new UnsupportedOperationException("Not implemented yet.");
+    }
+
+    private void parseStation(String stationData) {
+
+        var data = splitData(stationData);
+
+        var station = Station.builder()
+                            .fId(Integer.parseInt(data[0]))
+                            .id(Integer.parseInt(data[1]))
+                            .nameFin(data[2])
+                            .nameSwe(data[3])
+                            .nameEng(data[4])
+                            .addressFin(data[5])
+                            .addressSwe(data[6])
+                            .cityFin(data[7])
+                            .citySwe(data[8])
+                            .operator(data[9])
+                            .capacity(Integer.parseInt(data[10]))
+                            .x(Double.parseDouble(data[11]))
+                            .y(Double.parseDouble(data[12]))
+                            .build();
+
+        dataService.saveStation(station);
+
+    }
+
+    private void parseJourney(String journeyData) {
+
+        var data = splitData(journeyData);
+        var distance = Integer.parseInt(data[6]);
+        var duration = Integer.parseInt(data[7]);
+
+        // Do not save data if distance in meters or duration in seconds was less than 10.
+        if (10 > Math.min(distance, duration)) {
+            return;
+        }
+
+        var journey = Journey.builder()
+                            .departureDate(new DateTime(data[0]))
+                            .returnDate(new DateTime(data[1]))
+                            .departureStationID(Integer.parseInt(data[2]))
+                            .departureStationName(data[3])
+                            .returnStationID(Integer.parseInt(data[4]))
+                            .returnStationName(data[5])
+                            .distance(distance)
+                            .duration(duration)
+                            .build();
+
+        dataService.saveJourney(journey);
+
+    }
+
+    private String[] splitData(String data) {
+
+        // This regex splits by comma if there are zero or even number of quotation marks following it.
+        // It also has complexity of O(N^2), but the data fed into it will not be too long, so it will suffice in this case.
+        String regex = ",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)";
+        return data.split(regex, -1);
+
     }
 
 }
