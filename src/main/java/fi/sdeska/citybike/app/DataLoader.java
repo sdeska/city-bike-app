@@ -30,9 +30,11 @@ public class DataLoader implements CommandLineRunner {
     public void run(String... args) throws Exception {
 
         loadFile("Helsingin_ja_Espoon_kaupunkipyöräasemat_avoin.csv", DataType.STATIONS);
-        /*loadJourneys("2021-05.csv");
-        loadJourneys("2021-06.csv");
-        loadJourneys("2021-07.csv");*/
+        // Currently reading data from all 3 journey-files takes approximately 6400 seconds (~1.8h) on my PC.
+        // DO NOT LOAD ALL
+        loadFile("2021-05.csv", DataType.JOURNEYS);
+        //loadFile("2021-06.csv", DataType.JOURNEYS);
+        //loadFile("2021-07.csv", DataType.JOURNEYS);
 
     }
 
@@ -75,6 +77,7 @@ public class DataLoader implements CommandLineRunner {
                 parseStation(station);
             }
         } catch (IOException e) {
+            System.err.println("ERROR: Loading stations from file failed.");
             e.printStackTrace();
         }
         System.out.println("All stations saved.");
@@ -82,7 +85,27 @@ public class DataLoader implements CommandLineRunner {
     }
 
     private void loadJourneys(BufferedReader content) {
-        throw new UnsupportedOperationException("Not implemented yet.");
+
+        System.out.println("Loading journeys from file.");
+        try {
+            content.readLine();
+            String journey = null;
+            // Variable 'count' is in place just to limit loaded journeys during testing.
+            int count = 0;
+            while ((journey = content.readLine()) != null) {
+                parseJourney(journey);
+                System.out.println(count + " Journey saved.");
+                count++;
+                if (count == 20000) {
+                    break;
+                }
+            }
+        } catch (IOException e) {
+            System.err.println("ERROR: Loading journeys from file failed.");
+            e.printStackTrace();
+        }
+        System.out.println("All journeys saved.");
+
     }
 
     private void parseStation(String stationData) {
@@ -112,8 +135,15 @@ public class DataLoader implements CommandLineRunner {
     private void parseJourney(String journeyData) {
 
         var data = splitData(journeyData);
-        var distance = Integer.parseInt(data[6]);
-        var duration = Integer.parseInt(data[7]);
+        Integer distance = null;
+        Integer duration = null;
+        try {
+            distance = Integer.parseInt(data[6]);
+            duration = Integer.parseInt(data[7]);
+        } catch (NumberFormatException e) {
+            System.err.println("NumberFormatException thrown, skipping line of data.");
+            return;
+        }
 
         // Do not save data if distance in meters or duration in seconds was less than 10.
         if (10 > Math.min(distance, duration)) {
