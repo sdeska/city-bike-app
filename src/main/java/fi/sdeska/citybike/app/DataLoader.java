@@ -15,9 +15,17 @@ import fi.sdeska.citybike.data.Journey;
 import fi.sdeska.citybike.data.Station;
 import fi.sdeska.citybike.service.DataService;
 
+/**
+ * This class takes care of loading data from .csv files, parsing and saving it to the Postgres database.
+ * Execution on startup is implemented by using CommandLineRunner.
+ */
 @Component
 public class DataLoader implements CommandLineRunner {
 
+    /**
+     * Specifies whether any data to be loaded contains
+     * stations or journeys.
+     */
     private enum DataType {
         STATIONS,
         JOURNEYS
@@ -26,6 +34,10 @@ public class DataLoader implements CommandLineRunner {
     @Autowired
     private DataService dataService;
 
+    /**
+     * Overridden run method of CommandLineRunner.
+     * Gets executed automatically on startup.
+     */
     @Override
     public void run(String... args) throws Exception {
 
@@ -41,8 +53,8 @@ public class DataLoader implements CommandLineRunner {
     /**
      * Gets the contents of a file with the given {@link #path} and passes them as a parameter to the 
      * correct method, determined by {@link #type}.
-     * @param path 
-     * @param type 
+     * @param path the path to the file.
+     * @param type the type of data the file contains.
      */
     public void loadFile(String path, DataType type) {
 
@@ -66,6 +78,10 @@ public class DataLoader implements CommandLineRunner {
 
     }
 
+    /**
+     * Reads a file containing station data. Parses and saves data by calling parseStation() for every read line.
+     * @param content the reader containing the data from the file.
+     */
     private void loadStations(BufferedReader content) {
 
         System.out.println("Loading stations from file.");
@@ -84,13 +100,17 @@ public class DataLoader implements CommandLineRunner {
 
     }
 
+    /**
+     * Reads a file containing journey data. Parses and saves data by calling parseJourney() for every read line.
+     * @param content the reader containing the data from the file.
+     */
     private void loadJourneys(BufferedReader content) {
 
         System.out.println("Loading journeys from file.");
         try {
             content.readLine();
             String journey = null;
-            // Variable 'count' is in place just to limit loaded journeys during testing.
+            // Variable 'count' is in place just to limit loaded journeys during development.
             int count = 0;
             while ((journey = content.readLine()) != null) {
                 parseJourney(journey);
@@ -108,6 +128,10 @@ public class DataLoader implements CommandLineRunner {
 
     }
 
+    /**
+     * Parses station data, creates a new Station object and saves it to the database.
+     * @param stationData a string containing all Station data fields in order, separated by commas.
+     */
     private void parseStation(String stationData) {
 
         var data = splitData(stationData);
@@ -132,6 +156,10 @@ public class DataLoader implements CommandLineRunner {
 
     }
 
+    /**
+     * Parses journey data, creates a new Journey object and saves it to the database.
+     * @param journeyData a string containing all Journey data fields in order, separated by commas.
+     */
     private void parseJourney(String journeyData) {
 
         var data = splitData(journeyData);
@@ -165,6 +193,11 @@ public class DataLoader implements CommandLineRunner {
 
     }
 
+    /**
+     * Splits strings by comma, except if the comma is between quotation marks.
+     * @param data a string containing the data to be split.
+     * @return a string array containing the split string parts.
+     */
     private String[] splitData(String data) {
 
         // This regex splits by comma if there are zero or even number of quotation marks following it.

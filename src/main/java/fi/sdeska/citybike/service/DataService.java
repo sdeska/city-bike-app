@@ -12,6 +12,9 @@ import fi.sdeska.citybike.data.JourneyRepository;
 import fi.sdeska.citybike.data.Station;
 import fi.sdeska.citybike.data.StationRepository;
 
+/**
+ * This class handles any interactions with the database.
+ */
 @Service
 public class DataService {
 
@@ -20,6 +23,11 @@ public class DataService {
     @Autowired
     private JourneyRepository journeys;
 
+    /**
+     * Saves a new Station-entity to the database if there is no row with the same ID yet.
+     * @param station the station to be saved.
+     * @return the saved entity.
+     */
     public Station saveStation(Station station) {
 
         Optional<Station> savedStation = stations.findById((long) station.getId());
@@ -31,9 +39,9 @@ public class DataService {
     }
 
     /**
-     * Saves the provided journey data into a new database entry. 
-     * Skips data where distance or duration is less than 10.
-     * @param journeyData data of the journey as a comma separated string.
+     * Saves a new Journey-entity to the database.
+     * @param journeyData the journey to be saved.
+     * @return the saved entity.
      */
     public Journey saveJourney(Journey journey) {
 
