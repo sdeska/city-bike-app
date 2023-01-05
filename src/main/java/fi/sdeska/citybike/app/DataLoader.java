@@ -13,7 +13,8 @@ import org.springframework.stereotype.Component;
 
 import fi.sdeska.citybike.data.Journey;
 import fi.sdeska.citybike.data.Station;
-import fi.sdeska.citybike.service.DataService;
+import fi.sdeska.citybike.service.JourneyService;
+import fi.sdeska.citybike.service.StationService;
 
 /**
  * This class takes care of loading data from .csv files, parsing and saving it to the Postgres database.
@@ -32,7 +33,9 @@ public class DataLoader implements CommandLineRunner {
     }
 
     @Autowired
-    private DataService dataService;
+    private StationService stationService;
+    @Autowired
+    private JourneyService journeyService;
 
     /**
      * Overridden run method of CommandLineRunner.
@@ -152,7 +155,7 @@ public class DataLoader implements CommandLineRunner {
                             .y(Double.parseDouble(data[12]))
                             .build();
 
-        dataService.saveStation(station);
+        stationService.saveStation(station);
 
     }
 
@@ -189,7 +192,7 @@ public class DataLoader implements CommandLineRunner {
                             .duration(duration)
                             .build();
 
-        dataService.saveJourney(journey);
+        journeyService.saveJourney(journey);
 
     }
 
