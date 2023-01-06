@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.hibernate.cfg.NotYetImplementedException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.amazonaws.services.iotanalytics.model.ResourceAlreadyExistsException;
 
@@ -14,6 +15,7 @@ import fi.sdeska.citybike.data.StationRepository;
 /**
  * This class handles any interactions with stations in the database.
  */
+@Component
 public class StationServiceImpl implements StationService {
     
     @Autowired

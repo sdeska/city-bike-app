@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.hibernate.cfg.NotYetImplementedException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import fi.sdeska.citybike.data.Journey;
 import fi.sdeska.citybike.data.JourneyRepository;
@@ -11,6 +12,7 @@ import fi.sdeska.citybike.data.JourneyRepository;
 /**
  * This class handles any interactions with journeys in the database.
  */
+@Component
 public class JourneyServiceImpl implements JourneyService {
 
     @Autowired
