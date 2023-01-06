@@ -10,5 +10,6 @@ public interface JourneyService {
     List<Journey> fetchAllJourneys();
     Journey updateJourney(Journey journey, Long id);
     void deleteJourneyById(Long id);
+    Journey fetchJourneyById(Long id);
 
 }

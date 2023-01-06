@@ -9,6 +9,7 @@ import static org.mockito.Mockito.when;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import org.hibernate.cfg.NotYetImplementedException;
 import org.joda.time.DateTime;
@@ -18,6 +19,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import com.amazonaws.services.iotanalytics.model.ResourceNotFoundException;
 
 import fi.sdeska.citybike.data.Journey;
 import fi.sdeska.citybike.data.JourneyRepository;
@@ -85,6 +88,24 @@ class JourneyServiceTest {
 
         journeyService.deleteJourneyById(1L);
         verify(journeys, times(1)).deleteById(1L);
+
+    }
+
+    @Test
+    void shouldFetchJourneyById() {
+
+        when(journeys.findById(1L)).thenReturn(Optional.of(journey));
+        assertThat(journeyService.fetchJourneyById(1L)).isEqualTo(journey);
+
+    }
+
+    @Test
+    void shouldThrowWhenJourneyNotFound() {
+
+        when(journeys.findById(2L)).thenReturn(Optional.empty());
+        assertThatExceptionOfType(ResourceNotFoundException.class).isThrownBy(() -> {
+            journeyService.fetchJourneyById(2L);
+        });
 
     }
     

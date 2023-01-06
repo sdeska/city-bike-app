@@ -6,6 +6,8 @@ import org.hibernate.cfg.NotYetImplementedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.amazonaws.services.iotanalytics.model.ResourceNotFoundException;
+
 import fi.sdeska.citybike.data.Journey;
 import fi.sdeska.citybike.data.JourneyRepository;
 
@@ -36,6 +38,17 @@ public class JourneyServiceImpl implements JourneyService {
     @Override
     public void deleteJourneyById(Long id) {
         journeys.deleteById(id);
+    }
+
+    @Override
+    public Journey fetchJourneyById(Long id) {
+
+        var foundJourney = journeys.findById(id);
+        if (foundJourney.isEmpty()) {
+            throw new ResourceNotFoundException("Journey with the given ID does not exist.");
+        }
+        return foundJourney.get();
+
     }
     
 }
