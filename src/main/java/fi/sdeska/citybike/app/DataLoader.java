@@ -166,18 +166,7 @@ public class DataLoader implements CommandLineRunner {
     private void parseJourney(String journeyData) {
 
         var data = splitData(journeyData);
-        Long distance = null;
-        Long duration = null;
-        try {
-            distance = Long.parseLong(data[6]);
-            duration = Long.parseLong(data[7]);
-        } catch (NumberFormatException e) {
-            System.err.println("NumberFormatException thrown, skipping line of data.");
-            return;
-        }
-
-        // Do not save data if distance in meters or duration in seconds was less than 10.
-        if (10 > Math.min(distance, duration)) {
+        if (!validateJourney(data)) {
             return;
         }
 
@@ -188,11 +177,33 @@ public class DataLoader implements CommandLineRunner {
                             .departureStationName(data[3])
                             .returnStationID(Long.parseLong(data[4]))
                             .returnStationName(data[5])
-                            .distance(distance)
-                            .duration(duration)
+                            .distance(Long.parseLong(data[6]))
+                            .duration(Long.parseLong(data[7]))
                             .build();
 
         journeyService.saveJourney(journey);
+
+    }
+
+    /**
+     * Checks whether values distance and duration are the correct format and large enough to be valid.
+     * @param data a string containing all Journey data fields in order, separated by commas.
+     * @return true if data is valid, false otherwise.
+     */
+    private boolean validateJourney(String[] data) {
+
+        Long distance = null;
+        Long duration = null;
+        try {
+            distance = Long.parseLong(data[6]);
+            duration = Long.parseLong(data[7]);
+        } catch (NumberFormatException e) {
+            System.err.println("NumberFormatException thrown, skipping line of data.");
+            return false;
+        }
+
+        // Data is invalid if distance in meters or duration in seconds is less than 10.
+        return Math.min(distance, duration) > 10L;
 
     }
 
