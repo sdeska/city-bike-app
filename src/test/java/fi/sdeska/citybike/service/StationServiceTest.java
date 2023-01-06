@@ -19,6 +19,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.amazonaws.services.iotanalytics.model.ResourceAlreadyExistsException;
+import com.amazonaws.services.iotanalytics.model.ResourceNotFoundException;
 
 import fi.sdeska.citybike.data.Station;
 import fi.sdeska.citybike.data.StationRepository;
@@ -102,6 +103,24 @@ class StationServiceTest {
 
         stationService.deleteStationById(1L);
         verify(stations, times(1)).deleteById(1L);
+
+    }
+
+    @Test
+    void shouldFetchStationById() {
+
+        when(stations.findById(1L)).thenReturn(Optional.of(station));
+        assertThat(stationService.fetchStationById(1L)).isEqualTo(station);
+
+    }
+
+    @Test
+    void shouldThrowWhenStationNotFound() {
+
+        when(stations.findById(2L)).thenReturn(Optional.empty());
+        assertThatExceptionOfType(ResourceNotFoundException.class).isThrownBy(() -> {
+            stationService.fetchStationById(2L);
+        });
 
     }
 

@@ -10,5 +10,6 @@ public interface StationService {
     List<Station> fetchAllStations();
     Station updateStation(Station station, Long id);
     void deleteStationById(Long id);
+    Station fetchStationById(Long id);
 
 }
