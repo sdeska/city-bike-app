@@ -21,11 +21,11 @@ import lombok.Setter;
 @Table(name = "stations", schema = "public")
 public class Station {
     
-    private Integer fId;
+    private Long fId;
 
     @Id
     @Column(name = "station_id", unique = true)
-    private Integer id;
+    private Long id;
 
     private String nameFin;
     private String nameSwe;
@@ -35,7 +35,7 @@ public class Station {
     private String cityFin;
     private String citySwe;
     private String operator;
-    private Integer capacity;
+    private Long capacity;
     private Double x;
     private Double y;
 

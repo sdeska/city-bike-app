@@ -117,7 +117,7 @@ public class DataLoader implements CommandLineRunner {
             int count = 0;
             while ((journey = content.readLine()) != null) {
                 parseJourney(journey);
-                System.out.println(count + " Journey saved.");
+                System.out.println(count + "/19999 Journey saved.");
                 count++;
                 if (count == 20000) {
                     break;
@@ -140,8 +140,8 @@ public class DataLoader implements CommandLineRunner {
         var data = splitData(stationData);
 
         var station = Station.builder()
-                            .fId(Integer.parseInt(data[0]))
-                            .id(Integer.parseInt(data[1]))
+                            .fId(Long.parseLong(data[0]))
+                            .id(Long.parseLong(data[1]))
                             .nameFin(data[2])
                             .nameSwe(data[3])
                             .nameEng(data[4])
@@ -150,7 +150,7 @@ public class DataLoader implements CommandLineRunner {
                             .cityFin(data[7])
                             .citySwe(data[8])
                             .operator(data[9])
-                            .capacity(Integer.parseInt(data[10]))
+                            .capacity(Long.parseLong(data[10]))
                             .x(Double.parseDouble(data[11]))
                             .y(Double.parseDouble(data[12]))
                             .build();
@@ -166,11 +166,11 @@ public class DataLoader implements CommandLineRunner {
     private void parseJourney(String journeyData) {
 
         var data = splitData(journeyData);
-        Integer distance = null;
-        Integer duration = null;
+        Long distance = null;
+        Long duration = null;
         try {
-            distance = Integer.parseInt(data[6]);
-            duration = Integer.parseInt(data[7]);
+            distance = Long.parseLong(data[6]);
+            duration = Long.parseLong(data[7]);
         } catch (NumberFormatException e) {
             System.err.println("NumberFormatException thrown, skipping line of data.");
             return;
@@ -184,9 +184,9 @@ public class DataLoader implements CommandLineRunner {
         var journey = Journey.builder()
                             .departureDate(new DateTime(data[0]))
                             .returnDate(new DateTime(data[1]))
-                            .departureStationID(Integer.parseInt(data[2]))
+                            .departureStationID(Long.parseLong(data[2]))
                             .departureStationName(data[3])
-                            .returnStationID(Integer.parseInt(data[4]))
+                            .returnStationID(Long.parseLong(data[4]))
                             .returnStationName(data[5])
                             .distance(distance)
                             .duration(duration)

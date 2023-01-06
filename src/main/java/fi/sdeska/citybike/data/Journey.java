@@ -27,20 +27,20 @@ public class Journey {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Integer id;
+    private Long id;
 
     private DateTime departureDate;
     private DateTime returnDate;
 
     @JoinColumn(name = "departure_station_id", referencedColumnName = "station_id")
-    private Integer departureStationID;
+    private Long departureStationID;
     private String departureStationName;
 
     @JoinColumn(name = "return_station_id", referencedColumnName = "station_id")
-    private Integer returnStationID;
+    private Long returnStationID;
     private String returnStationName;
 
-    private Integer distance;
-    private Integer duration;
+    private Long distance;
+    private Long duration;
 
 }
