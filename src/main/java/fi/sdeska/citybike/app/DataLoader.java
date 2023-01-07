@@ -85,7 +85,7 @@ public class DataLoader implements CommandLineRunner {
      * Reads a file containing station data. Parses and saves data by calling parseStation() for every read line.
      * @param content the reader containing the data from the file.
      */
-    private void loadStations(BufferedReader content) {
+    public void loadStations(BufferedReader content) {
 
         System.out.println("Loading stations from file.");
         try {
@@ -107,7 +107,7 @@ public class DataLoader implements CommandLineRunner {
      * Reads a file containing journey data. Parses and saves data by calling parseJourney() for every read line.
      * @param content the reader containing the data from the file.
      */
-    private void loadJourneys(BufferedReader content) {
+    public void loadJourneys(BufferedReader content) {
 
         System.out.println("Loading journeys from file.");
         try {
@@ -135,7 +135,7 @@ public class DataLoader implements CommandLineRunner {
      * Parses station data, creates a new Station object and saves it to the database.
      * @param stationData a string containing all Station data fields in order, separated by commas.
      */
-    private void parseStation(String stationData) {
+    public void parseStation(String stationData) {
 
         var data = splitData(stationData);
 
@@ -163,7 +163,7 @@ public class DataLoader implements CommandLineRunner {
      * Parses journey data, creates a new Journey object and saves it to the database.
      * @param journeyData a string containing all Journey data fields in order, separated by commas.
      */
-    private void parseJourney(String journeyData) {
+    public void parseJourney(String journeyData) {
 
         var data = splitData(journeyData);
         if (!validateJourney(data)) {
@@ -190,7 +190,7 @@ public class DataLoader implements CommandLineRunner {
      * @param data a string containing all Journey data fields in order, separated by commas.
      * @return true if data is valid, false otherwise.
      */
-    private boolean validateJourney(String[] data) {
+    public boolean validateJourney(String[] data) {
 
         Long distance = null;
         Long duration = null;
@@ -212,7 +212,7 @@ public class DataLoader implements CommandLineRunner {
      * @param data a string containing the data to be split.
      * @return a string array containing the split string parts.
      */
-    private String[] splitData(String data) {
+    public String[] splitData(String data) {
 
         // This regex splits by comma if there are zero or even number of quotation marks following it.
         // It also has complexity of O(N^2), but the data fed into it will not be too long, so it will suffice in this case.
