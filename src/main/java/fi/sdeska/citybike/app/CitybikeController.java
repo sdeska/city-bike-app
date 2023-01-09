@@ -5,18 +5,16 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import fi.sdeska.citybike.data.Journey;
 import fi.sdeska.citybike.data.Station;
 import fi.sdeska.citybike.service.JourneyService;
 import fi.sdeska.citybike.service.StationService;
 
-@RestController
-@RequestMapping
+@Controller
 public class CitybikeController {
 
     @Autowired
@@ -24,9 +22,9 @@ public class CitybikeController {
     @Autowired
     private JourneyService journeyService;
 
-    @RequestMapping("/")
+    @GetMapping("/")
     public String home() {
-        return "No place like home";
+        return "index";
     }
 
     @GetMapping("/stations")
