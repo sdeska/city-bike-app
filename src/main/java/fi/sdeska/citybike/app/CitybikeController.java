@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -36,6 +37,16 @@ public class CitybikeController {
     @GetMapping("/journeys")
     public ResponseEntity<List<Journey>> getAllJourneys() {
         return new ResponseEntity<>(journeyService.fetchAllJourneys(), HttpStatus.OK);
+    }
+
+    @GetMapping("/station/{id}")
+    public ResponseEntity<Station> getStationById(@PathVariable("id") Long id) {
+        return new ResponseEntity<>(stationService.fetchStationById(id), HttpStatus.OK);
+    }
+
+    @GetMapping("/journey/{id}")
+    public ResponseEntity<Journey> getJourneyById(@PathVariable("id") Long id) {
+        return new ResponseEntity<>(journeyService.fetchJourneyById(id), HttpStatus.OK);
     }
 
 }
