@@ -8,8 +8,12 @@ import java.io.InputStreamReader;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Bean;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.joda.JodaModule;
 
 import fi.sdeska.citybike.data.Journey;
 import fi.sdeska.citybike.data.Station;
@@ -117,9 +121,9 @@ public class DataLoader implements CommandLineRunner {
             int count = 0;
             while ((journey = content.readLine()) != null) {
                 parseJourney(journey);
-                System.out.println(count + "/19999 Journey saved.");
+                System.out.println("Journey " + count + "/1999");
                 count++;
-                if (count == 20000) {
+                if (count == 2000) {
                     break;
                 }
             }
