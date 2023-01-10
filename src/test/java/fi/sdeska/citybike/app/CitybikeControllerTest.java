@@ -13,14 +13,17 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Import;
 import org.springframework.test.web.servlet.MockMvc;
 
+import fi.sdeska.citybike.configuration.SecurityConfiguration;
 import fi.sdeska.citybike.data.Journey;
 import fi.sdeska.citybike.data.Station;
 import fi.sdeska.citybike.service.JourneyService;
 import fi.sdeska.citybike.service.StationService;
 
 @WebMvcTest
+@Import(SecurityConfiguration.class)
 @ExtendWith(MockitoExtension.class)
 class CitybikeControllerTest {
 
