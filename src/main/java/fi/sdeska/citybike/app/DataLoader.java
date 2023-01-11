@@ -4,16 +4,14 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.regex.MatchResult;
+import java.util.regex.Pattern;
 
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.context.annotation.Bean;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.joda.JodaModule;
 
 import fi.sdeska.citybike.data.Journey;
 import fi.sdeska.citybike.data.Station;
@@ -49,11 +47,10 @@ public class DataLoader implements CommandLineRunner {
     public void run(String... args) throws Exception {
 
         loadFile("Helsingin_ja_Espoon_kaupunkipyöräasemat_avoin.csv", DataType.STATIONS);
-        // Currently reading data from all 3 journey-files takes approximately 6400 seconds (~1.8h) on my PC.
-        // DO NOT LOAD ALL
+        // Amount of journeys loaded per file is limited in loadJourneys for testing.
         loadFile("2021-05.csv", DataType.JOURNEYS);
-        //loadFile("2021-06.csv", DataType.JOURNEYS);
-        //loadFile("2021-07.csv", DataType.JOURNEYS);
+        loadFile("2021-06.csv", DataType.JOURNEYS);
+        loadFile("2021-07.csv", DataType.JOURNEYS);
 
     }
 
@@ -121,9 +118,9 @@ public class DataLoader implements CommandLineRunner {
             int count = 0;
             while ((journey = content.readLine()) != null) {
                 parseJourney(journey);
-                System.out.println("Journey " + count + "/1999");
+                System.out.println("Journey " + count + "/599");
                 count++;
-                if (count == 2000) {
+                if (count == 600) {
                     break;
                 }
             }
@@ -196,6 +193,10 @@ public class DataLoader implements CommandLineRunner {
      */
     public boolean validateJourney(String[] data) {
 
+        // Data array should always have a length of exactly 8.
+        if (data.length != 8) {
+            return false;
+        }
         Long distance = null;
         Long duration = null;
         try {
@@ -219,9 +220,9 @@ public class DataLoader implements CommandLineRunner {
     public String[] splitData(String data) {
 
         // This regex splits by comma if there are zero or even number of quotation marks following it.
-        // It also has complexity of O(N^2), but the data fed into it will not be too long, so it will suffice in this case.
-        String regex = ",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)";
-        return data.split(regex, -1);
+        // Updated to match pattern instead of split, as well as using a more efficient regex.
+        var regex = "\"[^\"]*\"|[^,]+";
+        return Pattern.compile(regex).matcher(data).results().map(MatchResult::group).toArray(String[]::new);
 
     }
 
