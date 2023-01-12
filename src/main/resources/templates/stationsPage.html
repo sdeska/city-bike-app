@@ -43,7 +43,7 @@
             </table>
             <div th:if="${stationPage.totalPages > 0}" class="pagination"
                  th:each="pageNumber : ${pageNumbers}">
-                <a th:href="@{/getStations(size=${stationPage.size}, page=${pageNumber})}"
+                <a th:href="@{/stations(size=${stationPage.size}, page=${pageNumber})}"
                    th:text="${pageNumber}"
                    th:class="${paegNumber==stationPage.number + 1} ? active"></a>
             </div>

@@ -36,11 +36,11 @@ public class CitybikeController {
 
     @GetMapping("/stations")
     public String getStations(Model model,
-                              @RequestParam("page") Optional<Integer> page,
-                              @RequestParam("size") Optional<Integer> size) {
+                              @RequestParam(required = false) Optional<Integer> page,
+                              @RequestParam(required = false) Optional<Integer> size) {
 
         int currentIndex = page.orElse(1);
-        int pageSize = size.orElse(30);
+        int pageSize = size.orElse(100);
         
         Page<Station> stationPage = stationService.findPaginated(PageRequest.of(currentIndex - 1, pageSize));
         model.addAttribute("stationPage", stationPage);
