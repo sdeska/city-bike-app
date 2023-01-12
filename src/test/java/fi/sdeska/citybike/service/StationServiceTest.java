@@ -2,6 +2,7 @@ package fi.sdeska.citybike.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -10,7 +11,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-import org.hibernate.cfg.NotYetImplementedException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -91,8 +91,24 @@ class StationServiceTest {
     @Test
     void shouldUpdateStation() {
 
-        // Method not implemented yet.
-        assertThatExceptionOfType(NotYetImplementedException.class).isThrownBy(() -> {
+        // Create the expected updated station, equal to station except for id = 3.
+        var expected = station;
+        expected.setId(3L);
+
+        when(stations.findById(1L)).thenReturn(Optional.of(station));
+        when(stations.save(expected)).thenReturn(expected);
+        
+        // Update the original station with id = 1. The saved station is expected to be the one with id = 3.
+        Station updatedStation = stationService.updateStation(expected, 1L);
+        assertThat(updatedStation).isEqualTo(expected);
+
+    }
+
+    @Test
+    void shouldThrowWhenStationIsAbsent() {
+
+        when(stations.findById(1L)).thenReturn(Optional.empty());
+        assertThrows(ResourceNotFoundException.class, () -> {
             stationService.updateStation(station, 1L);
         });
 

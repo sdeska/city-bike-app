@@ -1,8 +1,8 @@
 package fi.sdeska.citybike.service;
 
 import java.util.List;
+import java.util.Optional;
 
-import org.hibernate.cfg.NotYetImplementedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -32,7 +32,13 @@ public class JourneyServiceImpl implements JourneyService {
 
     @Override
     public Journey updateJourney(Journey journey, Long id) {
-        throw new NotYetImplementedException("JourneyServiceImpl.updateJourney() not implemented yet.");
+        
+        Optional<Journey> savedJourney = journeys.findById(id);
+        if (!savedJourney.isPresent()) {
+            throw new ResourceNotFoundException("Journey with the given ID does not exist.");
+        }
+        return journeys.save(journey);
+
     }
 
     @Override

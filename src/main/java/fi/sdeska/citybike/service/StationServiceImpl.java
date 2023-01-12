@@ -3,7 +3,6 @@ package fi.sdeska.citybike.service;
 import java.util.List;
 import java.util.Optional;
 
-import org.hibernate.cfg.NotYetImplementedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -40,7 +39,13 @@ public class StationServiceImpl implements StationService {
 
     @Override
     public Station updateStation(Station station, Long id) {
-        throw new NotYetImplementedException("StationServiceImpl.updateStation() not implemented yet.");
+
+        Optional<Station> savedStation = stations.findById(id);
+        if (savedStation.isEmpty()) {
+            throw new ResourceNotFoundException("Station with the given ID does not exist.");
+        }
+        return stations.save(station);
+        
     }
 
     @Override
