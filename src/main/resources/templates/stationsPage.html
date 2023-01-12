@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>City Bike App</title>
+    </head>
+    <body>
+        <div>
+            <table style="width:80%" class="table">
+                <caption>Stations</caption>
+                <thead>
+                    <tr>
+                        <th>fId</th>
+                        <th>id</th>
+                        <th>nameFin</th>
+                        <th>nameSwe</th>
+                        <th>nameEng</th>
+                        <th>addressFin</th>
+                        <th>addressSwe</th>
+                        <th>cityFin</th>
+                        <th>citySwe</th>
+                        <th>operator</th>
+                        <th>x</th>
+                        <th>y</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="station, page : ${stationPage.content}"
+                        th:style="${page.odd}? 'font-weight: bold;'"
+                        th:alt-title="${page.even}? 'even' : 'odd'">
+                        <td th:text="${station.fId}"></td>
+                        <td th:text="${station.id}"></td>
+                        <td th:text="${station.nameFin}"></td>
+                        <td th:text="${station.nameSwe}"></td>
+                        <td th:text="${station.nameEng}"></td>
+                        <td th:text="${station.addressFin}"></td>
+                        <td th:text="${station.addressSwe}"></td>
+                        <td th:text="${station.cityFin}"></td>
+                        <td th:text="${station.citySwe}"></td>
+                        <td th:text="${station.x}"></td>
+                        <td th:text="${station.y}"></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div th:if="${stationPage.totalPages > 0}" class="pagination"
+                 th:each="pageNumber : ${pageNumbers}">
+                <a th:href="@{/getStations(size=${stationPage.size}, page=${pageNumber})}"
+                   th:text="${pageNumber}"
+                   th:class="${paegNumber==stationPage.number + 1} ? active"></a>
+            </div>
+        </div>
+    </body>
+</html>

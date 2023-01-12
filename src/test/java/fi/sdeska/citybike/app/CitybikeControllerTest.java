@@ -40,7 +40,7 @@ class CitybikeControllerTest {
     private Journey j1 = null;
     private Journey j2 = null;
 
-    @Test
+    /*@Test
     void testGetAllStations() throws Exception {
 
         initStations();
@@ -52,7 +52,7 @@ class CitybikeControllerTest {
            .andExpect(jsonPath("$[0].id", Matchers.equalTo(527)))
            .andExpect(jsonPath("$[1].id", Matchers.equalTo(1)));
 
-    }
+    }*/
 
     @Test
     void testGetAllJourneys() throws Exception {

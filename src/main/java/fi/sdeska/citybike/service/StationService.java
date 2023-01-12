@@ -2,6 +2,9 @@ package fi.sdeska.citybike.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import fi.sdeska.citybike.data.Station;
 
 public interface StationService {
@@ -11,5 +14,6 @@ public interface StationService {
     Station updateStation(Station station, Long id);
     void deleteStationById(Long id);
     Station fetchStationById(Long id);
+    Page<Station> findPaginated(Pageable pageable);
 
 }
