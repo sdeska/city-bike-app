@@ -3,7 +3,7 @@
     <head>
         <title>City Bike App</title>
         <style>
-            table td {
+            .stats {
                 text-align: center;
                 vertical-align: middle;
             }
@@ -26,8 +26,8 @@
                         th:style="${page.odd}? 'font-weight: bold;'">
                         <td th:text="|${journey.departureStationID} ${journey.departureStationName}|"></td>
                         <td th:text="|${journey.returnStationID} ${journey.returnStationName}|"></td>
-                        <td th:text="${journey.distance}"></td>
-                        <td th:text="${journey.duration}"></td>
+                        <td class="stats" th:text="${journey.distance}"></td>
+                        <td class="stats" th:text="${journey.duration}"></td>
                     </tr>
                 </tbody>
             </table>
