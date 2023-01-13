@@ -2,6 +2,12 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
     <head>
         <title>City Bike App</title>
+        <style>
+            table td {
+                text-align: center;
+                vertical-align: middle;
+            }
+        </style>
     </head>
     <body>
         <div>
@@ -9,28 +15,17 @@
                 <caption>Journeys</caption>
                 <thead>
                     <tr>
-                        <th>id</th>
-                        <th>departureDate</th>
-                        <th>returnDate</th>
-                        <th>departureStationID</th>
-                        <th>departureStationName</th>
-                        <th>returnStationID</th>
-                        <th>returnStationName</th>
+                        <th>Departure Station</th>
+                        <th>Return Station</th>
                         <th>distance</th>
                         <th>duration</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr th:each="journey, page : ${journeyPage.content}"
-                        th:style="${page.odd}? 'font-weight: bold;'"
-                        th:alt-title="${page.even}? 'even' : 'odd'">
-                        <td th:text="${journey.id}"></td>
-                        <td th:text="${journey.departureDate}"></td>
-                        <td th:text="${journey.returnDate}"></td>
-                        <td th:text="${journey.departureStationID}"></td>
-                        <td th:text="${journey.departureStationName}"></td>
-                        <td th:text="${journey.returnStationID}"></td>
-                        <td th:text="${journey.returnStationName}"></td>
+                        th:style="${page.odd}? 'font-weight: bold;'">
+                        <td th:text="|${journey.departureStationID} ${journey.departureStationName}|"></td>
+                        <td th:text="|${journey.returnStationID} ${journey.returnStationName}|"></td>
                         <td th:text="${journey.distance}"></td>
                         <td th:text="${journey.duration}"></td>
                     </tr>
@@ -40,7 +35,7 @@
                  th:each="pageNumber : ${pageNumbers}">
                 <a th:href="@{/journeys(size=${journeyPage.size}, page=${pageNumber})}"
                    th:text="${pageNumber}"
-                   th:class="${paegNumber==journeyPage.number + 1} ? active"></a>
+                   th:class="${pageNumber==journeyPage.number + 1} ? active"></a>
             </div>
         </div>
     </body>
