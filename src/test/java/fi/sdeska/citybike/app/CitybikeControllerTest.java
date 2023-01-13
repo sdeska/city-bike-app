@@ -40,34 +40,6 @@ class CitybikeControllerTest {
     private Journey j1 = null;
     private Journey j2 = null;
 
-    /*@Test
-    void testGetAllStations() throws Exception {
-
-        initStations();
-
-        when(stationService.fetchAllStations()).thenReturn(Lists.newArrayList(s1, s2));
-        mvc.perform(get("/stations"))
-           .andExpect(status().isOk())
-           .andExpect(jsonPath("$", Matchers.hasSize(2)))
-           .andExpect(jsonPath("$[0].id", Matchers.equalTo(527)))
-           .andExpect(jsonPath("$[1].id", Matchers.equalTo(1)));
-
-    }*/
-
-    @Test
-    void testGetAllJourneys() throws Exception {
-
-        initJourneys();
-
-        when(journeyService.fetchAllJourneys()).thenReturn(Lists.newArrayList(j1, j2));
-        mvc.perform(get("/journeys"))
-           .andExpect(status().isOk())
-           .andExpect(jsonPath("$", Matchers.hasSize(2)))
-           .andExpect(jsonPath("$[0].id", Matchers.equalTo(2)))
-           .andExpect(jsonPath("$[1].id", Matchers.equalTo(5)));
-
-    }
-
     @Test
     void testGetStationById() throws Exception {
 

@@ -55,8 +55,23 @@ public class CitybikeController {
     }
 
     @GetMapping("/journeys")
-    public ResponseEntity<List<Journey>> getAllJourneys() {
-        return new ResponseEntity<>(journeyService.fetchAllJourneys(), HttpStatus.OK);
+    public String getJourneys(Model model,
+                              @RequestParam(required = false) Optional<Integer> page,
+                              @RequestParam(required = false) Optional<Integer> size) {
+
+        int currentIndex = page.orElse(1);
+        int pageSize = size.orElse(100);
+        
+        Page<Journey> journeyPage = journeyService.findPaginated(PageRequest.of(currentIndex - 1, pageSize));
+        model.addAttribute("journeyPage", journeyPage);
+
+        int totalPages = journeyPage.getTotalPages();
+        if (totalPages > 0) {
+            List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages).boxed().collect(Collectors.toList());
+            model.addAttribute("pageNumbers", pageNumbers);
+        }
+        return "journeysPage";
+
     }
 
     @GetMapping("/station/{id}")
