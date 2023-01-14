@@ -5,6 +5,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.util.Arrays;
+
 import org.assertj.core.util.Lists;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
@@ -14,6 +16,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.test.web.servlet.MockMvc;
 
 import fi.sdeska.citybike.configuration.SecurityConfiguration;
@@ -39,6 +43,18 @@ class CitybikeControllerTest {
     private Station s2 = null;
     private Journey j1 = null;
     private Journey j2 = null;
+
+    @Test
+    void testGetStations() throws Exception {
+
+        initStations();
+
+        when(stationService.fetchPaginated(PageRequest.of(0, 100))).thenReturn(new PageImpl<>(Arrays.asList(s1, s2)));
+        mvc.perform(get("/stations"))
+           .andExpect(status().isOk())
+           .andExpect(jsonPath("$", Matchers.containsString("href=\"/stations?size=2&amp;page=1\"")));
+
+    }
 
     @Test
     void testGetStationById() throws Exception {
