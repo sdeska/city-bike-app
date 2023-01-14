@@ -36,13 +36,10 @@ public class CitybikeController {
 
     @GetMapping("/stations")
     public String getStations(Model model,
-                              @RequestParam(required = false) Optional<Integer> page,
-                              @RequestParam(required = false) Optional<Integer> size) {
-
-        int currentIndex = page.orElse(1);
-        int pageSize = size.orElse(100);
+                              @RequestParam(defaultValue = "1") int page,
+                              @RequestParam(defaultValue = "100") int size) {
         
-        Page<Station> stationPage = stationService.fetchPaginated(PageRequest.of(currentIndex - 1, pageSize));
+        Page<Station> stationPage = stationService.fetchPaginated(PageRequest.of(page - 1, size));
         model.addAttribute("stationPage", stationPage);
 
         int totalPages = stationPage.getTotalPages();
@@ -56,13 +53,10 @@ public class CitybikeController {
 
     @GetMapping("/journeys")
     public String getJourneys(Model model,
-                              @RequestParam(required = false) Optional<Integer> page,
-                              @RequestParam(required = false) Optional<Integer> size) {
-
-        int currentIndex = page.orElse(1);
-        int pageSize = size.orElse(100);
+                              @RequestParam(defaultValue = "1") int page,
+                              @RequestParam(defaultValue = "100") int size) {
         
-        Page<Journey> journeyPage = journeyService.fetchPaginated(PageRequest.of(currentIndex - 1, pageSize));
+        Page<Journey> journeyPage = journeyService.fetchPaginated(PageRequest.of(page - 1, size));
         model.addAttribute("journeyPage", journeyPage);
 
         int totalPages = journeyPage.getTotalPages();
