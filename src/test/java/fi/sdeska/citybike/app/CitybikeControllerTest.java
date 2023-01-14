@@ -57,6 +57,18 @@ class CitybikeControllerTest {
     }
 
     @Test
+    void testGetJourneys() throws Exception {
+
+        initJourneys();
+
+        when(journeyService.fetchPaginated(PageRequest.of(0, 100))).thenReturn(new PageImpl<>(Arrays.asList(j1, j2)));
+        mvc.perform(get("/journeys"))
+           .andExpect(status().isOk())
+           .andExpect(jsonPath("$", Matchers.containsString("href=\"/journeys?size=2&amp;page=1\"")));
+
+    }
+
+    @Test
     void testGetStationById() throws Exception {
 
         initStations();
