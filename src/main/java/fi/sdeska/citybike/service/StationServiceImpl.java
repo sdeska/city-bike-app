@@ -70,7 +70,7 @@ public class StationServiceImpl implements StationService {
     }
 
     @Override
-    public Page<Station> findPaginated(Pageable pageable) {
+    public Page<Station> fetchPaginated(Pageable pageable) {
 
         int pageSize = pageable.getPageSize();
         int currentIndex = pageable.getPageNumber();

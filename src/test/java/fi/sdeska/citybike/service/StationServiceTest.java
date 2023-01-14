@@ -17,6 +17,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.PageRequest;
 
 import com.amazonaws.services.iotanalytics.model.ResourceAlreadyExistsException;
 import com.amazonaws.services.iotanalytics.model.ResourceNotFoundException;
@@ -137,6 +138,17 @@ class StationServiceTest {
         assertThatExceptionOfType(ResourceNotFoundException.class).isThrownBy(() -> {
             stationService.fetchStationById(2L);
         });
+
+    }
+
+    @Test
+    void shouldFetchPaginated() {
+
+        var stationsList = Arrays.asList(station);
+        when(stations.findAll()).thenReturn(stationsList);
+
+        var page = stationService.fetchPaginated(PageRequest.of(0, 1));
+        assertThat(page.getContent()).isEqualTo(stationsList);
 
     }
 

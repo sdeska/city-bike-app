@@ -14,6 +14,6 @@ public interface StationService {
     Station updateStation(Station station, Long id);
     void deleteStationById(Long id);
     Station fetchStationById(Long id);
-    Page<Station> findPaginated(Pageable pageable);
+    Page<Station> fetchPaginated(Pageable pageable);
 
 }

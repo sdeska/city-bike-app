@@ -45,7 +45,7 @@
                  th:each="pageNumber : ${pageNumbers}">
                 <a th:href="@{/stations(size=${stationPage.size}, page=${pageNumber})}"
                    th:text="${pageNumber}"
-                   th:class="${paegNumber==stationPage.number + 1} ? active"></a>
+                   th:class="${pageNumber==stationPage.number + 1} ? active"></a>
             </div>
         </div>
     </body>

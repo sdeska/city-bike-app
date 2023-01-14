@@ -14,6 +14,6 @@ public interface JourneyService {
     Journey updateJourney(Journey journey, Long id);
     void deleteJourneyById(Long id);
     Journey fetchJourneyById(Long id);
-    Page<Journey> findPaginated(Pageable pageable);
+    Page<Journey> fetchPaginated(Pageable pageable);
 
 }

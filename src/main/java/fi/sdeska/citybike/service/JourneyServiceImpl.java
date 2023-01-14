@@ -63,7 +63,7 @@ public class JourneyServiceImpl implements JourneyService {
     }
 
     @Override
-    public Page<Journey> findPaginated(Pageable pageable) {
+    public Page<Journey> fetchPaginated(Pageable pageable) {
 
         int pageSize = pageable.getPageSize();
         int currentIndex = pageable.getPageNumber();

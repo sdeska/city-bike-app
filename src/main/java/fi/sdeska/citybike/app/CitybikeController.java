@@ -42,7 +42,7 @@ public class CitybikeController {
         int currentIndex = page.orElse(1);
         int pageSize = size.orElse(100);
         
-        Page<Station> stationPage = stationService.findPaginated(PageRequest.of(currentIndex - 1, pageSize));
+        Page<Station> stationPage = stationService.fetchPaginated(PageRequest.of(currentIndex - 1, pageSize));
         model.addAttribute("stationPage", stationPage);
 
         int totalPages = stationPage.getTotalPages();
@@ -62,7 +62,7 @@ public class CitybikeController {
         int currentIndex = page.orElse(1);
         int pageSize = size.orElse(100);
         
-        Page<Journey> journeyPage = journeyService.findPaginated(PageRequest.of(currentIndex - 1, pageSize));
+        Page<Journey> journeyPage = journeyService.fetchPaginated(PageRequest.of(currentIndex - 1, pageSize));
         model.addAttribute("journeyPage", journeyPage);
 
         int totalPages = journeyPage.getTotalPages();

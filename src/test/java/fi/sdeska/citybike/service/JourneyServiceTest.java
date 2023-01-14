@@ -19,6 +19,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.PageRequest;
 
 import com.amazonaws.services.iotanalytics.model.ResourceNotFoundException;
 
@@ -123,6 +124,17 @@ class JourneyServiceTest {
         assertThatExceptionOfType(ResourceNotFoundException.class).isThrownBy(() -> {
             journeyService.fetchJourneyById(2L);
         });
+
+    }
+
+    @Test
+    void shouldFetchPaginated() {
+
+        var journeysList = Arrays.asList(journey);
+        when(journeys.findAll()).thenReturn(journeysList);
+
+        var page = journeyService.fetchPaginated(PageRequest.of(0, 1));
+        assertThat(page.getContent()).isEqualTo(journeysList);
 
     }
     
