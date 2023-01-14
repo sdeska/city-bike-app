@@ -53,6 +53,11 @@ class CitybikeControllerTest {
         mvc.perform(get("/stations"))
            .andExpect(status().isOk())
            .andExpect(jsonPath("$", Matchers.containsString("href=\"/stations?size=2&amp;page=1\"")));
+        
+        when(stationService.fetchPaginated(PageRequest.of(1, 1))).thenReturn(new PageImpl<>(Arrays.asList(s2)));
+        mvc.perform(get("/stations?page=2&size=1"))
+           .andExpect(status().isOk())
+           .andExpect(jsonPath("$", Matchers.containsString("href=\"/stations?size=1&amp;page=1\"")));
 
     }
 
@@ -65,6 +70,11 @@ class CitybikeControllerTest {
         mvc.perform(get("/journeys"))
            .andExpect(status().isOk())
            .andExpect(jsonPath("$", Matchers.containsString("href=\"/journeys?size=2&amp;page=1\"")));
+
+        when(journeyService.fetchPaginated(PageRequest.of(1, 1))).thenReturn(new PageImpl<>(Arrays.asList(j2)));
+        mvc.perform(get("/journeys?page=2&size=1"))
+           .andExpect(status().isOk())
+           .andExpect(jsonPath("$", Matchers.containsString("href=\"/journeys?size=1&amp;page=1\"")));
 
     }
 
