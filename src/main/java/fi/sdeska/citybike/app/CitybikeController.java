@@ -1,13 +1,15 @@
 package fi.sdeska.citybike.app;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.domain.Sort.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -37,9 +39,16 @@ public class CitybikeController {
     @GetMapping("/stations")
     public String getStations(Model model,
                               @RequestParam(defaultValue = "1") int page,
-                              @RequestParam(defaultValue = "100") int size) {
+                              @RequestParam(defaultValue = "100") int size,
+                              @RequestParam(defaultValue = "id,asc") String[] sort) {
+
+        var sortField = sort[0];
+        var sortOrder = sort[1];
+
+        Direction direction = sortOrder.equals("asc") ? Sort.Direction.ASC : Sort.Direction.DESC;
+        var order = new Order(direction, sortField);
         
-        Page<Station> stationPage = stationService.fetchPaginated(PageRequest.of(page - 1, size));
+        Page<Station> stationPage = stationService.fetchPaginated(PageRequest.of(page - 1, size, Sort.by(order)));
         model.addAttribute("stationPage", stationPage);
 
         int totalPages = stationPage.getTotalPages();
@@ -54,9 +63,16 @@ public class CitybikeController {
     @GetMapping("/journeys")
     public String getJourneys(Model model,
                               @RequestParam(defaultValue = "1") int page,
-                              @RequestParam(defaultValue = "100") int size) {
+                              @RequestParam(defaultValue = "100") int size,
+                              @RequestParam(defaultValue = "id,asc") String[] sort) {
         
-        Page<Journey> journeyPage = journeyService.fetchPaginated(PageRequest.of(page - 1, size));
+        var sortField = sort[0];
+        var sortOrder = sort[1];
+
+        Direction direction = sortOrder.equals("asc") ? Sort.Direction.ASC : Sort.Direction.DESC;
+        var order = new Order(direction, sortField);
+
+        Page<Journey> journeyPage = journeyService.fetchPaginated(PageRequest.of(page - 1, size, Sort.by(order)));
         model.addAttribute("journeyPage", journeyPage);
 
         int totalPages = journeyPage.getTotalPages();

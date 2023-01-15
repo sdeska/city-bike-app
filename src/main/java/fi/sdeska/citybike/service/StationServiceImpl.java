@@ -38,8 +38,8 @@ public class StationServiceImpl implements StationService {
     }
 
     @Override
-    public List<Station> fetchAllStations() {
-        return (List<Station>) stations.findAll();
+    public Page<Station> fetchAllStations(Pageable pageable) {
+        return stations.findAll(pageable);
     }
 
     @Override
@@ -75,9 +75,9 @@ public class StationServiceImpl implements StationService {
         int pageSize = pageable.getPageSize();
         int currentIndex = pageable.getPageNumber();
         int startIndex = currentIndex * pageSize;
-        var stationsList = fetchAllStations();
-        List<Station> pageContents = null;
+        var stationsList = fetchAllStations(pageable).getContent();
 
+        List<Station> pageContents = null;
         if (stationsList.size() < startIndex) {
             pageContents = Collections.emptyList();
         }

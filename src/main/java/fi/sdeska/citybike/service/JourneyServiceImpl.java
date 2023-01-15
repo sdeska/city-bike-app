@@ -31,8 +31,8 @@ public class JourneyServiceImpl implements JourneyService {
     }
 
     @Override
-    public List<Journey> fetchAllJourneys() {
-        return (List<Journey>) journeys.findAll();
+    public Page<Journey> fetchAllJourneys(Pageable pageable) {
+        return journeys.findAll(pageable);
     }
 
     @Override
@@ -68,9 +68,9 @@ public class JourneyServiceImpl implements JourneyService {
         int pageSize = pageable.getPageSize();
         int currentIndex = pageable.getPageNumber();
         int startIndex = currentIndex * pageSize;
-        var journeysList = fetchAllJourneys();
+        var journeysList = fetchAllJourneys(pageable).getContent();
+        
         List<Journey> pageContents = null;
-
         if (journeysList.size() < startIndex) {
             pageContents = Collections.emptyList();
         }

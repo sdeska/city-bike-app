@@ -1,9 +1,9 @@
 package fi.sdeska.citybike.data;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface StationRepository extends CrudRepository<Station, Long> {
+public interface StationRepository extends JpaRepository<Station, Long> {
     
 }

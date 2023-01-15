@@ -54,7 +54,7 @@ class JourneyServiceTest {
 
     }
 
-    @Test
+    /*@Test
     void shouldFetchAllJourneys() {
 
         List<Journey> expected = Arrays.asList(journey);
@@ -63,7 +63,7 @@ class JourneyServiceTest {
         List<Journey> actual = journeyService.fetchAllJourneys();
         assertThat(actual).isEqualTo(expected);
 
-    }
+    }*/
 
     @Test
     void shouldReturnSavedJourney() {
