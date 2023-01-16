@@ -18,6 +18,8 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Order;
 import org.springframework.test.web.servlet.MockMvc;
 
 import fi.sdeska.citybike.configuration.SecurityConfiguration;
@@ -49,12 +51,14 @@ class CitybikeControllerTest {
 
         initStations();
 
-        when(stationService.fetchPaginated(PageRequest.of(0, 100))).thenReturn(new PageImpl<>(Arrays.asList(s1, s2)));
+        var order = new Order(Sort.Direction.ASC, "id");
+
+        when(stationService.fetchPaginated(PageRequest.of(0, 100, Sort.by(order)))).thenReturn(new PageImpl<>(Arrays.asList(s1, s2)));
         mvc.perform(get("/stations"))
            .andExpect(status().isOk())
            .andExpect(jsonPath("$", Matchers.containsString("href=\"/stations?size=2&amp;page=1\"")));
         
-        when(stationService.fetchPaginated(PageRequest.of(1, 1))).thenReturn(new PageImpl<>(Arrays.asList(s2)));
+        when(stationService.fetchPaginated(PageRequest.of(1, 1, Sort.by(order)))).thenReturn(new PageImpl<>(Arrays.asList(s2)));
         mvc.perform(get("/stations?page=2&size=1"))
            .andExpect(status().isOk())
            .andExpect(jsonPath("$", Matchers.containsString("href=\"/stations?size=1&amp;page=1\"")));
@@ -66,12 +70,14 @@ class CitybikeControllerTest {
 
         initJourneys();
 
-        when(journeyService.fetchPaginated(PageRequest.of(0, 100))).thenReturn(new PageImpl<>(Arrays.asList(j1, j2)));
+        var order = new Order(Sort.Direction.ASC, "id");
+
+        when(journeyService.fetchPaginated(PageRequest.of(0, 100, Sort.by(order)))).thenReturn(new PageImpl<>(Arrays.asList(j1, j2)));
         mvc.perform(get("/journeys"))
            .andExpect(status().isOk())
            .andExpect(jsonPath("$", Matchers.containsString("href=\"/journeys?size=2&amp;page=1\"")));
 
-        when(journeyService.fetchPaginated(PageRequest.of(1, 1))).thenReturn(new PageImpl<>(Arrays.asList(j2)));
+        when(journeyService.fetchPaginated(PageRequest.of(1, 1, Sort.by(order)))).thenReturn(new PageImpl<>(Arrays.asList(j2)));
         mvc.perform(get("/journeys?page=2&size=1"))
            .andExpect(status().isOk())
            .andExpect(jsonPath("$", Matchers.containsString("href=\"/journeys?size=1&amp;page=1\"")));
