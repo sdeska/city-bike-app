@@ -60,7 +60,7 @@ class StationServiceTest {
 
     }
 
-    /*@Test
+    @Test
     void shouldFetchAllStations() {
 
         List<Station> expected = Arrays.asList(station);
@@ -69,7 +69,7 @@ class StationServiceTest {
         List<Station> actual = stationService.fetchAllStations();
         assertThat(actual).isEqualTo(expected);
 
-    }*/
+    }
 
     @Test
     void shouldReturnSavedStation() {
