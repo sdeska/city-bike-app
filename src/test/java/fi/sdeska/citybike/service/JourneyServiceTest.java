@@ -19,7 +19,10 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Order;
 
 import com.amazonaws.services.iotanalytics.model.ResourceNotFoundException;
 
@@ -130,11 +133,13 @@ class JourneyServiceTest {
     @Test
     void shouldFetchPaginated() {
 
-        var journeysList = Arrays.asList(journey);
-        when(journeys.findAll()).thenReturn(journeysList);
+        var order = new Order(Sort.Direction.ASC, "id");
 
-        var page = journeyService.fetchPaginated(PageRequest.of(0, 1));
-        assertThat(page.getContent()).isEqualTo(journeysList);
+        var expectedPage = new PageImpl<>(Arrays.asList(journey));
+        when(journeys.findAll(PageRequest.of(0, 100, Sort.by(order)))).thenReturn(expectedPage);
+
+        var actualPage = journeyService.fetchPaginated(PageRequest.of(0, 100, Sort.by(order)));
+        assertThat(actualPage.getContent().get(0).getId()).isEqualTo(expectedPage.getContent().get(0).getId());
 
     }
     

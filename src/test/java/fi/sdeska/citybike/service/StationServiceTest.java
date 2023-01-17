@@ -17,7 +17,10 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Order;
 
 import com.amazonaws.services.iotanalytics.model.ResourceAlreadyExistsException;
 import com.amazonaws.services.iotanalytics.model.ResourceNotFoundException;
@@ -41,7 +44,7 @@ class StationServiceTest {
 
         station = Station.builder()
                         .fId(1L)
-                        .id(1L)
+                        .id(55L)
                         .nameFin("Nimi")
                         .nameSwe("Namn")
                         .nameEng("Name")
@@ -144,11 +147,13 @@ class StationServiceTest {
     @Test
     void shouldFetchPaginated() {
 
-        var stationsList = Arrays.asList(station);
-        when(stations.findAll()).thenReturn(stationsList);
+        var order = new Order(Sort.Direction.ASC, "id");
 
-        var page = stationService.fetchPaginated(PageRequest.of(0, 1));
-        assertThat(page.getContent()).isEqualTo(stationsList);
+        var expectedPage = new PageImpl<>(Arrays.asList(station));
+        when(stations.findAll(PageRequest.of(0, 100, Sort.by(order)))).thenReturn(expectedPage);
+
+        var actualPage = stationService.fetchPaginated(PageRequest.of(0, 100, Sort.by(order)));
+        assertThat(actualPage.getContent().get(0).getId()).isEqualTo(expectedPage.getContent().get(0).getId());
 
     }
 
