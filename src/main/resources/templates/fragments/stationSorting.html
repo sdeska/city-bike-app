@@ -1,0 +1,5 @@
+<th scope="col" th:fragment="sorting(field, label)">
+    <a th:href="@{'/stations?' + 'page=' + ${page} + '&size=' + ${size} + '&sort=' + ${sort}}"></a>
+    <span th:if="${sort != null} ? ${#strings.contains(sort, field)}"
+        th:class="${sort != null} ? ${#strings.contains(sort, 'asc') ? 'fas fa-arrow-down-short-wide' : 'fas fa-arrow-down-wide-short'}"></span>
+</th>
