@@ -10,18 +10,19 @@
                 <caption>Stations</caption>
                 <thead>
                     <tr>
-                        <th th:replace="~{fragments/stationSorting :: sorting('fId','fId')}"></th>
-                        <th th:replace="~{fragments/stationSorting :: sorting('id','ID')}"></th>
-                        <th th:replace="~{fragments/stationSorting :: sorting('nameFin','nameFin')}"></th>
-                        <th th:replace="~{fragments/stationSorting :: sorting('nameSwe','nameSwe')}"></th>
-                        <th th:replace="~{fragments/stationSorting :: sorting('nameEng','nameEng')}"></th>
-                        <th th:replace="~{fragments/stationSorting :: sorting('addressFin','addressFin')}"></th>
-                        <th th:replace="~{fragments/stationSorting :: sorting('addressSwe','addressSwe')}"></th>
-                        <th th:replace="~{fragments/stationSorting :: sorting('cityFin','cityFin')}"></th>
-                        <th th:replace="~{fragments/stationSorting :: sorting('citySwe','citySwe')}"></th>
-                        <th th:replace="~{fragments/stationSorting :: sorting('operator','operator')}"></th>
-                        <th th:replace="~{fragments/stationSorting :: sorting('x','x')}"></th>
-                        <th th:replace="~{fragments/stationSorting :: sorting('y','y')}"></th>
+                        <th><a th:href="@{/stations(size=${stationPage.size}, page=${stationPage.number + 1}, sortField=fId, sortOrder=${reverseSortingDirection})}">fID</a></th>
+                        <th><a th:href="@{/stations(size=${stationPage.size}, page=${stationPage.number + 1}, sortField=id, sortOrder=${reverseSortingDirection})}">ID</a></th>
+                        <th><a th:href="@{/stations(size=${stationPage.size}, page=${stationPage.number + 1}, sortField=nameFin, sortOrder=${reverseSortingDirection})}">NameFin</a></th>
+                        <th><a th:href="@{/stations(size=${stationPage.size}, page=${stationPage.number + 1}, sortField=nameSwe, sortOrder=${reverseSortingDirection})}">NameSwe</a></th>
+                        <th><a th:href="@{/stations(size=${stationPage.size}, page=${stationPage.number + 1}, sortField=nameEng, sortOrder=${reverseSortingDirection})}">NameEng</a></th>
+                        <th><a th:href="@{/stations(size=${stationPage.size}, page=${stationPage.number + 1}, sortField=addressFin, sortOrder=${reverseSortingDirection})}">AddressFin</a></th>
+                        <th><a th:href="@{/stations(size=${stationPage.size}, page=${stationPage.number + 1}, sortField=addressSwe, sortOrder=${reverseSortingDirection})}">AddressSwe</a></th>
+                        <th><a th:href="@{/stations(size=${stationPage.size}, page=${stationPage.number + 1}, sortField=cityFin, sortOrder=${reverseSortingDirection})}">CityFin</a></th>
+                        <th><a th:href="@{/stations(size=${stationPage.size}, page=${stationPage.number + 1}, sortField=citySwe, sortOrder=${reverseSortingDirection})}">CitySwe</a></th>
+                        <th><a th:href="@{/stations(size=${stationPage.size}, page=${stationPage.number + 1}, sortField=operator, sortOrder=${reverseSortingDirection})}">Operator</a></th>
+                        <th><a th:href="@{/stations(size=${stationPage.size}, page=${stationPage.number + 1}, sortField=capacity, sortOrder=${reverseSortingDirection})}">Capacity</a></th>
+                        <th><a th:href="@{/stations(size=${stationPage.size}, page=${stationPage.number + 1}, sortField=x, sortOrder=${reverseSortingDirection})}">x</a></th>
+                        <th><a th:href="@{/stations(size=${stationPage.size}, page=${stationPage.number + 1}, sortField=y, sortOrder=${reverseSortingDirection})}">y</a></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -41,8 +42,7 @@
                     </tr>
                 </tbody>
             </table>
-            <div th:if="${stationPage.totalPages > 0}" class="pagination"
-                 th:each="pageNumber : ${pageNumbers}">
+            <div th:each="pageNumber : ${pageNumbers}">
                 <a th:href="@{/stations(size=${stationPage.size}, page=${pageNumber})}"
                    th:text="${pageNumber}"
                    th:class="${pageNumber==stationPage.number + 1} ? active"></a>
