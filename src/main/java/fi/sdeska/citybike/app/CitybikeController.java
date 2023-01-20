@@ -40,12 +40,10 @@ public class CitybikeController {
     public String getStations(Model model,
                               @RequestParam(defaultValue = "1") int page,
                               @RequestParam(defaultValue = "100") int size,
-                              @RequestParam(defaultValue = "id,asc") String[] sort) {
+                              @RequestParam(defaultValue = "id") String sortField,
+                              @RequestParam(defaultValue = "asc") String sortOrder) {
 
-        var sortField = sort[0];
-        var sortOrder = sort[1];
-
-        Direction direction = sortOrder.equals("asc") ? Sort.Direction.ASC : Sort.Direction.DESC;
+        Direction direction = sortOrder.equals("desc") ? Sort.Direction.DESC : Sort.Direction.ASC;
         var order = new Order(direction, sortField);
         
         Page<Station> stationPage = stationService.fetchPaginated(PageRequest.of(page - 1, size, Sort.by(order)));
@@ -64,12 +62,10 @@ public class CitybikeController {
     public String getJourneys(Model model,
                               @RequestParam(defaultValue = "1") int page,
                               @RequestParam(defaultValue = "100") int size,
-                              @RequestParam(defaultValue = "id,asc") String[] sort) {
-        
-        var sortField = sort[0];
-        var sortOrder = sort[1];
+                              @RequestParam(defaultValue = "id") String sortField,
+                              @RequestParam(defaultValue = "asc") String sortOrder) {
 
-        Direction direction = sortOrder.equals("asc") ? Sort.Direction.ASC : Sort.Direction.DESC;
+        Direction direction = sortOrder.equals("desc") ? Sort.Direction.DESC : Sort.Direction.ASC;
         var order = new Order(direction, sortField);
 
         Page<Journey> journeyPage = journeyService.fetchPaginated(PageRequest.of(page - 1, size, Sort.by(order)));
