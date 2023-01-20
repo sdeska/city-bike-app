@@ -68,18 +68,19 @@ public class JourneyServiceImpl implements JourneyService {
         int pageSize = pageable.getPageSize();
         int currentIndex = pageable.getPageNumber();
         int startIndex = currentIndex * pageSize;
-        var journeysList = journeys.findAll(pageable).getContent();
+
+        var journeyPage = journeys.findAll(pageable);
+        var totalJourneys = journeyPage.getTotalElements();
         
         List<Journey> pageContents = null;
-        if (journeysList.size() < startIndex) {
+        if (totalJourneys < startIndex) {
             pageContents = Collections.emptyList();
         }
         else {
-            int lastIndex = Math.min(startIndex + pageSize, journeysList.size());
-            pageContents = journeysList.subList(startIndex, lastIndex);
+            pageContents = journeyPage.getContent();
         }
 
-        return new PageImpl<>(pageContents, PageRequest.of(currentIndex, pageSize), journeysList.size());
+        return new PageImpl<>(pageContents, PageRequest.of(currentIndex, pageSize, pageable.getSort()), totalJourneys);
 
     }
     

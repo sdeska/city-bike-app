@@ -75,18 +75,19 @@ public class StationServiceImpl implements StationService {
         int pageSize = pageable.getPageSize();
         int currentIndex = pageable.getPageNumber();
         int startIndex = currentIndex * pageSize;
-        var stationsList = stations.findAll(pageable).getContent();
+
+        var stationPage = stations.findAll(pageable);
+        var totalStations = stationPage.getTotalElements();
 
         List<Station> pageContents = null;
-        if (stationsList.size() < startIndex) {
+        if (totalStations < startIndex) {
             pageContents = Collections.emptyList();
         }
         else {
-            int lastIndex = Math.min(startIndex + pageSize, stationsList.size());
-            pageContents = stationsList.subList(startIndex, lastIndex);
+            pageContents = stationPage.getContent();
         }
 
-        return new PageImpl<>(pageContents, PageRequest.of(currentIndex, pageSize), stationsList.size());
+        return new PageImpl<>(pageContents, PageRequest.of(currentIndex, pageSize, pageable.getSort()), totalStations);
 
     }
 
