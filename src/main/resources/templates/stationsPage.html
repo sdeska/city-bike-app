@@ -43,7 +43,7 @@
                 </tbody>
             </table>
             <div th:each="pageNumber : ${pageNumbers}">
-                <a th:href="@{/stations(size=${stationPage.size}, page=${pageNumber})}"
+                <a th:href="@{/stations(size=${stationPage.size}, page=${pageNumber}, sortField=${sortField}, sortOrder=${sortOrder})}"
                    th:text="${pageNumber}"
                    th:class="${pageNumber==stationPage.number + 1} ? active"></a>
             </div>

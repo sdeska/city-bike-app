@@ -7,7 +7,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.util.Arrays;
 
-import org.assertj.core.util.Lists;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -56,12 +55,12 @@ class CitybikeControllerTest {
         when(stationService.fetchPaginated(PageRequest.of(0, 100, Sort.by(order)))).thenReturn(new PageImpl<>(Arrays.asList(s1, s2)));
         mvc.perform(get("/stations"))
            .andExpect(status().isOk())
-           .andExpect(jsonPath("$", Matchers.containsString("href=\"/stations?size=2&amp;page=1\"")));
+           .andExpect(jsonPath("$", Matchers.containsString("href=\"/stations?size=2&amp;page=1&amp;sortField=id&amp;sortOrder=asc\"")));
         
         when(stationService.fetchPaginated(PageRequest.of(1, 1, Sort.by(order)))).thenReturn(new PageImpl<>(Arrays.asList(s2)));
         mvc.perform(get("/stations?page=2&size=1"))
            .andExpect(status().isOk())
-           .andExpect(jsonPath("$", Matchers.containsString("href=\"/stations?size=1&amp;page=1\"")));
+           .andExpect(jsonPath("$", Matchers.containsString("href=\"/stations?size=1&amp;page=1&amp;sortField=id&amp;sortOrder=asc\"")));
 
     }
 
@@ -75,12 +74,12 @@ class CitybikeControllerTest {
         when(journeyService.fetchPaginated(PageRequest.of(0, 100, Sort.by(order)))).thenReturn(new PageImpl<>(Arrays.asList(j1, j2)));
         mvc.perform(get("/journeys"))
            .andExpect(status().isOk())
-           .andExpect(jsonPath("$", Matchers.containsString("href=\"/journeys?size=2&amp;page=1\"")));
+           .andExpect(jsonPath("$", Matchers.containsString("href=\"/journeys?size=2&amp;page=1&amp;sortField=id&amp;sortOrder=asc\"")));
 
         when(journeyService.fetchPaginated(PageRequest.of(1, 1, Sort.by(order)))).thenReturn(new PageImpl<>(Arrays.asList(j2)));
         mvc.perform(get("/journeys?page=2&size=1"))
            .andExpect(status().isOk())
-           .andExpect(jsonPath("$", Matchers.containsString("href=\"/journeys?size=1&amp;page=1\"")));
+           .andExpect(jsonPath("$", Matchers.containsString("href=\"/journeys?size=1&amp;page=1&amp;sortField=id&amp;sortOrder=asc\"")));
 
     }
 
