@@ -6,7 +6,9 @@
         <style>
             .stats {
                 text-align: center;
-                vertical-align: middle;
+            }
+            .stat-head {
+                text-align: center;
             }
         </style>
     </head>
@@ -16,10 +18,10 @@
                 <caption>Journeys</caption>
                 <thead>
                     <tr>
-                        <th>Departure Station</th>
-                        <th>Return Station</th>
-                        <th>distance</th>
-                        <th>duration</th>
+                        <th><a th:href="@{/journeys(size=${journeyPage.size}, page=${journeyPage.number + 1}, sortField=departureStationID, sortOrder=${reverseSortingDirection})}">Departure Station</a></th>
+                        <th><a th:href="@{/journeys(size=${journeyPage.size}, page=${journeyPage.number + 1}, sortField=returnStationID, sortOrder=${reverseSortingDirection})}">Return Station</a></th>
+                        <th class="stat-head"><a th:href="@{/journeys(size=${journeyPage.size}, page=${journeyPage.number + 1}, sortField=distance, sortOrder=${reverseSortingDirection})}">Distance</a></th>
+                        <th class="stat-head"><a th:href="@{/journeys(size=${journeyPage.size}, page=${journeyPage.number + 1}, sortField=duration, sortOrder=${reverseSortingDirection})}">Duration</a></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -32,8 +34,7 @@
                     </tr>
                 </tbody>
             </table>
-            <div th:if="${journeyPage.totalPages > 0}" class="pagination"
-                 th:each="pageNumber : ${pageNumbers}">
+            <div th:each="pageNumber : ${pageNumbers}">
                 <a th:href="@{/journeys(size=${journeyPage.size}, page=${pageNumber})}"
                    th:text="${pageNumber}"
                    th:class="${pageNumber==journeyPage.number + 1} ? active"></a>

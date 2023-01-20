@@ -71,6 +71,7 @@ public class CitybikeController {
 
         Page<Journey> journeyPage = journeyService.fetchPaginated(PageRequest.of(page - 1, size, Sort.by(order)));
         model.addAttribute("journeyPage", journeyPage);
+        model.addAttribute("reverseSortingDirection", sortOrder.equals("asc") ? "desc" : "asc");
 
         int totalPages = journeyPage.getTotalPages();
         if (totalPages > 0) {
