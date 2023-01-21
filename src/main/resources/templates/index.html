@@ -2,11 +2,12 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
     <head>
         <title>City Bike App</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"/>
     </head>
     <body>
         <div>
-            <h3>Welcome to the City Bike App</h3>
-            <p>You can view saved stations or journeys by clicking the links below.</p>
+            <h3 style="margin: 10px">Helsinki City Bike App</h3>
+            <p style="margin: 10px">You can view city bike stations or saved journeys between stations by clicking the links below.</p>
             <a th:href="@{/stations}" class="btn stations">View Stations</a>
             <a th:href="@{/journeys}" class="btn journeys">View Journeys</a>
         </div>
