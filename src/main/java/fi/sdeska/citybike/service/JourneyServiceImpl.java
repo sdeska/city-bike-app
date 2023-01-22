@@ -17,7 +17,7 @@ import fi.sdeska.citybike.data.Journey;
 import fi.sdeska.citybike.data.JourneyRepository;
 
 /**
- * This class handles any interactions with journeys in the database.
+ * This class implements the JourneyService interface.
  */
 @Component
 public class JourneyServiceImpl implements JourneyService {
@@ -35,6 +35,9 @@ public class JourneyServiceImpl implements JourneyService {
         return journeys.findAll();
     }
 
+    /**
+     * @throws ResourceNotFoundException when a journey with the given ID cannot be found from the database.
+     */
     @Override
     public Journey updateJourney(Journey journey, Long id) {
         
@@ -51,6 +54,9 @@ public class JourneyServiceImpl implements JourneyService {
         journeys.deleteById(id);
     }
 
+    /**
+     * @throws ResourceNotFoundException when a journey with the given ID cannot be found from the database.
+     */
     @Override
     public Journey fetchJourneyById(Long id) {
 

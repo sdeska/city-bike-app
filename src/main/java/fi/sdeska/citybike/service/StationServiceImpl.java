@@ -18,7 +18,7 @@ import fi.sdeska.citybike.data.Station;
 import fi.sdeska.citybike.data.StationRepository;
 
 /**
- * This class handles any interactions with stations in the database.
+ * This class implements the StationService interface.
  */
 @Component
 public class StationServiceImpl implements StationService {
@@ -26,6 +26,9 @@ public class StationServiceImpl implements StationService {
     @Autowired
     private StationRepository stations;
 
+    /**
+     * @throws ResourceAlreadyExistsException when a station with the given ID already exists in the database. This is done to avoid accidental overwriting.
+     */
     @Override
     public Station saveStation(Station station) {
 
@@ -42,6 +45,9 @@ public class StationServiceImpl implements StationService {
         return stations.findAll();
     }
 
+    /**
+     * @throws ResourceNotFoundException when a station with the given ID does not exist in the database.
+     */
     @Override
     public Station updateStation(Station station, Long id) {
 
@@ -58,6 +64,9 @@ public class StationServiceImpl implements StationService {
         stations.deleteById(id);
     }
 
+    /**
+     * @throws ResourceNotFoundException when a station with the given ID does not exist in the database.
+     */
     @Override
     public Station fetchStationById(Long id) {
         

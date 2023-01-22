@@ -11,12 +11,16 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/**
+ * This entity class represents the 'stations' table in the database. 
+ * Each instance of this class represents a row in that database.
+ * Getters, setters, constructors and a builder are auto-generated.
+ */
 @Getter
 @Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-
 @Entity
 @Table(name = "stations", schema = "public")
 public class Station {

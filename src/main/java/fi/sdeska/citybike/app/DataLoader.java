@@ -26,8 +26,8 @@ import fi.sdeska.citybike.service.StationService;
 public class DataLoader implements CommandLineRunner {
 
     /**
-     * Specifies whether any data to be loaded contains
-     * stations or journeys.
+     * Is used to specify the type 
+     * of data present in .csv files.
      */
     private enum DataType {
         STATIONS,
@@ -55,8 +55,8 @@ public class DataLoader implements CommandLineRunner {
     }
 
     /**
-     * Gets the contents of a file with the given {@link #path} and passes them as a parameter to the 
-     * correct method, determined by {@link #type}.
+     * Gets the contents of a file with the given path and passes them as a parameter to the 
+     * correct method, determined by type.
      * @param path the path to the file.
      * @param type the type of data the file contains.
      */
@@ -112,6 +112,7 @@ public class DataLoader implements CommandLineRunner {
 
         System.out.println("Loading journeys from file.");
         try {
+            // Throw the first line away since it does not contain data.
             content.readLine();
             String journey = null;
             // Variable 'count' is in place just to limit loaded journeys during development.

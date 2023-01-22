@@ -23,6 +23,9 @@ import fi.sdeska.citybike.data.Station;
 import fi.sdeska.citybike.service.JourneyService;
 import fi.sdeska.citybike.service.StationService;
 
+/**
+ * This class performs the role of a controller. Any requests sent by users' browsers are handled here.
+ */
 @Controller
 public class CitybikeController {
 
@@ -31,11 +34,24 @@ public class CitybikeController {
     @Autowired
     private JourneyService journeyService;
 
+    /**
+     * Answers the GET request with the homepage index.html.
+     * @return the page found in index.html.
+     */
     @GetMapping("/")
     public String home() {
         return "index";
     }
 
+    /**
+     * Gets a paginated list of stations according to the parameters provided through the URI.
+     * @param model for holding model attributes.
+     * @param page the requested page number of stations.
+     * @param size the requested size for a page.
+     * @param sortField the field according to which to order the stations.
+     * @param sortOrder the order in which to sort the journeys. Can be either asc for ascending or desc for descending.
+     * @return the page stationsPage.html that contains the table of stations.
+     */
     @GetMapping("/stations")
     public String getStations(Model model,
                               @RequestParam(defaultValue = "1") int page,
@@ -61,6 +77,15 @@ public class CitybikeController {
 
     }
 
+    /**
+     * Gets a paginated list of journeys according to the parameters provided in the URI.
+     * @param model for holding model attributes.
+     * @param page the requested page number of stations.
+     * @param size the requested size for a page.
+     * @param sortField the field according to which to order the journeys.
+     * @param sortOrder the order in which to sort the journeys. Can be either asc for ascending or desc for descending.
+     * @return the page journeysPage.html that contains the table of journeys.
+     */
     @GetMapping("/journeys")
     public String getJourneys(Model model,
                               @RequestParam(defaultValue = "1") int page,
@@ -86,11 +111,21 @@ public class CitybikeController {
 
     }
 
+    /**
+     * Responds with a station from the database according to the given ID.
+     * @param id the ID with which to search for a station.
+     * @return the response containing the information about the station.
+     */
     @GetMapping("/station/{id}")
     public ResponseEntity<Station> getStationById(@PathVariable("id") Long id) {
         return new ResponseEntity<>(stationService.fetchStationById(id), HttpStatus.OK);
     }
 
+    /**
+     * Responds with a station from the database according to the given ID.
+     * @param id the IDD with which to search for a journey.
+     * @return the response containing the information about the journey.
+     */
     @GetMapping("/journey/{id}")
     public ResponseEntity<Journey> getJourneyById(@PathVariable("id") Long id) {
         return new ResponseEntity<>(journeyService.fetchJourneyById(id), HttpStatus.OK);
