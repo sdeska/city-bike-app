@@ -3,64 +3,85 @@
     <head>
         <title>City Bike App</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"/>
+        <style>
+            body {
+                margin: 20px;
+            }
+        </style>
     </head>
     <body>
         <div>
-            <table style="width:80%" class="table">
-                <caption>Stations</caption>
+            <div>
+                <a th:href="@{/}" class="home-button" aria-label="Return to homepage">Return to homepage</a>
+                <h3>Stations</h3>
+            </div>
+            <table style="width:80%" class="table" aria-label="Station-table">
                 <thead>
                     <tr>
                         <th>
                             <a th:href="@{/stations(size=${stationPage.size}, page=${stationPage.number + 1}, 
-                                        sortField=fId, sortOrder=${reverseSortingDirection})}">fID</a>
+                                        sortField=fId, sortOrder=${reverseSortingDirection})}"
+                               class="btn fId">fID</a>
                         </th>
                         <th>
                             <a th:href="@{/stations(size=${stationPage.size}, page=${stationPage.number + 1}, 
-                                        sortField=id, sortOrder=${reverseSortingDirection})}">ID</a>
+                                        sortField=id, sortOrder=${reverseSortingDirection})}"
+                               class="btn idd">ID</a>
                         </th>
                         <th>
                             <a th:href="@{/stations(size=${stationPage.size}, page=${stationPage.number + 1}, 
-                                        sortField=nameFin, sortOrder=${reverseSortingDirection})}">NameFin</a>
+                                        sortField=nameFin, sortOrder=${reverseSortingDirection})}"
+                               class="btn nameFin">NameFin</a>
                         </th>
                         <th>
                             <a th:href="@{/stations(size=${stationPage.size}, page=${stationPage.number + 1}, 
-                                        sortField=nameSwe, sortOrder=${reverseSortingDirection})}">NameSwe</a>
+                                        sortField=nameSwe, sortOrder=${reverseSortingDirection})}"
+                               class="btn nameSwe">NameSwe</a>
                         </th>
                         <th>
                             <a th:href="@{/stations(size=${stationPage.size}, page=${stationPage.number + 1}, 
-                                        sortField=nameEng, sortOrder=${reverseSortingDirection})}">NameEng</a>
+                                        sortField=nameEng, sortOrder=${reverseSortingDirection})}"
+                               class="btn nameEng">NameEng</a>
                         </th>
                         <th>
                             <a th:href="@{/stations(size=${stationPage.size}, page=${stationPage.number + 1}, 
-                                        sortField=addressFin, sortOrder=${reverseSortingDirection})}">AddressFin</a>
+                                        sortField=addressFin, sortOrder=${reverseSortingDirection})}"
+                               class="btn addressFin">AddressFin</a>
                         </th>
                         <th>
                             <a th:href="@{/stations(size=${stationPage.size}, page=${stationPage.number + 1}, 
-                                        sortField=addressSwe, sortOrder=${reverseSortingDirection})}">AddressSwe</a>
+                                        sortField=addressSwe, sortOrder=${reverseSortingDirection})}"
+                               class="btn addressSwe">AddressSwe</a>
                         </th>
                         <th>
                             <a th:href="@{/stations(size=${stationPage.size}, page=${stationPage.number + 1}, 
-                                        sortField=cityFin, sortOrder=${reverseSortingDirection})}">CityFin</a>
+                                        sortField=cityFin, sortOrder=${reverseSortingDirection})}"
+                               class="btn cityFin">CityFin</a>
                         </th>
                         <th>
                             <a th:href="@{/stations(size=${stationPage.size}, page=${stationPage.number + 1}, 
-                                        sortField=citySwe, sortOrder=${reverseSortingDirection})}">CitySwe</a>
+                                        sortField=citySwe, sortOrder=${reverseSortingDirection})}"
+                               class="btn citySwe">CitySwe</a>
                         </th>
                         <th>
                             <a th:href="@{/stations(size=${stationPage.size}, page=${stationPage.number + 1}, 
-                                        sortField=operator, sortOrder=${reverseSortingDirection})}">Operator</a>
+                                        sortField=operator, sortOrder=${reverseSortingDirection})}"
+                               class="btn operator">Operator</a>
                         </th>
                         <th>
                             <a th:href="@{/stations(size=${stationPage.size}, page=${stationPage.number + 1}, 
-                                        sortField=capacity, sortOrder=${reverseSortingDirection})}">Capacity</a>
+                                        sortField=capacity, sortOrder=${reverseSortingDirection})}"
+                               class="btn capacity">Capacity</a>
                         </th>
                         <th>
                             <a th:href="@{/stations(size=${stationPage.size}, page=${stationPage.number + 1}, 
-                                        sortField=x, sortOrder=${reverseSortingDirection})}">x</a>
+                                        sortField=x, sortOrder=${reverseSortingDirection})}"
+                               class="btn x">x</a>
                         </th>
                         <th>
                             <a th:href="@{/stations(size=${stationPage.size}, page=${stationPage.number + 1}, 
-                                        sortField=y, sortOrder=${reverseSortingDirection})}">y</a>
+                                        sortField=y, sortOrder=${reverseSortingDirection})}"
+                               class="btn y">y</a>
                         </th>
                     </tr>
                 </thead>

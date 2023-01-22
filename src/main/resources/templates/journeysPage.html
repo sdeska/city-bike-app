@@ -10,29 +10,40 @@
             .stat-head {
                 text-align: center;
             }
+            body {
+                margin: 20px;
+            }
         </style>
     </head>
     <body>
         <div>
-            <table style="width:80%" class="table">
-                <caption>Journeys</caption>
+            <div>
+                <a th:href="@{/}" class="home-utton" aria-label="Return to homepage">Return to homepage</a>
+                <h3>Journeys</h3>
+            </div>
+            <table style="width:80%" class="table" aria-label="Journey-table">
                 <thead>
                     <tr>
                         <th>
                             <a th:href="@{/journeys(size=${journeyPage.size}, page=${journeyPage.number + 1}, 
-                                        sortField=departureStationID, sortOrder=${reverseSortingDirection})}">Departure Station</a>
+                                        sortField=departureStationID, sortOrder=${reverseSortingDirection})}"
+                               class="btn departureStation">Departure Station</a>
                         </th>
                         <th>
                             <a th:href="@{/journeys(size=${journeyPage.size}, page=${journeyPage.number + 1}, 
-                                        sortField=returnStationID, sortOrder=${reverseSortingDirection})}">Return Station</a>
+                                        sortField=returnStationID, sortOrder=${reverseSortingDirection})}"
+                               class="btn returnStation">Return Station</a>
                         </th>
                         <th class="stat-head">
                             <a th:href="@{/journeys(size=${journeyPage.size}, page=${journeyPage.number + 1}, 
-                                        sortField=distance, sortOrder=${reverseSortingDirection})}">Distance</a>
+                                        sortField=distance, sortOrder=${reverseSortingDirection})}"
+                               class="btn distance">Distance</a>
                         </th>
                         <th class="stat-head">
                             <a th:href="@{/journeys(size=${journeyPage.size}, page=${journeyPage.number + 1}, 
-                                        sortField=duration, sortOrder=${reverseSortingDirection})}">Duration</a></th>
+                                        sortField=duration, sortOrder=${reverseSortingDirection})}"
+                               class="btn duration">Duration</a>
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
