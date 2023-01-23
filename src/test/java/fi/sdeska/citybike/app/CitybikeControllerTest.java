@@ -89,9 +89,9 @@ class CitybikeControllerTest {
         initStations();
 
         when(stationService.fetchStationById(1L)).thenReturn(s2);
-        mvc.perform(get("/station/1"))
+        mvc.perform(get("/station?id=1"))
            .andExpect(status().isOk())
-           .andExpect(jsonPath("$.id", Matchers.is(Integer.valueOf(1))));
+           .andExpect(jsonPath("$", Matchers.containsString("<td class=\"test\">1</td>")));
 
     }
 

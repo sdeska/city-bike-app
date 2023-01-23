@@ -116,9 +116,15 @@ public class CitybikeController {
      * @param id the ID with which to search for a station.
      * @return the response containing the information about the station.
      */
-    @GetMapping("/station/{id}")
-    public ResponseEntity<Station> getStationById(@PathVariable("id") Long id) {
-        return new ResponseEntity<>(stationService.fetchStationById(id), HttpStatus.OK);
+    @GetMapping("/station")
+    public String getStationById(Model model,
+                                 @RequestParam(defaultValue = "1") long id) {
+
+        Station station = stationService.fetchStationById(id);
+        model.addAttribute("station", station);
+
+        return "station";
+
     }
 
     /**

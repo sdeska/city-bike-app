@@ -29,7 +29,7 @@
                         <th>
                             <a th:href="@{/stations(size=${stationPage.size}, page=${stationPage.number + 1}, 
                                         sortField=id, sortOrder=${reverseSortingDirection})}"
-                               class="btn idd">ID</a>
+                               class="btn id">ID</a>
                         </th>
                         <th>
                             <a th:href="@{/stations(size=${stationPage.size}, page=${stationPage.number + 1}, 
@@ -92,7 +92,10 @@
                     <tr th:each="station, page : ${stationPage.content}"
                         th:style="${page.odd}? 'font-weight: bold;'">
                         <td th:text="${station.fId}"></td>
-                        <td th:text="${station.id}"></td>
+                        <td>
+                            <a th:href="@{/station(id=${station.id})}"
+                               th:text="${station.id}"></a>
+                        </td>
                         <td th:text="${station.nameFin}"></td>
                         <td th:text="${station.nameSwe}"></td>
                         <td th:text="${station.nameEng}"></td>

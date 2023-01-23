@@ -23,7 +23,7 @@ public class SecurityConfiguration {
             .requestMatchers("/").permitAll()
             .requestMatchers("/stations").permitAll()
             .requestMatchers("/journeys").permitAll()
-            .requestMatchers("/station/*").permitAll()
+            .requestMatchers("/station").permitAll()
             .requestMatchers("/journey/*").permitAll();
         return http.build();
     }
