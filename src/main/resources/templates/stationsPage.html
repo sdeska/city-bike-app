@@ -7,6 +7,9 @@
             body {
                 margin: 20px;
             }
+            th {
+                vertical-align: center;
+            }
         </style>
     </head>
     <body>
@@ -97,6 +100,8 @@
                         <td th:text="${station.addressSwe}"></td>
                         <td th:text="${station.cityFin}"></td>
                         <td th:text="${station.citySwe}"></td>
+                        <td th:text="${station.operator}"></td>
+                        <td th:text="${station.capacity}"></td>
                         <td th:text="${station.x}"></td>
                         <td th:text="${station.y}"></td>
                     </tr>
