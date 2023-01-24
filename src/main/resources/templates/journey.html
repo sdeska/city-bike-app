@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>City Bike App</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"/>
+        <style>
+            body {
+                margin: 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <div>
+            <div>
+                <a th:href="@{/}" class="home-button" aria-label="Return to homepage">Return to homepage</a>
+                <h3>Journey</h3>
+            </div>
+            <table style="width:80%" class="table" aria-label="Station data">
+                <tr>
+                    <th>Field Name</th>
+                    <th>Value</th>
+                </tr>
+                <tr>
+                    <td>ID</td>
+                    <td class="test" th:text="${journey.id}"></td>
+                </tr>
+                <tr>
+                    <td>Departure Time</td>
+                    <td th:text="${journey.departureDate}"></td>
+                </tr>
+                <tr>
+                    <td>Return Time</td>
+                    <td th:text="${journey.returnDate}"></td>
+                </tr>
+                <tr>
+                    <td>Departure Station ID</td>
+                    <td th:text="${journey.departureStationID}"></td>
+                </tr>
+                <tr>
+                    <td>Departure Station Name</td>
+                    <td th:text="${journey.departureStationName}"></td>
+                </tr>
+                <tr>
+                    <td>Return Station ID</td>
+                    <td th:text="${journey.returnStationID}"></td>
+                </tr>
+                <tr>
+                    <td>Return Station Name</td>
+                    <td th:text="${journey.returnStationName}"></td>
+                </tr>
+                <tr>
+                    <td>Distance</td>
+                    <td th:text="${journey.distance}"></td>
+                </tr>
+                <tr>
+                    <td>Duration</td>
+                    <td th:text="${journey.duration}"></td>
+                </tr>
+            </table>
+        </div>
+    </body>
+</html>

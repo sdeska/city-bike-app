@@ -132,9 +132,15 @@ public class CitybikeController {
      * @param id the IDD with which to search for a journey.
      * @return the response containing the information about the journey.
      */
-    @GetMapping("/journey/{id}")
-    public ResponseEntity<Journey> getJourneyById(@PathVariable("id") Long id) {
-        return new ResponseEntity<>(journeyService.fetchJourneyById(id), HttpStatus.OK);
+    @GetMapping("/journey")
+    public String getJourneyById(Model model,
+                                 @RequestParam long id) {
+        
+        Journey journey = journeyService.fetchJourneyById(id);
+        model.addAttribute("journey", journey);
+
+        return "journey";
+
     }
 
 }

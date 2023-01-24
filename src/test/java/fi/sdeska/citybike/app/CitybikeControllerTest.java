@@ -101,9 +101,9 @@ class CitybikeControllerTest {
         initJourneys();
 
         when(journeyService.fetchJourneyById(2L)).thenReturn(j1);
-        mvc.perform(get("/journey/2"))
+        mvc.perform(get("/journey?id=2"))
            .andExpect(status().isOk())
-           .andExpect(jsonPath("$.id", Matchers.is(Integer.valueOf(2))));
+           .andExpect(jsonPath("$", Matchers.containsString("<td class=\"test\">2</td>")));
         
     }
 
