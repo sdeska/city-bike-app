@@ -23,53 +23,23 @@
                     <tr>
                         <th>
                             <a th:href="@{/stations(size=${stationPage.size}, page=${stationPage.number + 1}, 
-                                        sortField=fId, sortOrder=${reverseSortingDirection})}"
-                               class="btn fId">fID</a>
-                        </th>
-                        <th>
-                            <a th:href="@{/stations(size=${stationPage.size}, page=${stationPage.number + 1}, 
                                         sortField=id, sortOrder=${reverseSortingDirection})}"
                                class="btn id">ID</a>
                         </th>
                         <th>
                             <a th:href="@{/stations(size=${stationPage.size}, page=${stationPage.number + 1}, 
                                         sortField=nameFin, sortOrder=${reverseSortingDirection})}"
-                               class="btn nameFin">NameFin</a>
-                        </th>
-                        <th>
-                            <a th:href="@{/stations(size=${stationPage.size}, page=${stationPage.number + 1}, 
-                                        sortField=nameSwe, sortOrder=${reverseSortingDirection})}"
-                               class="btn nameSwe">NameSwe</a>
-                        </th>
-                        <th>
-                            <a th:href="@{/stations(size=${stationPage.size}, page=${stationPage.number + 1}, 
-                                        sortField=nameEng, sortOrder=${reverseSortingDirection})}"
-                               class="btn nameEng">NameEng</a>
+                               class="btn nameFin">Name</a>
                         </th>
                         <th>
                             <a th:href="@{/stations(size=${stationPage.size}, page=${stationPage.number + 1}, 
                                         sortField=addressFin, sortOrder=${reverseSortingDirection})}"
-                               class="btn addressFin">AddressFin</a>
-                        </th>
-                        <th>
-                            <a th:href="@{/stations(size=${stationPage.size}, page=${stationPage.number + 1}, 
-                                        sortField=addressSwe, sortOrder=${reverseSortingDirection})}"
-                               class="btn addressSwe">AddressSwe</a>
+                               class="btn addressFin">Address</a>
                         </th>
                         <th>
                             <a th:href="@{/stations(size=${stationPage.size}, page=${stationPage.number + 1}, 
                                         sortField=cityFin, sortOrder=${reverseSortingDirection})}"
-                               class="btn cityFin">CityFin</a>
-                        </th>
-                        <th>
-                            <a th:href="@{/stations(size=${stationPage.size}, page=${stationPage.number + 1}, 
-                                        sortField=citySwe, sortOrder=${reverseSortingDirection})}"
-                               class="btn citySwe">CitySwe</a>
-                        </th>
-                        <th>
-                            <a th:href="@{/stations(size=${stationPage.size}, page=${stationPage.number + 1}, 
-                                        sortField=operator, sortOrder=${reverseSortingDirection})}"
-                               class="btn operator">Operator</a>
+                               class="btn cityFin">City</a>
                         </th>
                         <th>
                             <a th:href="@{/stations(size=${stationPage.size}, page=${stationPage.number + 1}, 
@@ -91,19 +61,13 @@
                 <tbody>
                     <tr th:each="station, page : ${stationPage.content}"
                         th:style="${page.odd}? 'font-weight: bold;'">
-                        <td th:text="${station.fId}"></td>
                         <td>
                             <a th:href="@{/station(id=${station.id})}"
                                th:text="${station.id}"></a>
                         </td>
                         <td th:text="${station.nameFin}"></td>
-                        <td th:text="${station.nameSwe}"></td>
-                        <td th:text="${station.nameEng}"></td>
                         <td th:text="${station.addressFin}"></td>
-                        <td th:text="${station.addressSwe}"></td>
                         <td th:text="${station.cityFin}"></td>
-                        <td th:text="${station.citySwe}"></td>
-                        <td th:text="${station.operator}"></td>
                         <td th:text="${station.capacity}"></td>
                         <td th:text="${station.x}"></td>
                         <td th:text="${station.y}"></td>
