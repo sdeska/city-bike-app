@@ -34,7 +34,10 @@
                 </tr>
                 <tr>
                     <td>Departure Station ID</td>
-                    <td th:text="${journey.departureStationID}"></td>
+                    <td>
+                        <a th:text="${journey.departureStationID}"
+                           th:href="@{/station(id=${journey.departureStationID})}"></a>
+                    </td>
                 </tr>
                 <tr>
                     <td>Departure Station Name</td>
@@ -42,7 +45,10 @@
                 </tr>
                 <tr>
                     <td>Return Station ID</td>
-                    <td th:text="${journey.returnStationID}"></td>
+                    <td>
+                        <a th:text="${journey.returnStationID}"
+                           th:href="@{/station(id=${journey.returnStationID})}"></a>
+                    </td>
                 </tr>
                 <tr>
                     <td>Return Station Name</td>
