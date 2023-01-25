@@ -49,8 +49,16 @@
                 <tbody>
                     <tr th:each="journey, page : ${journeyPage.content}"
                         th:style="${page.odd}? 'font-weight: bold;'">
-                        <td th:text="|${journey.departureStationID} ${journey.departureStationName}|"></td>
-                        <td th:text="|${journey.returnStationID} ${journey.returnStationName}|"></td>
+                        <td>
+                            <a th:text="${journey.departureStationID}"
+                               th:href="@{/station(id=${journey.departureStationID})}"></a>
+                            <p th:text="${journey.departureStationName}"></p>
+                        </td>
+                        <td>
+                            <a th:text="${journey.returnStationID}"
+                               th:href="@{/station(id=${journey.returnStationID})}"></a>
+                            <p th:text="${journey.returnStationName}"></p>
+                        </td>
                         <td class="stats" th:text="${journey.distance}"></td>
                         <td class="stats" th:text="${journey.duration}"></td>
                     </tr>
