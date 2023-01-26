@@ -1,4 +1,4 @@
-package fi.sdeska.citybike.data;
+package fi.sdeska.citybike.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

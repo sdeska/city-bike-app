@@ -14,8 +14,8 @@ import org.springframework.stereotype.Component;
 import com.amazonaws.services.iotanalytics.model.ResourceAlreadyExistsException;
 import com.amazonaws.services.iotanalytics.model.ResourceNotFoundException;
 
-import fi.sdeska.citybike.data.Station;
-import fi.sdeska.citybike.data.StationRepository;
+import fi.sdeska.citybike.entity.Station;
+import fi.sdeska.citybike.repository.StationRepository;
 
 /**
  * This class implements the StationService interface.

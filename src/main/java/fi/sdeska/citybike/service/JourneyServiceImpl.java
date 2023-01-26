@@ -13,8 +13,8 @@ import org.springframework.stereotype.Component;
 
 import com.amazonaws.services.iotanalytics.model.ResourceNotFoundException;
 
-import fi.sdeska.citybike.data.Journey;
-import fi.sdeska.citybike.data.JourneyRepository;
+import fi.sdeska.citybike.entity.Journey;
+import fi.sdeska.citybike.repository.JourneyRepository;
 
 /**
  * This class implements the JourneyService interface.

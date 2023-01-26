@@ -1,4 +1,4 @@
-package fi.sdeska.citybike.app;
+package fi.sdeska.citybike.data;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -13,8 +13,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
 
-import fi.sdeska.citybike.data.Journey;
-import fi.sdeska.citybike.data.Station;
+import fi.sdeska.citybike.entity.Journey;
+import fi.sdeska.citybike.entity.Station;
 import fi.sdeska.citybike.service.JourneyService;
 import fi.sdeska.citybike.service.StationService;
 

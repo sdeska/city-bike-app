@@ -1,4 +1,4 @@
-package fi.sdeska.citybike.data;
+package fi.sdeska.citybike.entity;
 
 import org.joda.time.DateTime;
 

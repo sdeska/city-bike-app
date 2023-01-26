@@ -25,8 +25,8 @@ import org.springframework.data.domain.Sort.Order;
 import com.amazonaws.services.iotanalytics.model.ResourceAlreadyExistsException;
 import com.amazonaws.services.iotanalytics.model.ResourceNotFoundException;
 
-import fi.sdeska.citybike.data.Station;
-import fi.sdeska.citybike.data.StationRepository;
+import fi.sdeska.citybike.entity.Station;
+import fi.sdeska.citybike.repository.StationRepository;
 
 @ExtendWith(MockitoExtension.class)
 class StationServiceTest {

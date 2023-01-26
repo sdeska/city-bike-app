@@ -6,7 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.lang.NonNull;
 
-import fi.sdeska.citybike.data.Station;
+import fi.sdeska.citybike.entity.Station;
 
 /**
  * This interface defines the methods for any service implementation interacting with stations in the repository.

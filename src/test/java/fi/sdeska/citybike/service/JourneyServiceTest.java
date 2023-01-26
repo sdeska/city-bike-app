@@ -26,8 +26,8 @@ import org.springframework.data.domain.Sort.Order;
 
 import com.amazonaws.services.iotanalytics.model.ResourceNotFoundException;
 
-import fi.sdeska.citybike.data.Journey;
-import fi.sdeska.citybike.data.JourneyRepository;
+import fi.sdeska.citybike.entity.Journey;
+import fi.sdeska.citybike.repository.JourneyRepository;
 
 @ExtendWith(MockitoExtension.class)
 class JourneyServiceTest {

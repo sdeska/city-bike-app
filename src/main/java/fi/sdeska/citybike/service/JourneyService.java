@@ -6,7 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.lang.NonNull;
 
-import fi.sdeska.citybike.data.Journey;
+import fi.sdeska.citybike.entity.Journey;
 
 /**
  * This interface defines the methods for any service implementation interacting with journeys in the repository.

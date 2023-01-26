@@ -1,4 +1,4 @@
-package fi.sdeska.citybike.app;
+package fi.sdeska.citybike.controller;
 
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -22,8 +22,8 @@ import org.springframework.data.domain.Sort.Order;
 import org.springframework.test.web.servlet.MockMvc;
 
 import fi.sdeska.citybike.configuration.SecurityConfiguration;
-import fi.sdeska.citybike.data.Journey;
-import fi.sdeska.citybike.data.Station;
+import fi.sdeska.citybike.entity.Journey;
+import fi.sdeska.citybike.entity.Station;
 import fi.sdeska.citybike.service.JourneyService;
 import fi.sdeska.citybike.service.StationService;
 
