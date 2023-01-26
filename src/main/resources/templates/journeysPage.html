@@ -23,6 +23,11 @@
                 <thead>
                     <tr>
                         <th>
+                            <a th:href="@{/journeys(size=${journeyPage.size}, page=${journeyPage.number + 1},
+                                        sortField=id, sortOrder=${reverseSortingDirection})}"
+                               class="btn id">ID</a>
+                        </th>
+                        <th>
                             <a th:href="@{/journeys(size=${journeyPage.size}, page=${journeyPage.number + 1}, 
                                         sortField=departureStationID, sortOrder=${reverseSortingDirection})}"
                                class="btn departureStation">Departure Station</a>
@@ -47,6 +52,10 @@
                 <tbody>
                     <tr th:each="journey, page : ${journeyPage.content}"
                         th:style="${page.odd}? 'font-weight: bold;'">
+                        <td>
+                            <a th:text="${journey.id}"
+                               th:href="@{/journey(id=${journey.id})}"></a>
+                        </td>
                         <td>
                             <a th:text="${journey.departureStationID}"
                                th:href="@{/station(id=${journey.departureStationID})}"
