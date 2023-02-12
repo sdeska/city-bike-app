@@ -67,7 +67,7 @@
                         </td>
                         <td th:text="${station.nameFin}"></td>
                         <td th:text="${station.addressFin}"></td>
-                        <td th:text="${station.cityFin}"></td>
+                        <td th:text="${#strings.isEmpty(station.cityFin)} ? '-' : ${station.cityFin}"></td>
                         <td th:text="${station.capacity}"></td>
                         <td th:text="${station.x}"></td>
                         <td th:text="${station.y}"></td>
