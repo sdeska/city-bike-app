@@ -7,12 +7,19 @@
             body {
                 margin: 20px;
             }
+            .home-button {
+                margin-inline-end: 10px;
+            }
+            .stations-button {
+                margin-inline-start: 10px;
+            }
         </style>
     </head>
     <body>
         <div>
             <div>
                 <a th:href="@{/}" class="home-button" aria-label="Return to homepage">Return to homepage</a>
+                <a th:href="@{/stations}" class="stations-button" aria-labe="Return to Station list">Return to Station list</a>
                 <h3>Station</h3>
             </div>
             <table style="width:50%" class="table" aria-label="Station data">
