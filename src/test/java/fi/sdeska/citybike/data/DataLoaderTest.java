@@ -37,10 +37,19 @@ class DataLoaderTest {
                                        "184"};
 
         assertTrue(dataLoader.validateJourney(journeyData));
-        journeyData[6] = "7"; // Minimum distance is 10.
+        journeyData[0] = "000"; // Illegal DateTime format.
+        assertFalse(dataLoader.validateJourney(journeyData));
+        journeyData[0] = "2021-05-31T23:43:07"; // Back to valid.
+
+        journeyData[3] = "500.25"; // NumberFormatException.
+        assertFalse(dataLoader.validateJourney(journeyData));
+        journeyData[3] = "060"; // Back to valid.
+
+        journeyData[6] = "7"; // Test with less than minimum distance.
         assertFalse(dataLoader.validateJourney(journeyData));
         journeyData[6] = "741"; // Back to valid.
-        journeyData[7] = "5"; // Minimum duration is 10.
+
+        journeyData[7] = "5"; // Test with less than minimum duration.
         assertFalse(dataLoader.validateJourney(journeyData));
         journeyData[7] = "20.5"; // NumberFormatException.
         assertFalse(dataLoader.validateJourney(journeyData));
@@ -51,7 +60,7 @@ class DataLoaderTest {
     void testSplitData() {
         
         String splitWithoutQuotes = "e,e,e,e,e";
-        String splitIntoTwo = "\"Hello, whoever is looking at this.\", \"I hope you have a wonderful day.\"";
+        String splitIntoTwo = "\"Hello, whoever is looking at this.\", \"I hope you have a wonderful day. :)\"";
         String splitIntoFour = "e,e,\"e,e\",e";
         assertEquals(5, dataLoader.splitData(splitWithoutQuotes).length);
         assertEquals(2, dataLoader.splitData(splitIntoTwo).length);
