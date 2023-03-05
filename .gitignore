@@ -5,3 +5,8 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 .vscode
+.classpath
+.idea
+.project
+.settings
+bin*
