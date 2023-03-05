@@ -37,13 +37,13 @@ class DataLoaderTest {
                                        "184"};
 
         assertTrue(dataLoader.validateJourney(journeyData));
-        journeyData[0] = "000"; // Illegal DateTime format.
+        journeyData[0] = "AAA"; // Illegal DateTime format.
         assertFalse(dataLoader.validateJourney(journeyData));
         journeyData[0] = "2021-05-31T23:43:07"; // Back to valid.
 
-        journeyData[3] = "500.25"; // NumberFormatException.
+        journeyData[2] = "500.25"; // NumberFormatException.
         assertFalse(dataLoader.validateJourney(journeyData));
-        journeyData[3] = "060"; // Back to valid.
+        journeyData[2] = "060"; // Back to valid.
 
         journeyData[6] = "7"; // Test with less than minimum distance.
         assertFalse(dataLoader.validateJourney(journeyData));
