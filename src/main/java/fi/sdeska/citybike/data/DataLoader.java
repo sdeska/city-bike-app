@@ -198,13 +198,21 @@ public class DataLoader implements CommandLineRunner {
         if (data.length != 8) {
             return false;
         }
+        // Only distance and duration need to be checked after parsing.
         Long distance = null;
         Long duration = null;
         try {
+            new DateTime(data[0]);
+            new DateTime(data[1]);
+            Long.parseLong(data[2]);
+            Long.parseLong(data[4]);
             distance = Long.parseLong(data[6]);
             duration = Long.parseLong(data[7]);
         } catch (NumberFormatException e) {
-            System.err.println("NumberFormatException thrown, skipping line of data.");
+            System.err.println("Illegal value for Long, skipping line of data.");
+            return false;
+        } catch (IllegalArgumentException e) {
+            System.err.println("Illegal value for DateTime, skipping line of data");
             return false;
         }
 
