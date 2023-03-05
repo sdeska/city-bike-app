@@ -140,6 +140,9 @@ public class DataLoader implements CommandLineRunner {
     public void parseStation(String stationData) {
 
         var data = splitData(stationData);
+        if (!validateStation(data)) {
+            return;
+        }
 
         var station = Station.builder()
                             .fId(Long.parseLong(data[0]))
@@ -188,8 +191,34 @@ public class DataLoader implements CommandLineRunner {
     }
 
     /**
-     * Checks whether values distance and duration are the correct format and large enough to be valid.
-     * @param data a string containing all Journey data fields in order, separated by commas.
+     * Checks whether all parseable values in Station data are valid.
+     * @param data array of strings containing the data of a single Station.
+     * @return true if data is valid, false otherwise.
+     */
+    public boolean validateStation(String[] data) {
+
+        // Data array should always have a length of exactly 13.
+        if (data.length != 13) {
+            return false;
+        }
+        try {
+            Long.parseLong(data[0]);
+            Long.parseLong(data[1]);
+            Long.parseLong(data[10]);
+            Double.parseDouble(data[11]);
+            Double.parseDouble(data[12]);
+        } catch (NumberFormatException e) {
+            System.err.println("Illegal value for Long or Double, skipping line of data.");
+            return false;
+        }
+
+        return true;
+
+    }
+
+    /**
+     * Checks whether all parseable values in Journey data are valid. Also checks validity of distance and duration.
+     * @param data array of strings containing the data of a single Journey.
      * @return true if data is valid, false otherwise.
      */
     public boolean validateJourney(String[] data) {
@@ -212,7 +241,7 @@ public class DataLoader implements CommandLineRunner {
             System.err.println("Illegal value for Long, skipping line of data.");
             return false;
         } catch (IllegalArgumentException e) {
-            System.err.println("Illegal value for DateTime, skipping line of data");
+            System.err.println("Illegal value for DateTime, skipping line of data.");
             return false;
         }
 
