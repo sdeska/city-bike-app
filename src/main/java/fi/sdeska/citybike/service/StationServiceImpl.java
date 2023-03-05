@@ -100,4 +100,11 @@ public class StationServiceImpl implements StationService {
 
     }
 
+    @Override
+    public Long getNumberOfJourneysStartingHere(Long id) {
+
+        return stations.getNumberOfJourneysStartingHere(id);
+        
+    }
+
 }

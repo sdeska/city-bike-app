@@ -9,6 +9,6 @@ import fi.sdeska.citybike.entity.Station;
  * This interface encapsulates the storage, retrieval and search functions concerning stations and the database.
  */
 @Repository
-public interface StationRepository extends JpaRepository<Station, Long> {
-    
+public interface StationRepository extends JpaRepository<Station, Long>, CustomStationRepository {
+
 }

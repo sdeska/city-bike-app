@@ -56,4 +56,6 @@ public interface StationService {
      */
     Page<Station> fetchPaginated(Pageable pageable);
 
+    Long getNumberOfJourneysStartingHere(Long id);
+
 }
