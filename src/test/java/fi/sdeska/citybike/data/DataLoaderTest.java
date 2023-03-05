@@ -25,34 +25,61 @@ class DataLoaderTest {
     private DataLoader dataLoader;
 
     @Test
+    void testValidateStation() {
+
+        var data = new String[]{"82",
+                                "711",
+                                "Kirjurinkuja",
+                                "Skrivargränden",
+                                "Kirjurinkuja",
+                                "Kirjurinkuja 1",
+                                "Skrivargränden 1",
+                                "Espoo",
+                                "Esbo",
+                                "CityBike Finland",
+                                "26",
+                                "24.826368",
+                                "60.215751"};
+
+        assertTrue(dataLoader.validateStation(data));
+        data[0] = "250.1"; // NumberFormatException.
+        assertFalse(dataLoader.validateStation(data));
+        data[0] = "82"; // Back to valid.
+
+        data[11] = "A"; // NumberFormatException.
+        assertFalse(dataLoader.validateStation(data));
+
+    }
+
+    @Test
     void testValidateJourney() {
 
-        var journeyData = new String[]{"2021-05-31T23:43:07",
-                                       "2021-05-31T23:46:12",
-                                       "060",
-                                       "Kaapelitehdas",
-                                       "059",
-                                       "Salmisaarenranta",
-                                       "741",
-                                       "184"};
+        var data = new String[]{"2021-05-31T23:43:07",
+                                "2021-05-31T23:46:12",
+                                "060",
+                                "Kaapelitehdas",
+                                "059",
+                                "Salmisaarenranta",
+                                "741",
+                                "184"};
 
-        assertTrue(dataLoader.validateJourney(journeyData));
-        journeyData[0] = "AAA"; // Illegal DateTime format.
-        assertFalse(dataLoader.validateJourney(journeyData));
-        journeyData[0] = "2021-05-31T23:43:07"; // Back to valid.
+        assertTrue(dataLoader.validateJourney(data));
+        data[0] = "AAA"; // Illegal DateTime format.
+        assertFalse(dataLoader.validateJourney(data));
+        data[0] = "2021-05-31T23:43:07"; // Back to valid.
 
-        journeyData[2] = "500.25"; // NumberFormatException.
-        assertFalse(dataLoader.validateJourney(journeyData));
-        journeyData[2] = "060"; // Back to valid.
+        data[2] = "500.25"; // NumberFormatException.
+        assertFalse(dataLoader.validateJourney(data));
+        data[2] = "060"; // Back to valid.
 
-        journeyData[6] = "7"; // Test with less than minimum distance.
-        assertFalse(dataLoader.validateJourney(journeyData));
-        journeyData[6] = "741"; // Back to valid.
+        data[6] = "7"; // Test with less than minimum distance.
+        assertFalse(dataLoader.validateJourney(data));
+        data[6] = "741"; // Back to valid.
 
-        journeyData[7] = "5"; // Test with less than minimum duration.
-        assertFalse(dataLoader.validateJourney(journeyData));
-        journeyData[7] = "20.5"; // NumberFormatException.
-        assertFalse(dataLoader.validateJourney(journeyData));
+        data[7] = "5"; // Test with less than minimum duration.
+        assertFalse(dataLoader.validateJourney(data));
+        data[7] = "20.5"; // NumberFormatException.
+        assertFalse(dataLoader.validateJourney(data));
 
     }
 
