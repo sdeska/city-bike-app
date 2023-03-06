@@ -23,4 +23,19 @@ public class CustomStationRepositoryImpl implements CustomStationRepository {
 
     }
 
+    @Override
+    public Long getNumberOfJourneysEndingHere(Long id) {
+
+        var queryString = new StringBuilder().append("SELECT COUNT(*) ")
+                                            .append("FROM Station AS s ")
+                                            .append("INNER JOIN Journey AS j ON s.id = j.returnStationID ")
+                                            .append("WHERE s.id = :id")
+                                            .toString();
+        var query = em.createQuery(queryString);
+        query.setParameter("id", id);
+
+        return (Long) query.getSingleResult();
+
+    }
+
 }

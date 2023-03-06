@@ -119,8 +119,10 @@ public class CitybikeController {
 
         Station station = stationService.fetchStationById(id);
         Long journeysStartingHere = stationService.getNumberOfJourneysStartingHere(id);
+        Long journeysEndingHere = stationService.getNumberOfJourneysEndingHere(id);
         model.addAttribute("station", station);
         model.addAttribute("journeysStartingHere", journeysStartingHere);
+        model.addAttribute("journeysEndingHere", journeysEndingHere);
 
         return "station";
 

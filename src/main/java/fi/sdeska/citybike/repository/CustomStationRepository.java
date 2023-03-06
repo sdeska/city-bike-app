@@ -4,4 +4,6 @@ public interface CustomStationRepository {
 
     Long getNumberOfJourneysStartingHere(Long id);
 
+    Long getNumberOfJourneysEndingHere(Long id);
+
 }
