@@ -56,8 +56,18 @@ public interface StationService {
      */
     Page<Station> fetchPaginated(Pageable pageable);
 
+    /**
+     * Gets the number of journeys that start at a given station.
+     * @param id the ID of the station.
+     * @return the number of journeys starting at the station.
+     */
     Long getNumberOfJourneysStartingHere(Long id);
 
+    /**
+     * Gets the number of journeys that end at a given station.
+     * @param id the ID of the station.
+     * @return the number of journeys starting at the station.
+     */
     Long getNumberOfJourneysEndingHere(Long id);
 
 }

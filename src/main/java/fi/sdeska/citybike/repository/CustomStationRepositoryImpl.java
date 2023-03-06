@@ -3,6 +3,9 @@ package fi.sdeska.citybike.repository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 
+/**
+ * This class implements the CustomStationRepository interface.
+ */
 public class CustomStationRepositoryImpl implements CustomStationRepository {
     
     @PersistenceContext
