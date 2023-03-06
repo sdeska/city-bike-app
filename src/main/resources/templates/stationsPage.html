@@ -10,12 +10,20 @@
             th {
                 vertical-align: center;
             }
+            .home-button {
+                margin-inline-end: 10px;
+            }
+            .searchLabel {
+                margin-inline-start: 10px;
+            }
         </style>
     </head>
     <body>
         <div>
             <div>
                 <a th:href="@{/}" class="home-button" aria-label="Return to homepage">Return to homepage</a>
+                <label class="searchLabel" for="searchField">Search:</label>
+                <input type="text" id="searchField" name="searchField">
                 <h3>Stations</h3>
             </div>
             <table style="width:80%" class="table" aria-label="Station-table">
