@@ -1,5 +1,9 @@
 package fi.sdeska.citybike.repository;
 
+import java.util.List;
+
+import fi.sdeska.citybike.entity.Station;
+
 /**
  * This interface defines custom StationRepository methods for using custom queries.
  */
@@ -18,5 +22,7 @@ public interface CustomStationRepository {
      * @return the number of journeys ending at the station.
      */
     Long getNumberOfJourneysEndingHere(Long id);
+
+    List<Station> searchBy(String text, int limit, String... fields);
 
 }
