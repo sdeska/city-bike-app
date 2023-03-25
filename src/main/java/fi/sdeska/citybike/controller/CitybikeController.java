@@ -10,10 +10,14 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.domain.Sort.Order;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 import fi.sdeska.citybike.entity.Journey;
 import fi.sdeska.citybike.entity.Station;
@@ -141,6 +145,15 @@ public class CitybikeController {
         model.addAttribute("journey", journey);
 
         return "journey";
+
+    }
+
+    @GetMapping("/coffee")
+    @ResponseBody
+    @ResponseStatus(code = HttpStatus.I_AM_A_TEAPOT)
+    public String coffee() {
+        
+        return "418 I'm a teapot";
 
     }
 
