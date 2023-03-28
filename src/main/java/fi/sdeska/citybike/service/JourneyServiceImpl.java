@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
 import com.amazonaws.services.iotanalytics.model.ResourceNotFoundException;
@@ -26,7 +27,7 @@ public class JourneyServiceImpl implements JourneyService {
     private JourneyRepository journeys;
 
     @Override
-    public Journey saveJourney(Journey journey) {
+    public Journey saveJourney(@NonNull Journey journey) {
         return journeys.save(journey);
     }
 
@@ -39,7 +40,7 @@ public class JourneyServiceImpl implements JourneyService {
      * @throws ResourceNotFoundException when a journey with the given ID cannot be found from the database.
      */
     @Override
-    public Journey updateJourney(Journey journey, Long id) {
+    public Journey updateJourney(Journey journey, @NonNull Long id) {
         
         Optional<Journey> savedJourney = journeys.findById(id);
         if (!savedJourney.isPresent()) {

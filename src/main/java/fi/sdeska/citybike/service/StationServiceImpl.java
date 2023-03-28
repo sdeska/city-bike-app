@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
 import com.amazonaws.services.iotanalytics.model.ResourceAlreadyExistsException;
@@ -30,7 +31,7 @@ public class StationServiceImpl implements StationService {
      * @throws ResourceAlreadyExistsException when a station with the given ID already exists in the database. This is done to avoid accidental overwriting.
      */
     @Override
-    public Station saveStation(Station station) {
+    public Station saveStation(@NonNull Station station) {
 
         Optional<Station> savedStation = stations.findById((long) station.getId());
         if (savedStation.isPresent()) {
@@ -49,7 +50,7 @@ public class StationServiceImpl implements StationService {
      * @throws ResourceNotFoundException when a station with the given ID does not exist in the database.
      */
     @Override
-    public Station updateStation(Station station, Long id) {
+    public Station updateStation(Station station, @NonNull Long id) {
 
         Optional<Station> savedStation = stations.findById(id);
         if (savedStation.isEmpty()) {
@@ -60,7 +61,7 @@ public class StationServiceImpl implements StationService {
     }
 
     @Override
-    public void deleteStationById(Long id) {
+    public void deleteStationById(@NonNull Long id) {
         stations.deleteById(id);
     }
 
