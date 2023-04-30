@@ -33,11 +33,11 @@
                 </tr>
                 <tr>
                     <td>Departure Time</td>
-                    <td th:text="${journey.departureDate}"></td>
+                    <td th:text="${#dates.format(journey.departureDate, 'dd-MM-yyyy HH:mm')}"></td>
                 </tr>
                 <tr>
                     <td>Return Time</td>
-                    <td th:text="${journey.returnDate}"></td>
+                    <td th:text="${#dates.format(journey.returnDate, 'dd-MM-yyyy HH:mm')}"></td>
                 </tr>
                 <tr>
                     <td>Departure Station ID</td>
