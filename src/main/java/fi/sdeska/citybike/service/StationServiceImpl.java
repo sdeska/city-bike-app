@@ -12,7 +12,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
-import com.amazonaws.services.iotanalytics.model.ResourceAlreadyExistsException;
 import com.amazonaws.services.iotanalytics.model.ResourceNotFoundException;
 
 import fi.sdeska.citybike.entity.Station;
@@ -28,14 +27,14 @@ public class StationServiceImpl implements StationService {
     private StationRepository stations;
 
     /**
-     * @throws ResourceAlreadyExistsException when a station with the given ID already exists in the database. This is done to avoid accidental overwriting.
+     * Saves a station unless a station with the corresponding ID already exists.
      */
     @Override
     public Station saveStation(@NonNull Station station) {
 
         Optional<Station> savedStation = stations.findById((long) station.getId());
         if (savedStation.isPresent()) {
-            throw new ResourceAlreadyExistsException("Station with the given ID already exists.");
+            System.err.println("Station already exists. Skipping line with ID: " + station.getId());
         }
         return stations.save(station);
 
