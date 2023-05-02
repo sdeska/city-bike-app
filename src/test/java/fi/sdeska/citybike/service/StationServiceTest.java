@@ -22,7 +22,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Order;
 
-import com.amazonaws.services.iotanalytics.model.ResourceAlreadyExistsException;
 import com.amazonaws.services.iotanalytics.model.ResourceNotFoundException;
 
 import fi.sdeska.citybike.entity.Station;
