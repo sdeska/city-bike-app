@@ -1,14 +1,18 @@
 package fi.sdeska.citybike.entity;
 
 import org.joda.time.DateTime;
+import org.springframework.data.domain.Persistable;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.PostLoad;
+import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
-
+import jakarta.persistence.Transient;
+import jakarta.persistence.UniqueConstraint;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -26,7 +30,8 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "journeys", schema = "public")
+@Table(name = "journeys", schema = "public", uniqueConstraints = @UniqueConstraint(columnNames = {
+    "departureDate", "returnDate", "departureStationID", "returnStationID", "distance", "duration"}))
 public class Journey {
 
     @Id
