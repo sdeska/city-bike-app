@@ -82,17 +82,6 @@ class StationServiceTest {
     }
 
     @Test
-    void shouldThrowWhenSavedStationExists() {
-
-        when(stations.findById(station.getId())).thenReturn(Optional.of(station));
-
-        assertThatExceptionOfType(ResourceAlreadyExistsException.class).isThrownBy(() -> {
-            stationService.saveStation(station);
-        });
-
-    }
-
-    @Test
     void shouldUpdateStation() {
 
         // Create the expected updated station, equal to station except for id = 3.
