@@ -30,7 +30,7 @@ import fi.sdeska.citybike.service.StationService;
 @WebMvcTest
 @Import(SecurityConfiguration.class)
 @ExtendWith(MockitoExtension.class)
-class CitybikeControllerTest {
+class CitybikeRestControllerTest {
 
     @MockBean
     private StationService stationService;

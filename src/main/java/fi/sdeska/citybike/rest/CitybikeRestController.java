@@ -1,5 +1,10 @@
-package fi.sdeska.citybike.controller;
+package fi.sdeska.citybike.rest;
 
+import java.io.IOException;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -10,6 +15,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.domain.Sort.Order;
+import org.springframework.data.geo.Point;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,12 +33,14 @@ import fi.sdeska.citybike.service.StationService;
  * This class performs the role of a controller. Any requests sent by users' browsers are handled here.
  */
 @Controller
-public class CitybikeController {
+public class CitybikeRestController {
 
     @Autowired
     private StationService stationService;
     @Autowired
     private JourneyService journeyService;
+    @Autowired
+    private RestService service;
 
     /**
      * Answers the GET request with the homepage index.html.
@@ -133,17 +141,60 @@ public class CitybikeController {
 
     /**
      * Responds with a station from the database according to the given ID.
-     * @param id the IDD with which to search for a journey.
+     * @param id the ID with which to search for a journey.
      * @return the response containing the information about the journey.
      */
     @GetMapping("/journey")
     public String getJourneyById(Model model,
                                  @RequestParam long id) {
-        
+
         Journey journey = journeyService.fetchJourneyById(id);
         model.addAttribute("journey", journey);
 
         return "journey";
+
+    }
+
+    @GetMapping("/map")
+    public String getMap(Model model,
+                        @RequestParam long station1,
+                        @RequestParam long station2) {
+
+        System.out.println("Processing map request");
+        Point center = service.getCenterOfStations(station1, station2);
+
+        // Move this to a config file or something.
+        var key = "Ok4DHGDtiGlEM7nF6gLfySOBpUg25Gyk";
+        var uri = String.format("https://www.mapquestapi.com/staticmap/v5/map" +
+                                   "?key=%s" +
+                                   "&center=%f,%f", key, center.getX(), center.getY());
+
+        var client = HttpClient.newHttpClient();
+        var request = HttpRequest.newBuilder()
+                                 .uri(URI.create(uri))
+                                 .GET()
+                                 .build();
+        
+        HttpResponse<String> response = null;
+        System.out.println("Attempting to get map from MapQuest API");
+        try {
+            response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            System.out.println("Response code: " + response.statusCode());
+            System.out.println("Contents: " + response.body());
+        } catch (IOException | InterruptedException e) {
+            System.out.println("Request failed");
+            service.onMapRequestFailed(e);
+        }
+        if (response == null) {
+            System.out.println("Null response");
+            return "map";
+        } else if (response.statusCode() != 200) {
+            service.onMapGetFailed();
+            return "map";
+        }
+        model.addAttribute("map", response.body());
+
+        return "map";
 
     }
 

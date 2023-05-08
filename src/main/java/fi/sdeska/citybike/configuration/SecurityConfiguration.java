@@ -25,7 +25,8 @@ public class SecurityConfiguration {
             .requestMatchers("/journeys").permitAll()
             .requestMatchers("/station").permitAll()
             .requestMatchers("/journey").permitAll()
-            .requestMatchers("/coffee").permitAll();
+            .requestMatchers("/coffee").permitAll()
+            .requestMatchers("/map").permitAll();
         return http.build();
     }
     

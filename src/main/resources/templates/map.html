@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>City Bike App</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"/>
+        <style>
+            body {
+                margin: 20px;
+            }
+            .home-button {
+                margin-inline-end: 10px;
+            }
+        </style>
+    </head>
+    <body>
+        <div>
+            <div>
+                <a th:href="@{/}" class="home-button" aria-label="Return to homepage">Return to homepage</a>
+                <h3>Map</h3>
+            </div>
+        </div>
+        <div>
+            <img th:src="${map}">
+        </div>
+    </body>
+</html>
