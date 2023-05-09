@@ -6,6 +6,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -162,18 +163,27 @@ public class CitybikeRestController {
                         @RequestParam long station2) {
 
         System.out.println("Processing map request");
-        Point2D center = service.getCenterOfStations(station1, station2);
+        
+        var s1 = stationService.fetchStationById(station1);
+        var s2 = stationService.fetchStationById(station2);
+        var stations = new ArrayList<Station>(2);
+        stations.add(s1);
+        stations.add(s2);
+        
+        Point2D center = service.getCenterOfStations(stations.get(0), stations.get(1));
 
         // Move this to a config file or something.
         var key = "Ok4DHGDtiGlEM7nF6gLfySOBpUg25Gyk";
-
-        System.out.println("X: " + center.getX() + ", Y: " + center.getY());
         
         model.addAttribute("map", String.format("https://www.mapquestapi.com/staticmap/v5/map" +
                                                               "?key=%s" +
-                                                              "&center=%s,%s" +
-                                                              "&size=@2x", 
-                                                              key, center.getY(), center.getX()));
+                                                              "&center=%f,%f" +
+                                                              "&locations=%f,%f||%f,%f" +
+                                                              "&size=@2x" +
+                                                              "&zoom=13" +
+                                                              "&scalebar=true|bottom", 
+                                                              key, center.getY(), center.getX(),
+                                                              s1.getY(), s1.getX(), s2.getY(), s2.getX()));
 
         return "map";
 

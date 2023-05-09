@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import fi.sdeska.citybike.entity.Station;
 import fi.sdeska.citybike.helper.Point2D;
 import fi.sdeska.citybike.service.StationService;
 
@@ -22,11 +23,10 @@ public class RestService {
     @ResponseStatus(code = HttpStatus.BAD_REQUEST, reason = "Invalid arguments")
     public void onMapGetFailed() {}
 
-    public Point2D getCenterOfStations(long... ids) {
+    public Point2D getCenterOfStations(Station... stations) {
 
-        var points = new ArrayList<Point2D>(ids.length);
-        for (var id : ids) {
-            var station = stationService.fetchStationById(id);
+        var points = new ArrayList<Point2D>(stations.length);
+        for (var station : stations) {
             points.add(new Point2D(station.getX(), station.getY()));
         }
         var centerX = 0D;
@@ -35,7 +35,7 @@ public class RestService {
             centerX += point.getX();
             centerY += point.getY();
         }
-        return new Point2D(centerX / ids.length, centerY / ids.length);
+        return new Point2D(centerX / stations.length, centerY / stations.length);
 
     }
 
