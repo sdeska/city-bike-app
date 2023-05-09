@@ -1,11 +1,5 @@
 package fi.sdeska.citybike.rest;
 
-import java.io.IOException;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -142,7 +136,7 @@ public class CitybikeRestController {
     }
 
     /**
-     * Responds with a station from the database according to the given ID.
+     * Responds with a journey from the database according to the given ID.
      * @param id the ID with which to search for a journey.
      * @return the response containing the information about the journey.
      */
@@ -157,6 +151,13 @@ public class CitybikeRestController {
 
     }
 
+    /**
+     * Responds with a page containing a static map for a journey the endpoints of which are given as station IDs.
+     * @param model for injecting attributes into the Thymeleaf page.
+     * @param station1 ID for the start station.
+     * @param station2 ID for the end station.
+     * @return the page map.html that contains the map.
+     */
     @GetMapping("/map")
     public String getMap(Model model,
                         @RequestParam long station1,
@@ -178,7 +179,8 @@ public class CitybikeRestController {
         model.addAttribute("map", String.format("https://www.mapquestapi.com/staticmap/v5/map" +
                                                               "?key=%s" +
                                                               "&center=%f,%f" +
-                                                              "&locations=%f,%f||%f,%f" +
+                                                              "&start=%f,%f" +
+                                                              "&end=%f,%f" +
                                                               "&size=@2x" +
                                                               "&zoom=13" +
                                                               "&scalebar=true|bottom", 
@@ -189,6 +191,10 @@ public class CitybikeRestController {
 
     }
 
+    /**
+     * Mandatory 418.
+     * @return
+     */
     @GetMapping("/coffee")
     @ResponseBody
     @ResponseStatus(code = HttpStatus.I_AM_A_TEAPOT)
