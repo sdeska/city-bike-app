@@ -70,4 +70,8 @@ public interface StationService {
      */
     Long getNumberOfJourneysEndingHere(Long id);
 
+    List<Station> getStationsWithSmallestAndLargestLatitudes();
+
+    List<Station> getStationsWithSmallestAndLargestLongitudes();
+
 }

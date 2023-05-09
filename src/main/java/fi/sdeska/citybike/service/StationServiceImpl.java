@@ -1,5 +1,6 @@
 package fi.sdeska.citybike.service;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -111,6 +112,40 @@ public class StationServiceImpl implements StationService {
     public Long getNumberOfJourneysEndingHere(Long id) {
 
         return stations.getNumberOfJourneysEndingHere(id);
+
+    }
+
+    @Override
+    public List<Station> getStationsWithSmallestAndLargestLatitudes() {
+
+        var stationList = stations.findAll();
+        var latitudes = new ArrayList<Double>(stationList.size());
+        var result = new ArrayList<Station>(2);
+        for (var station : stationList) {
+            latitudes.add(station.getY());
+        }
+        var smallest = Collections.min(latitudes);
+        result.add(stationList.get(latitudes.indexOf(smallest)));
+        var largest = Collections.max(latitudes);
+        result.add(stationList.get(latitudes.indexOf(largest)));
+        return result;
+
+    }
+
+    @Override
+    public List<Station> getStationsWithSmallestAndLargestLongitudes() {
+
+        var stationList = stations.findAll();
+        var longitudes = new ArrayList<Double>(stationList.size());
+        var result = new ArrayList<Station>(2);
+        for (var station : stationList) {
+            longitudes.add(station.getX());
+        }
+        var smallest = Collections.min(longitudes);
+        result.add(stationList.get(longitudes.indexOf(smallest)));
+        var largest = Collections.max(longitudes);
+        result.add(stationList.get(longitudes.indexOf(largest)));
+        return result;
 
     }
 
