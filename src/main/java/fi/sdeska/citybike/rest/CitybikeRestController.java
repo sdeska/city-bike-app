@@ -165,34 +165,10 @@ public class CitybikeRestController {
 
         // Move this to a config file or something.
         var key = "Ok4DHGDtiGlEM7nF6gLfySOBpUg25Gyk";
-        var uri = String.format("https://www.mapquestapi.com/staticmap/v5/map" +
-                                   "?key=%s" +
-                                   "&center=%f,%f", key, center.getX(), center.getY());
-
-        var client = HttpClient.newHttpClient();
-        var request = HttpRequest.newBuilder()
-                                 .uri(URI.create(uri))
-                                 .GET()
-                                 .build();
         
-        HttpResponse<String> response = null;
-        System.out.println("Attempting to get map from MapQuest API");
-        try {
-            response = client.send(request, HttpResponse.BodyHandlers.ofString());
-            System.out.println("Response code: " + response.statusCode());
-            System.out.println("Contents: " + response.body());
-        } catch (IOException | InterruptedException e) {
-            System.out.println("Request failed");
-            service.onMapRequestFailed(e);
-        }
-        if (response == null) {
-            System.out.println("Null response");
-            return "map";
-        } else if (response.statusCode() != 200) {
-            service.onMapGetFailed();
-            return "map";
-        }
-        model.addAttribute("map", response.body());
+        model.addAttribute("map", String.format("https://www.mapquestapi.com/staticmap/v5/map" +
+                                                              "?key=%s" +
+                                                              "&center=%f,%f", key, center.getX(), center.getY()));
 
         return "map";
 
