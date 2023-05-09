@@ -39,10 +39,6 @@
                             <th>Value</th>
                         </tr>
                         <tr>
-                            <td>ID</td>
-                            <td class="test" th:text="${journey.id}"></td>
-                        </tr>
-                        <tr>
                             <td>Departure Time</td>
                             <td th:text="${#dates.format(journey.departureDate, 'dd-MM-yyyy HH:mm')}"></td>
                         </tr>
@@ -51,33 +47,25 @@
                             <td th:text="${#dates.format(journey.returnDate, 'dd-MM-yyyy HH:mm')}"></td>
                         </tr>
                         <tr>
-                            <td>Departure Station ID</td>
+                            <td>Departure Station Name</td>
                             <td>
-                                <a th:text="${journey.departureStationID}"
+                                <a th:text="${journey.departureStationName}"
                                    th:href="@{/station(id=${journey.departureStationID})}"></a>
                             </td>
                         </tr>
                         <tr>
-                            <td>Departure Station Name</td>
-                            <td th:text="${journey.departureStationName}"></td>
-                        </tr>
-                        <tr>
-                            <td>Return Station ID</td>
+                            <td>Return Station Name</td>
                             <td>
-                                <a th:text="${journey.returnStationID}"
+                                <a th:text="${journey.returnStationName}"
                                    th:href="@{/station(id=${journey.returnStationID})}"></a>
                             </td>
                         </tr>
                         <tr>
-                            <td>Return Station Name</td>
-                            <td th:text="${journey.returnStationName}"></td>
-                        </tr>
-                        <tr>
-                            <td>Distance</td>
+                            <td>Distance (m)</td>
                             <td th:text="${journey.distance}"></td>
                         </tr>
                         <tr>
-                            <td>Duration</td>
+                            <td>Duration (s)</td>
                             <td th:text="${journey.duration}"></td>
                         </tr>
                     </table>
