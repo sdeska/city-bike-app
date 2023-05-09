@@ -116,35 +116,35 @@ public class StationServiceImpl implements StationService {
     }
 
     @Override
-    public List<Station> getStationsWithSmallestAndLargestLatitudes() {
+    public List<Double> getSmallestAndLargestStationLatitudes() {
 
         var stationList = stations.findAll();
         var latitudes = new ArrayList<Double>(stationList.size());
-        var result = new ArrayList<Station>(2);
+        var result = new ArrayList<Double>(2);
         for (var station : stationList) {
             latitudes.add(station.getY());
         }
         var smallest = Collections.min(latitudes);
-        result.add(stationList.get(latitudes.indexOf(smallest)));
+        result.add(smallest);
         var largest = Collections.max(latitudes);
-        result.add(stationList.get(latitudes.indexOf(largest)));
+        result.add(largest);
         return result;
 
     }
 
     @Override
-    public List<Station> getStationsWithSmallestAndLargestLongitudes() {
+    public List<Double> getSmallestAndLargestStationLongitudes() {
 
         var stationList = stations.findAll();
         var longitudes = new ArrayList<Double>(stationList.size());
-        var result = new ArrayList<Station>(2);
+        var result = new ArrayList<Double>(2);
         for (var station : stationList) {
             longitudes.add(station.getX());
         }
         var smallest = Collections.min(longitudes);
-        result.add(stationList.get(longitudes.indexOf(smallest)));
+        result.add(smallest);
         var largest = Collections.max(longitudes);
-        result.add(stationList.get(longitudes.indexOf(largest)));
+        result.add(largest);
         return result;
 
     }
