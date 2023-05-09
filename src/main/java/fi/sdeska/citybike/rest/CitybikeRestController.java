@@ -160,33 +160,24 @@ public class CitybikeRestController {
      * @return the page map.html that contains the map.
      */
     @GetMapping("/map")
-    public String getMap(Model model,
-                                @RequestParam long station1,
-                                @RequestParam long station2) {
+    public String getMap(Model model) {
 
         System.out.println("Processing map request");
-        
-        var s1 = stationService.fetchStationById(station1);
-        var s2 = stationService.fetchStationById(station2);
-        var stations = new ArrayList<Station>(2);
-        stations.add(s1);
-        stations.add(s2);
         
         //Point2D center = service.getCenterOfStations(stations.get(0), stations.get(1));
 
         // Move this to a config file or something.
         var key = "Ok4DHGDtiGlEM7nF6gLfySOBpUg25Gyk";
         
-        model.addAttribute("map", String.format("https://www.mapquestapi.com/staticmap/v5/map" +
-                                                              "?key=%s" +
-                                                              //"&center=%f,%f" +
-                                                              "&start=%f,%f" +
-                                                              "&end=%f,%f" +
-                                                              //"&size=@2x" +
-                                                              //"&zoom=13" +
-                                                              "&scalebar=true|bottom", 
-                                                              key, //center.getY(), center.getX(),
-                                                              s1.getY(), s1.getX(), s2.getY(), s2.getX()));
+        var uri = new StringBuilder("https://www.mapquestapi.com/staticmap/v5/map?key=Ok4DHGDtiGlEM7nF6gLfySOBpUg25Gyk&scalebar=true|bottom&location=");
+        
+        var latitudes = stationService.getSmallestAndLargestStationLatitudes();
+        var longitudes = stationService.getSmallestAndLargestStationLongitudes();
+        uri.append("&boundingBox=" + latitudes.get(1) + "," + longitudes.get(0) + 
+                    "," + latitudes.get(0) + "," + longitudes.get(1));
+        uri.append("&margin=50&size=800,800");
+
+        model.addAttribute("map", uri.toString());
 
         return "map";
 
