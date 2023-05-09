@@ -58,10 +58,10 @@ public class CitybikeRestController {
      */
     @GetMapping("/stations")
     public String getStations(Model model,
-                              @RequestParam(defaultValue = "1") int page,
-                              @RequestParam(defaultValue = "100") int size,
-                              @RequestParam(defaultValue = "id") String sortField,
-                              @RequestParam(defaultValue = "asc") String sortOrder) {
+                            @RequestParam(defaultValue = "1") int page,
+                            @RequestParam(defaultValue = "100") int size,
+                            @RequestParam(defaultValue = "id") String sortField,
+                            @RequestParam(defaultValue = "asc") String sortOrder) {
 
         Direction direction = sortOrder.equals("desc") ? Sort.Direction.DESC : Sort.Direction.ASC;
         var order = new Order(direction, sortField);
@@ -92,10 +92,10 @@ public class CitybikeRestController {
      */
     @GetMapping("/journeys")
     public String getJourneys(Model model,
-                              @RequestParam(defaultValue = "1") int page,
-                              @RequestParam(defaultValue = "100") int size,
-                              @RequestParam(defaultValue = "id") String sortField,
-                              @RequestParam(defaultValue = "asc") String sortOrder) {
+                            @RequestParam(defaultValue = "1") int page,
+                            @RequestParam(defaultValue = "100") int size,
+                            @RequestParam(defaultValue = "id") String sortField,
+                            @RequestParam(defaultValue = "asc") String sortOrder) {
 
         Direction direction = sortOrder.equals("desc") ? Sort.Direction.DESC : Sort.Direction.ASC;
         var order = new Order(direction, sortField);
@@ -122,7 +122,7 @@ public class CitybikeRestController {
      */
     @GetMapping("/station")
     public String getStationById(Model model,
-                                 @RequestParam(defaultValue = "1") long id) {
+                                @RequestParam(defaultValue = "1") long id) {
 
         Station station = stationService.fetchStationById(id);
         Long journeysStartingHere = stationService.getNumberOfJourneysStartingHere(id);
@@ -142,10 +142,11 @@ public class CitybikeRestController {
      */
     @GetMapping("/journey")
     public String getJourneyById(Model model,
-                                 @RequestParam long id) {
+                                @RequestParam long id) {
 
         Journey journey = journeyService.fetchJourneyById(id);
         model.addAttribute("journey", journey);
+        service.getJourneyMap(model, journey);
 
         return "journey";
 
@@ -160,8 +161,8 @@ public class CitybikeRestController {
      */
     @GetMapping("/map")
     public String getMap(Model model,
-                        @RequestParam long station1,
-                        @RequestParam long station2) {
+                                @RequestParam long station1,
+                                @RequestParam long station2) {
 
         System.out.println("Processing map request");
         
@@ -171,20 +172,20 @@ public class CitybikeRestController {
         stations.add(s1);
         stations.add(s2);
         
-        Point2D center = service.getCenterOfStations(stations.get(0), stations.get(1));
+        //Point2D center = service.getCenterOfStations(stations.get(0), stations.get(1));
 
         // Move this to a config file or something.
         var key = "Ok4DHGDtiGlEM7nF6gLfySOBpUg25Gyk";
         
         model.addAttribute("map", String.format("https://www.mapquestapi.com/staticmap/v5/map" +
                                                               "?key=%s" +
-                                                              "&center=%f,%f" +
+                                                              //"&center=%f,%f" +
                                                               "&start=%f,%f" +
                                                               "&end=%f,%f" +
-                                                              "&size=@2x" +
-                                                              "&zoom=13" +
+                                                              //"&size=@2x" +
+                                                              //"&zoom=13" +
                                                               "&scalebar=true|bottom", 
-                                                              key, center.getY(), center.getX(),
+                                                              key, //center.getY(), center.getX(),
                                                               s1.getY(), s1.getX(), s2.getY(), s2.getX()));
 
         return "map";

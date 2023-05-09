@@ -13,6 +13,15 @@
             .journeys-button {
                 margin-inline-start: 10px;
             }
+            .container {
+                display: flex;
+            }
+            .fixed {
+                width: 400px;
+            }
+            .flex-map {
+                flex-grow: 1;
+            }
         </style>
     </head>
     <body>
@@ -22,54 +31,61 @@
                 <a th:href="@{/journeys}" class="journeys-button" aria-label="Return to Journey list">Return to Journey list</a>
                 <h3>Journey</h3>
             </div>
-            <table style="width:50%" class="table" aria-label="Station data">
-                <tr>
-                    <th>Field Name</th>
-                    <th>Value</th>
-                </tr>
-                <tr>
-                    <td>ID</td>
-                    <td class="test" th:text="${journey.id}"></td>
-                </tr>
-                <tr>
-                    <td>Departure Time</td>
-                    <td th:text="${#dates.format(journey.departureDate, 'dd-MM-yyyy HH:mm')}"></td>
-                </tr>
-                <tr>
-                    <td>Return Time</td>
-                    <td th:text="${#dates.format(journey.returnDate, 'dd-MM-yyyy HH:mm')}"></td>
-                </tr>
-                <tr>
-                    <td>Departure Station ID</td>
-                    <td>
-                        <a th:text="${journey.departureStationID}"
-                           th:href="@{/station(id=${journey.departureStationID})}"></a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Departure Station Name</td>
-                    <td th:text="${journey.departureStationName}"></td>
-                </tr>
-                <tr>
-                    <td>Return Station ID</td>
-                    <td>
-                        <a th:text="${journey.returnStationID}"
-                           th:href="@{/station(id=${journey.returnStationID})}"></a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Return Station Name</td>
-                    <td th:text="${journey.returnStationName}"></td>
-                </tr>
-                <tr>
-                    <td>Distance</td>
-                    <td th:text="${journey.distance}"></td>
-                </tr>
-                <tr>
-                    <td>Duration</td>
-                    <td th:text="${journey.duration}"></td>
-                </tr>
-            </table>
+            <div class="container">
+                <div class="fixed">
+                    <table class="table" aria-label="Station data">
+                        <tr>
+                            <th>Field Name</th>
+                            <th>Value</th>
+                        </tr>
+                        <tr>
+                            <td>ID</td>
+                            <td class="test" th:text="${journey.id}"></td>
+                        </tr>
+                        <tr>
+                            <td>Departure Time</td>
+                            <td th:text="${#dates.format(journey.departureDate, 'dd-MM-yyyy HH:mm')}"></td>
+                        </tr>
+                        <tr>
+                            <td>Return Time</td>
+                            <td th:text="${#dates.format(journey.returnDate, 'dd-MM-yyyy HH:mm')}"></td>
+                        </tr>
+                        <tr>
+                            <td>Departure Station ID</td>
+                            <td>
+                                <a th:text="${journey.departureStationID}"
+                                   th:href="@{/station(id=${journey.departureStationID})}"></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Departure Station Name</td>
+                            <td th:text="${journey.departureStationName}"></td>
+                        </tr>
+                        <tr>
+                            <td>Return Station ID</td>
+                            <td>
+                                <a th:text="${journey.returnStationID}"
+                                   th:href="@{/station(id=${journey.returnStationID})}"></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Return Station Name</td>
+                            <td th:text="${journey.returnStationName}"></td>
+                        </tr>
+                        <tr>
+                            <td>Distance</td>
+                            <td th:text="${journey.distance}"></td>
+                        </tr>
+                        <tr>
+                            <td>Duration</td>
+                            <td th:text="${journey.duration}"></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="flex-map">
+                    <img th:src="${map}">
+                </div>
+            </div>
         </div>
     </body>
 </html>

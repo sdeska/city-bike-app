@@ -5,8 +5,10 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import fi.sdeska.citybike.entity.Journey;
 import fi.sdeska.citybike.entity.Station;
 import fi.sdeska.citybike.helper.Point2D;
 import fi.sdeska.citybike.service.StationService;
@@ -22,6 +24,28 @@ public class RestService {
 
     @ResponseStatus(code = HttpStatus.BAD_REQUEST, reason = "Invalid arguments")
     public void onMapGetFailed() {}
+
+    public void getJourneyMap(Model model, Journey journey) {
+
+        System.out.println("Processing map request");
+        
+        var s1 = stationService.fetchStationById(journey.getDepartureStationID());
+        var s2 = stationService.fetchStationById(journey.getReturnStationID());
+
+        // Move this to a config file or something.
+        var key = "Ok4DHGDtiGlEM7nF6gLfySOBpUg25Gyk";
+        
+        model.addAttribute("map", 
+                            String.format("https://www.mapquestapi.com/staticmap/v5/map" +
+                                        "?key=%s" +
+                                        "&start=%f,%f" +
+                                        "&end=%f,%f" +
+                                        "&size=600,600" +
+                                        "&margin=50" +
+                                        "&scalebar=true|bottom", 
+                                        key, s1.getY(), s1.getX(), s2.getY(), s2.getX()));
+
+    }
 
     public Point2D getCenterOfStations(Station... stations) {
 
