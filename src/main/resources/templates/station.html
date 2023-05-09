@@ -28,10 +28,6 @@
                     <th>Value</th>
                 </tr>
                 <tr>
-                    <td>fID</td>
-                    <td th:text="${station.fId}"></td>
-                </tr>
-                <tr>
                     <td>ID</td>
                     <td class="test" th:text="${station.id}"></td>
                 </tr>
@@ -55,29 +51,29 @@
                     <td>Swedish Address</td>
                     <td th:text="${station.addressSwe}"></td>
                 </tr>
-                <tr>
+                <tr th:unless="${#strings.isEmpty(station.operator)}">
                     <td>Finnish City</td>
-                    <td th:text="${#strings.isEmpty(station.cityFin)} ? '-' : ${station.cityFin}"></td>
+                    <td th:text="${station.cityFin}"></td>
                 </tr>
-                <tr>
+                <tr th:unless="${#strings.isEmpty(station.operator)}">
                     <td>Swedish City</td>
-                    <td th:text="${#strings.isEmpty(station.citySwe)} ? '-' : ${station.citySwe}"></td>
+                    <td th:text="${station.citySwe}"></td>
                 </tr>
-                <tr>
+                <tr th:unless="${#strings.isEmpty(station.operator)}">
                     <td>Operator</td>
-                    <td th:text="${#strings.isEmpty(station.operator)} ? '-' : ${station.operator}"></td>
+                    <td th:text="${station.operator}"></td>
                 </tr>
                 <tr>
                     <td>Capacity</td>
                     <td th:text="${station.capacity}"></td>
                 </tr>
                 <tr>
-                    <td>x</td>
-                    <td th:text="${station.x}"></td>
+                    <td>Latitude</td>
+                    <td th:text="${station.y}"></td>
                 </tr>
                 <tr>
-                    <td>y</td>
-                    <td th:text="${station.y}"></td>
+                    <td>Longitude</td>
+                    <td th:text="${station.x}"></td>
                 </tr>
                 <tr>
                     <td>Journeys starting here</td>
