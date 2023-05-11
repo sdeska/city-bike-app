@@ -10,6 +10,17 @@
             .home-button {
                 margin-inline-end: 10px;
             }
+            .iframe-container {
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                width: 100%;
+            }
+            .iframe-container iframe {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+            }
         </style>
     </head>
     <body>
@@ -19,8 +30,8 @@
                 <h3>Helsinki Area Map</h3>
             </div>
         </div>
-        <div>
-            <img th:src="${map}">
+        <div class="iframe-container">
+            <iframe th:src="${map}" frameborder="0"></iframe>
         </div>
     </body>
 </html>

@@ -162,20 +162,14 @@ public class CitybikeRestController {
     @GetMapping("/map")
     public String getMap(Model model) {
 
-        System.out.println("Processing map request");
-        
-        //Point2D center = service.getCenterOfStations(stations.get(0), stations.get(1));
+        System.out.println("Processing embedded map request");
 
         // Move this to a config file or something.
         var key = "Ok4DHGDtiGlEM7nF6gLfySOBpUg25Gyk";
         
-        var uri = new StringBuilder("https://www.mapquestapi.com/staticmap/v5/map?key=Ok4DHGDtiGlEM7nF6gLfySOBpUg25Gyk&scalebar=true|bottom&location=");
+        var uri = new StringBuilder("https://www.mapquest.com/embed?q=&maptype=map");
         
-        var latitudes = stationService.getSmallestAndLargestStationLatitudes();
-        var longitudes = stationService.getSmallestAndLargestStationLongitudes();
-        uri.append("&boundingBox=" + latitudes.get(1) + "," + longitudes.get(0) + 
-                    "," + latitudes.get(0) + "," + longitudes.get(1));
-        uri.append("&margin=50&size=800,800");
+        //uri.append("size=800,800");
 
         model.addAttribute("map", uri.toString());
 

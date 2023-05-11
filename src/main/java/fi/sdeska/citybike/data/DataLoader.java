@@ -119,7 +119,6 @@ public class DataLoader implements CommandLineRunner {
             int count = 0;
             while ((journey = content.readLine()) != null) {
                 parseJourney(journey);
-                System.out.println("Journey " + count + "/599");
                 count++;
                 if (count == 600) {
                     break;
