@@ -1,6 +1,5 @@
 package fi.sdeska.citybike.rest;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -21,7 +20,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 import fi.sdeska.citybike.entity.Journey;
 import fi.sdeska.citybike.entity.Station;
-import fi.sdeska.citybike.helper.Point2D;
 import fi.sdeska.citybike.service.JourneyService;
 import fi.sdeska.citybike.service.StationService;
 
@@ -61,12 +59,13 @@ public class CitybikeRestController {
                             @RequestParam(defaultValue = "1") int page,
                             @RequestParam(defaultValue = "100") int size,
                             @RequestParam(defaultValue = "id") String sortField,
-                            @RequestParam(defaultValue = "asc") String sortOrder) {
+                            @RequestParam(defaultValue = "asc") String sortOrder,
+                            @RequestParam(defaultValue = "") String search) {
 
         Direction direction = sortOrder.equals("desc") ? Sort.Direction.DESC : Sort.Direction.ASC;
         var order = new Order(direction, sortField);
         
-        Page<Station> stationPage = stationService.fetchPaginated(PageRequest.of(page - 1, size, Sort.by(order)));
+        Page<Station> stationPage = stationService.fetchPaginated(PageRequest.of(page - 1, size, Sort.by(order)), search);
         model.addAttribute("stationPage", stationPage);
         model.addAttribute("sortField", sortField);
         model.addAttribute("sortOrder", sortOrder);

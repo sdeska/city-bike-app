@@ -1,6 +1,6 @@
 package fi.sdeska.citybike.repository;
 
-import java.util.List;
+import org.springframework.data.domain.Page;
 
 import fi.sdeska.citybike.entity.Station;
 
@@ -23,6 +23,6 @@ public interface CustomStationRepository {
      */
     Long getNumberOfJourneysEndingHere(Long id);
 
-    List<Station> searchBy(String text, int limit, String... fields);
+    Page<Station> searchBy(String text, Integer limit, String... fields);
 
 }

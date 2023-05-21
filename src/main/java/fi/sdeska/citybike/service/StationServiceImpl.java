@@ -82,11 +82,24 @@ public class StationServiceImpl implements StationService {
     @Override
     public Page<Station> fetchPaginated(Pageable pageable) {
 
+        return fetchPaginated(pageable, null);
+
+    }
+
+    @Override
+    public Page<Station> fetchPaginated(Pageable pageable, String search) {
+
         int pageSize = pageable.getPageSize();
         int currentIndex = pageable.getPageNumber();
         int startIndex = currentIndex * pageSize;
 
-        var stationPage = stations.findAll(pageable);
+        Page<Station> stationPage = null;
+        if (search == null || search.isEmpty()) {
+            stationPage = stations.findAll(pageable);
+        } else {
+            stationPage = stations.searchBy(search, null, "id", "nameFin", "nameSwe", "nameEng", 
+            "addressFin", "addressSwe", "cityFin", "citySwe", "operator");
+        }
         var totalStations = stationPage.getTotalElements();
 
         List<Station> pageContents = null;

@@ -50,11 +50,17 @@ public interface StationService {
     Station fetchStationById(Long id);
 
     /**
-     * Fetches a page containing the currently visible stations and information about all the stations.
-     * @param pageable the pageable which contains pagination and ordering information.
-     * @return the page containing currently visible stations.
+     * See {@link fetchPaginated(Pageable, String)}. Parameter search defaults to null.
      */
     Page<Station> fetchPaginated(Pageable pageable);
+
+    /**
+     * Fetches a page containing the currently visible stations and information about all the stations.
+     * @param pageable the pageable which contains pagination and ordering information.
+     * @param search the string with which to search the database. Null if search is not to be used.
+     * @return the page containing currently visible stations.
+     */
+    Page<Station> fetchPaginated(Pageable pageable, String search);
 
     /**
      * Gets the number of journeys that start at a given station.

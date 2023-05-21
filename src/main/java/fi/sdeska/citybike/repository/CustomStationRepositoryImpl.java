@@ -6,6 +6,8 @@ import org.hibernate.Session;
 import org.hibernate.search.engine.search.query.SearchResult;
 import org.hibernate.search.mapper.orm.Search;
 import org.hibernate.search.mapper.orm.session.SearchSession;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -51,7 +53,7 @@ public class CustomStationRepositoryImpl implements CustomStationRepository {
     }
 
     @Override
-    public List<Station> searchBy(String text, int limit, String... fields) {
+    public Page<Station> searchBy(String text, Integer limit, String... fields) {
 
         SearchSession searchSession = Search.session(em.unwrap(Session.class));
         SearchResult<Station> result = null;
@@ -63,8 +65,8 @@ public class CustomStationRepositoryImpl implements CustomStationRepository {
                                             .fuzzy(1))
                     .fetch(limit);
 
-        return result.hits();
+        return new PageImpl<Station>(result.hits());
 
     }
-
+    
 }
