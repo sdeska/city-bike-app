@@ -60,12 +60,12 @@ public class CitybikeRestController {
                             @RequestParam(defaultValue = "100") int size,
                             @RequestParam(defaultValue = "id") String sortField,
                             @RequestParam(defaultValue = "asc") String sortOrder,
-                            @RequestParam(defaultValue = "") String search) {
+                            @RequestParam(defaultValue = "") String keyword) {
 
         Direction direction = sortOrder.equals("desc") ? Sort.Direction.DESC : Sort.Direction.ASC;
         var order = new Order(direction, sortField);
         
-        Page<Station> stationPage = stationService.fetchPaginated(PageRequest.of(page - 1, size, Sort.by(order)), search);
+        Page<Station> stationPage = stationService.fetchPaginated(PageRequest.of(page - 1, size, Sort.by(order)), keyword);
         model.addAttribute("stationPage", stationPage);
         model.addAttribute("sortField", sortField);
         model.addAttribute("sortOrder", sortOrder);

@@ -22,8 +22,11 @@
         <div>
             <div>
                 <a th:href="@{/}" class="home-button" aria-label="Return to homepage">Return to homepage</a>
-                <label class="searchLabel" for="searchField">Search:</label>
-                <input type="text" id="searchField" name="searchField">
+                <form th:action="@{/stations}" method="get">
+                    <label class="searchLabel" for="searchField">Search:</label>
+                    <input type="text" id="searchField" name="keyword" th:value="${keyword}">
+                    <button type="submit" class="btn btn-info">Search</button>
+                </form>
                 <h3>Stations</h3>
             </div>
             <table style="width:80%" class="table" aria-label="Station-table">
