@@ -1,7 +1,5 @@
 package fi.sdeska.citybike.repository;
 
-import java.util.List;
-
 import org.hibernate.Session;
 import org.hibernate.search.engine.search.query.SearchResult;
 import org.hibernate.search.mapper.orm.Search;

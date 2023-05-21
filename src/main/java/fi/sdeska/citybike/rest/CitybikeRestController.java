@@ -162,14 +162,7 @@ public class CitybikeRestController {
     public String getMap(Model model) {
 
         System.out.println("Processing embedded map request");
-
-        // Move this to a config file or something.
-        var key = "Ok4DHGDtiGlEM7nF6gLfySOBpUg25Gyk";
-        
         var uri = new StringBuilder("https://www.mapquest.com/embed?q=&maptype=map");
-        
-        //uri.append("size=800,800");
-
         model.addAttribute("map", uri.toString());
 
         return "map";
