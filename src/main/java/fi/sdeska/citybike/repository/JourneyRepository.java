@@ -9,6 +9,6 @@ import fi.sdeska.citybike.entity.Journey;
  * This interface encapsulates the storage, retrieval and search functions concerning journeys and the database.
  */
 @Repository
-public interface JourneyRepository extends JpaRepository<Journey, Long> {
+public interface JourneyRepository extends JpaRepository<Journey, Long>, CustomJourneyRepository {
     
 }

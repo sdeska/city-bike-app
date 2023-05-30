@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -30,13 +29,12 @@ public class JourneyServiceImpl implements JourneyService {
     @Override
     public Journey saveJourney(@NonNull Journey journey) {
         
-        Journey saved = null;
-        try {
-            saved = journeys.save(journey);
-        } catch (DataIntegrityViolationException e) {
-            System.err.println("Skipping duplicate journey.");
+        Optional<Journey> savedJourney = journeys.findByKey(journey);
+        if (savedJourney.isPresent()) {
+            System.err.println("Journey already exists. Skipping line with ID: " + journey.getId());
+            return null;
         }
-        return saved;
+        return journeys.save(journey);
 
     }
 
