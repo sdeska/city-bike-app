@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.Scanner;
 import java.util.regex.MatchResult;
 import java.util.regex.Pattern;
 
@@ -41,10 +42,49 @@ public class DataLoader implements CommandLineRunner {
 
     /**
      * Overridden run method of CommandLineRunner.
+     * Used to implement waiting for and processing command line input.
      * Gets executed automatically on startup.
      */
     @Override
     public void run(String... args) throws Exception {
+
+        Scanner scanner = new Scanner(System.in);
+        //scanner.useDelimiter(System.lineSeparator());
+        // TODO: A more sophisticated way to handle this.
+        while (true) {
+
+            System.out.print("Awaiting command\n>");
+            if (!cli(scanner)) {
+                break;
+            }
+
+        }
+        scanner.close();
+
+    }
+
+    /**
+     * Waits for a single input to the supplied Scanner and processes it.
+     * @param scanner the scanner whose input to read.
+     * @return false if the program should stop receiving commands, true otherwise.
+     */
+    private boolean cli(Scanner scanner) {
+
+        String input = scanner.nextLine();
+        switch (input.toLowerCase()) {
+            case "exit":        return false;
+            case "help":        System.out.println("Commands:\n\texit\n\thelp\n\tload files"); break;
+            case "load files":  loadFiles(); break;
+            default:            System.out.println("Command not recognized.");
+        }
+        return true;
+
+    }
+
+    /**
+     * Loads data from the files with the (for now) hardcoded names.
+     */
+    private void loadFiles() {
 
         loadFile("Helsingin_ja_Espoon_kaupunkipyöräasemat_avoin.csv", DataType.STATIONS);
         // Amount of journeys loaded per file is limited in loadJourneys for testing.
