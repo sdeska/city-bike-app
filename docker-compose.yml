@@ -17,6 +17,8 @@ services:
     container_name: citybike-db
     image: postgres
     restart: "no"
+    volumes:
+      - "db-data:/var/lib/postgresql/data"
     ports:
       - "5432:5432"
     environment:
@@ -24,3 +26,5 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: M3ZBuCdLudQAN3
       POSTGRES_DB: citybike-db
+volumes:
+  db-data:
