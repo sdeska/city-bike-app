@@ -36,6 +36,7 @@ public class StationServiceImpl implements StationService {
         Optional<Station> savedStation = stations.findById((long) station.getId());
         if (savedStation.isPresent()) {
             System.err.println("Station already exists. Skipping line with ID: " + station.getId());
+            return null;
         }
         return stations.save(station);
 
