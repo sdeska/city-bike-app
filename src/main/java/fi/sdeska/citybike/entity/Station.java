@@ -1,6 +1,5 @@
 package fi.sdeska.citybike.entity;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -28,7 +27,6 @@ public class Station {
     private Long fId;
 
     @Id
-    @Column(name = "station_id", unique = true)
     private Long id;
 
     private String nameFin;
