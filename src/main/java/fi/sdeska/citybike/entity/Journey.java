@@ -26,7 +26,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "journeys", schema = "public", uniqueConstraints = @UniqueConstraint(columnNames = {
+@Table(name = "journey", schema = "public", uniqueConstraints = @UniqueConstraint(columnNames = {
     "departureDate", "returnDate", "departureStationID", "returnStationID", "distance", "duration"}))
 public class Journey {
 

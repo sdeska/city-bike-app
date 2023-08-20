@@ -21,7 +21,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "stations", schema = "public")
+@Table(name = "station", schema = "public")
 public class Station {
     
     private Long fId;
