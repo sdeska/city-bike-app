@@ -227,7 +227,7 @@ public class DataLoader implements CommandLineRunner {
                             .returnStationID(Long.parseLong(data[4]))
                             .returnStationName(data[5])
                             .distance(Long.parseLong(data[6]))
-                            .duration(Long.parseLong(data[7]))
+                            .duration(Long.parseLong(data[7]) * 1000) // Data file format has duration in seconds. Saving in milliseconds for unifying with date standards.
                             .build();
 
         journeyService.saveJourney(journey);
