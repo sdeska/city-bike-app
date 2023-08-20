@@ -40,12 +40,12 @@
                         <th class="centered">
                             <a th:href="@{/journeys(size=${journeyPage.size}, page=${journeyPage.number + 1}, 
                                         sortField=distance, sortOrder=${reverseSortingDirection})}"
-                               class="btn distance">Distance</a>
+                               class="btn distance">Distance (m)</a>
                         </th>
                         <th class="centered">
                             <a th:href="@{/journeys(size=${journeyPage.size}, page=${journeyPage.number + 1}, 
                                         sortField=duration, sortOrder=${reverseSortingDirection})}"
-                               class="btn duration">Duration</a>
+                               class="btn duration">Duration (s)</a>
                         </th>
                     </tr>
                 </thead>
