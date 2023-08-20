@@ -45,7 +45,7 @@
                         <th class="centered">
                             <a th:href="@{/journeys(size=${journeyPage.size}, page=${journeyPage.number + 1}, 
                                         sortField=duration, sortOrder=${reverseSortingDirection})}"
-                               class="btn duration">Duration (s)</a>
+                               class="btn duration">Duration (HH:mm:ss)</a>
                         </th>
                     </tr>
                 </thead>
@@ -71,7 +71,7 @@
                                style="display: inline-block; margin-bottom: 0;"></p>
                         </td>
                         <td class="centered" th:text="${journey.distance}"></td>
-                        <td class="centered" th:text="${journey.duration}"></td>
+                        <td class="centered" th:text="${#dates.format(journey.duration,'HH:mm:ss')}"></td>
                     </tr>
                 </tbody>
             </table>
