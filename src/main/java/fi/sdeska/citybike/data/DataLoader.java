@@ -42,24 +42,25 @@ public class DataLoader implements CommandLineRunner {
 
     /**
      * Overridden run method of CommandLineRunner.
-     * Used to implement waiting for and processing command line input.
+     * Used for attempting to load program data from files.
      * Gets executed automatically on startup.
      */
     @Override
     public void run(String... args) throws Exception {
 
-        Scanner scanner = new Scanner(System.in);
-        //scanner.useDelimiter(System.lineSeparator());
-        // TODO: A more sophisticated way to handle this.
-        while (true) {
+        // Scanner scanner = new Scanner(System.in);
+        // //scanner.useDelimiter(System.lineSeparator());
+        // while (true) {
 
-            System.out.print("Awaiting command\n>");
-            if (!cli(scanner)) {
-                break;
-            }
+        //     System.out.print("Awaiting command\n>");
+        //     if (!cli(scanner)) {
+        //         break;
+        //     }
 
-        }
-        scanner.close();
+        // }
+        // scanner.close();
+
+        loadFiles();
 
     }
 
