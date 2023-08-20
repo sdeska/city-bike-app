@@ -24,10 +24,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Order;
 
-import com.amazonaws.services.iotanalytics.model.ResourceNotFoundException;
-
 import fi.sdeska.citybike.entity.Journey;
 import fi.sdeska.citybike.repository.JourneyRepository;
+import jakarta.persistence.EntityNotFoundException;
 
 @ExtendWith(MockitoExtension.class)
 class JourneyServiceTest {
@@ -98,7 +97,7 @@ class JourneyServiceTest {
     void shouldThrowWhenJourneyIsAbsent() {
 
         when(journeys.findById(1L)).thenReturn(Optional.empty());
-        assertThrows(ResourceNotFoundException.class, () -> {
+        assertThrows(EntityNotFoundException.class, () -> {
             journeyService.updateJourney(journey, 1L);
         });
 
@@ -124,7 +123,7 @@ class JourneyServiceTest {
     void shouldThrowWhenJourneyNotFound() {
 
         when(journeys.findById(2L)).thenReturn(Optional.empty());
-        assertThatExceptionOfType(ResourceNotFoundException.class).isThrownBy(() -> {
+        assertThatExceptionOfType(EntityNotFoundException.class).isThrownBy(() -> {
             journeyService.fetchJourneyById(2L);
         });
 

@@ -15,10 +15,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
-import com.amazonaws.services.iotanalytics.model.ResourceNotFoundException;
-
 import fi.sdeska.citybike.entity.Station;
 import fi.sdeska.citybike.repository.StationRepository;
+import jakarta.persistence.EntityNotFoundException;
 
 /**
  * This class implements the StationService interface.
@@ -52,14 +51,14 @@ public class StationServiceImpl implements StationService {
     }
 
     /**
-     * @throws ResourceNotFoundException when a station with the given ID does not exist in the database.
+     * @throws EntityNotFoundException when a station with the given ID does not exist in the database.
      */
     @Override
     public Station updateStation(Station station, @NonNull Long id) {
 
         Optional<Station> savedStation = stations.findById(id);
         if (savedStation.isEmpty()) {
-            throw new ResourceNotFoundException("Station with the given ID does not exist.");
+            throw new EntityNotFoundException("Station with the given ID does not exist.");
         }
         return stations.save(station);
         
@@ -71,14 +70,14 @@ public class StationServiceImpl implements StationService {
     }
 
     /**
-     * @throws ResourceNotFoundException when a station with the given ID does not exist in the database.
+     * @throws EntityNotFoundException when a station with the given ID does not exist in the database.
      */
     @Override
     public Station fetchStationById(Long id) {
         
         var foundStation = stations.findById(id);
         if (foundStation.isEmpty()) {
-            throw new ResourceNotFoundException("Station with the given ID does not exist.");
+            throw new EntityNotFoundException("Station with the given ID does not exist.");
         }
         return foundStation.get();
     

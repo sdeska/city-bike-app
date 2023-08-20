@@ -22,10 +22,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Order;
 
-import com.amazonaws.services.iotanalytics.model.ResourceNotFoundException;
-
 import fi.sdeska.citybike.entity.Station;
 import fi.sdeska.citybike.repository.StationRepository;
+import jakarta.persistence.EntityNotFoundException;
 
 @ExtendWith(MockitoExtension.class)
 class StationServiceTest {
@@ -100,7 +99,7 @@ class StationServiceTest {
     void shouldThrowWhenStationIsAbsent() {
 
         when(stations.findById(1L)).thenReturn(Optional.empty());
-        assertThrows(ResourceNotFoundException.class, () -> {
+        assertThrows(EntityNotFoundException.class, () -> {
             stationService.updateStation(station, 1L);
         });
 
@@ -126,7 +125,7 @@ class StationServiceTest {
     void shouldThrowWhenStationNotFound() {
 
         when(stations.findById(2L)).thenReturn(Optional.empty());
-        assertThatExceptionOfType(ResourceNotFoundException.class).isThrownBy(() -> {
+        assertThatExceptionOfType(EntityNotFoundException.class).isThrownBy(() -> {
             stationService.fetchStationById(2L);
         });
 

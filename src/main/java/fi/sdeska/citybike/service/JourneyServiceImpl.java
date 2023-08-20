@@ -14,10 +14,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
-import com.amazonaws.services.iotanalytics.model.ResourceNotFoundException;
-
 import fi.sdeska.citybike.entity.Journey;
 import fi.sdeska.citybike.repository.JourneyRepository;
+import jakarta.persistence.EntityNotFoundException;
 
 /**
  * This class implements the JourneyService interface.
@@ -48,14 +47,14 @@ public class JourneyServiceImpl implements JourneyService {
     }
 
     /**
-     * @throws ResourceNotFoundException when a journey with the given ID cannot be found from the database.
+     * @throws EntityNotFoundException when a journey with the given ID cannot be found from the database.
      */
     @Override
     public Journey updateJourney(Journey journey, @NonNull Long id) {
         
         Optional<Journey> savedJourney = journeys.findById(id);
         if (!savedJourney.isPresent()) {
-            throw new ResourceNotFoundException("Journey with the given ID does not exist.");
+            throw new EntityNotFoundException("Journey with the given ID does not exist.");
         }
         return journeys.save(journey);
 
@@ -67,14 +66,14 @@ public class JourneyServiceImpl implements JourneyService {
     }
 
     /**
-     * @throws ResourceNotFoundException when a journey with the given ID cannot be found from the database.
+     * @throws EntityNotFoundException when a journey with the given ID cannot be found from the database.
      */
     @Override
     public Journey fetchJourneyById(Long id) {
 
         var foundJourney = journeys.findById(id);
         if (foundJourney.isEmpty()) {
-            throw new ResourceNotFoundException("Journey with the given ID does not exist.");
+            throw new EntityNotFoundException("Journey with the given ID does not exist.");
         }
         return foundJourney.get();
 
