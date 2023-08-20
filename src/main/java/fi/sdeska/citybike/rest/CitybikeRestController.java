@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -28,6 +30,8 @@ import fi.sdeska.citybike.service.StationService;
  */
 @Controller
 public class CitybikeRestController {
+
+    private static final Logger LOG = LogManager.getLogger();
 
     @Autowired
     private StationService stationService;
@@ -161,7 +165,7 @@ public class CitybikeRestController {
     @GetMapping("/map")
     public String getMap(Model model) {
 
-        System.out.println("Processing embedded map request");
+        LOG.info("Processing embedded map request");
         var uri = new StringBuilder("https://www.mapquest.com/embed?q=&maptype=map");
         model.addAttribute("map", uri.toString());
 

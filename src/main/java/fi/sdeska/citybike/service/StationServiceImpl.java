@@ -5,6 +5,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -23,6 +25,8 @@ import fi.sdeska.citybike.repository.StationRepository;
  */
 @Component
 public class StationServiceImpl implements StationService {
+
+    private static final Logger LOG = LogManager.getLogger();
     
     @Autowired
     private StationRepository stations;
@@ -35,7 +39,7 @@ public class StationServiceImpl implements StationService {
 
         Optional<Station> savedStation = stations.findById((long) station.getId());
         if (savedStation.isPresent()) {
-            System.err.println("Station already exists. Skipping line with ID: " + station.getId());
+            LOG.info("Station already exists. Skipping line with ID: " + station.getId());
             return null;
         }
         return stations.save(station);

@@ -8,6 +8,8 @@ import java.util.Scanner;
 import java.util.regex.MatchResult;
 import java.util.regex.Pattern;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -25,6 +27,8 @@ import fi.sdeska.citybike.service.StationService;
  */
 @Component
 public class DataLoader implements CommandLineRunner {
+
+    private static final Logger LOG = LogManager.getLogger();
 
     /**
      * Is used to specify the type 
@@ -109,7 +113,7 @@ public class DataLoader implements CommandLineRunner {
         try {
             file = resource.getInputStream();
         } catch (IOException e) {
-            System.err.println("Failed to load file \"" + path + "\"");
+            LOG.info("Failed to load file \"" + path + "\"");
             return;
         }
 
@@ -129,7 +133,7 @@ public class DataLoader implements CommandLineRunner {
      */
     public void loadStations(BufferedReader content) {
 
-        System.out.println("Loading stations from file.");
+        LOG.info("Loading stations from file.");
         try {
             // Throw the first line away since it does not contain data.
             content.readLine();
@@ -138,10 +142,10 @@ public class DataLoader implements CommandLineRunner {
                 parseStation(station);
             }
         } catch (IOException e) {
-            System.err.println("ERROR: Loading stations from file failed.");
+            LOG.error("Loading stations from file failed.");
             e.printStackTrace();
         }
-        System.out.println("All stations saved.");
+        LOG.info("All stations saved.");
 
     }
 
@@ -151,7 +155,7 @@ public class DataLoader implements CommandLineRunner {
      */
     public void loadJourneys(BufferedReader content) {
 
-        System.out.println("Loading journeys from file.");
+        LOG.info("Loading journeys from file.");
         try {
             // Throw the first line away since it does not contain data.
             content.readLine();
@@ -166,10 +170,10 @@ public class DataLoader implements CommandLineRunner {
                 }
             }
         } catch (IOException e) {
-            System.err.println("ERROR: Loading journeys from file failed.");
+            LOG.error("Loading journeys from file failed.");
             e.printStackTrace();
         }
-        System.out.println("All journeys saved.");
+        LOG.info("All journeys saved.");
 
     }
 
@@ -248,7 +252,7 @@ public class DataLoader implements CommandLineRunner {
             Double.parseDouble(data[11]);
             Double.parseDouble(data[12]);
         } catch (NumberFormatException e) {
-            System.err.println("Illegal value for Long or Double, skipping line of data.");
+            LOG.error("Illegal value for Long or Double, skipping line of data.");
             return false;
         }
 
@@ -278,10 +282,10 @@ public class DataLoader implements CommandLineRunner {
             distance = Long.parseLong(data[6]);
             duration = Long.parseLong(data[7]);
         } catch (NumberFormatException e) {
-            System.err.println("Illegal value for Long, skipping line of data.");
+            LOG.error("Illegal value for Long, skipping line of data.");
             return false;
         } catch (IllegalArgumentException e) {
-            System.err.println("Illegal value for DateTime, skipping line of data.");
+            LOG.error("Illegal value for DateTime, skipping line of data.");
             return false;
         }
 

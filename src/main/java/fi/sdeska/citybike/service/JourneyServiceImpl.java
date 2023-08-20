@@ -4,6 +4,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -23,6 +25,8 @@ import fi.sdeska.citybike.repository.JourneyRepository;
 @Component
 public class JourneyServiceImpl implements JourneyService {
 
+    private static final Logger LOG = LogManager.getLogger();
+
     @Autowired
     private JourneyRepository journeys;
 
@@ -31,7 +35,7 @@ public class JourneyServiceImpl implements JourneyService {
         
         Optional<Journey> savedJourney = journeys.findByKey(journey);
         if (savedJourney.isPresent()) {
-            System.err.println("Journey already exists. Skipping line with ID: " + journey.getId());
+            LOG.info("Journey already exists. Skipping line with ID: " + journey.getId());
             return null;
         }
         return journeys.save(journey);

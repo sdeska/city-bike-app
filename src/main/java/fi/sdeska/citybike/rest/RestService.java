@@ -2,6 +2,8 @@ package fi.sdeska.citybike.rest;
 
 import java.util.ArrayList;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -15,6 +17,8 @@ import fi.sdeska.citybike.service.StationService;
 
 @Service
 public class RestService {
+
+    private static final Logger LOG = LogManager.getLogger();
     
     @Autowired
     private StationService stationService;
@@ -27,7 +31,7 @@ public class RestService {
 
     public void getJourneyMap(Model model, Journey journey) {
 
-        System.out.println("Processing map request");
+        LOG.info("Processing map request");
         
         var s1 = stationService.fetchStationById(journey.getDepartureStationID());
         var s2 = stationService.fetchStationById(journey.getReturnStationID());
