@@ -4,8 +4,6 @@ services:
     container_name: citybike-app
     build: .
     restart: "no"
-    stdin_open: true
-    tty: true
     ports:
       - "8080:8080"
     depends_on:
