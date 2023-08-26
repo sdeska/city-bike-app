@@ -19,15 +19,10 @@ public class SecurityConfiguration {
      */
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests()
-            .requestMatchers("/").permitAll()
-            .requestMatchers("/stations").permitAll()
-            .requestMatchers("/journeys").permitAll()
-            .requestMatchers("/station").permitAll()
-            .requestMatchers("/journey").permitAll()
-            .requestMatchers("/coffee").permitAll()
-            .requestMatchers("/map").permitAll();
-        return http.build();
+        return http.authorizeHttpRequests(authorizeHttpRequests -> 
+            authorizeHttpRequests
+            .requestMatchers("/", "/stations", "/journeys", "/station", "/journey", "/coffee", "/map")
+            .permitAll()).build();
     }
     
 }
