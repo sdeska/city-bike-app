@@ -1,6 +1,6 @@
 package fi.sdeska.citybike.entity;
 
-import org.joda.time.DateTime;
+import java.sql.Date;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -34,8 +34,8 @@ public class Journey {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    private DateTime departureDate;
-    private DateTime returnDate;
+    private Date departureDate;
+    private Date returnDate;
 
     @JoinColumn(name = "departure_station_id", referencedColumnName = "station_id")
     private Long departureStationID;

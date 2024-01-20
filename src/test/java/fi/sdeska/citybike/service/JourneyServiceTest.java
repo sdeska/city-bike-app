@@ -9,10 +9,10 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
-import org.joda.time.DateTime;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -44,8 +44,8 @@ class JourneyServiceTest {
 
         journey = Journey.builder()
                         .id(2L)
-                        .departureDate(new DateTime("2021-05-31T23:57:25"))
-                        .returnDate(new DateTime("2021-06-01T00:05:46"))
+                        .departureDate(new Date("2021-05-31T23:57:25"))
+                        .returnDate(new Date("2021-06-01T00:05:46"))
                         .departureStationID(1L)
                         .departureStationName("Nimi")
                         .returnStationID(1L)

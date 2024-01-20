@@ -4,13 +4,15 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
+import java.util.Date;
 import java.util.Scanner;
 import java.util.regex.MatchResult;
 import java.util.regex.Pattern;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.io.ClassPathResource;
@@ -220,8 +222,8 @@ public class DataLoader implements CommandLineRunner {
         }
 
         var journey = Journey.builder()
-                            .departureDate(new DateTime(data[0]))
-                            .returnDate(new DateTime(data[1]))
+                            .departureDate(LocalDateTime.parse(data[0]))
+                            .returnDate(LocalDateTime.parse(data[1]))
                             .departureStationID(Long.parseLong(data[2]))
                             .departureStationName(data[3])
                             .returnStationID(Long.parseLong(data[4]))
@@ -275,8 +277,8 @@ public class DataLoader implements CommandLineRunner {
         Long distance = null;
         Long duration = null;
         try {
-            new DateTime(data[0]);
-            new DateTime(data[1]);
+            LocalDateTime.parse(data[0]);
+            LocalDateTime.parse(data[1]);
             Long.parseLong(data[2]);
             Long.parseLong(data[4]);
             distance = Long.parseLong(data[6]);
@@ -284,8 +286,8 @@ public class DataLoader implements CommandLineRunner {
         } catch (NumberFormatException e) {
             LOG.error("Illegal value for Long, skipping line of data.");
             return false;
-        } catch (IllegalArgumentException e) {
-            LOG.error("Illegal value for DateTime, skipping line of data.");
+        } catch (DateTimeParseException e) {
+            LOG.error("Illegal value for Date, skipping line of data.");
             return false;
         }
 

@@ -64,7 +64,7 @@ class DataLoaderTest {
                                 "184"};
 
         assertTrue(dataLoader.validateJourney(data));
-        data[0] = "AAA"; // Illegal DateTime format.
+        data[0] = "AAA"; // Illegal Date format.
         assertFalse(dataLoader.validateJourney(data));
         data[0] = "2021-05-31T23:43:07"; // Back to valid.
 
